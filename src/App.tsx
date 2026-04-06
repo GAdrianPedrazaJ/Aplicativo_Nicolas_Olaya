@@ -8,6 +8,8 @@ import NavBar from './components/shared/NavBar'
 
 type View = 'planos' | 'historicos' | 'powerbi' | 'dashboard'
 
+type Option = 'planos' | 'historicos' | 'powerbi'
+
 export default function App() {
   const [view, setView] = useState<View>('dashboard')
 

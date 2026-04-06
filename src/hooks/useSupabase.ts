@@ -1,18 +1,16 @@
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '../services/supabase'
 
 export function useSupabase() {
-  console.warn('[MOCK] useSupabase - Add real creds to .env.local for production')
-
-  // Mock client for local dev - simulates upsert without real DB
-  const mockClient = {
-    from: (table: string) => ({
-      upsert: async (data: any[]) => ({ 
-        data, 
-        error: null,
-        count: data.length 
+  if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+    console.warn('[MOCK MODE] No VITE_SUPABASE_URL/ANON_KEY - using mock client');
+    const mockClient = {
+      from: (table: string) => ({
+        select: async () => ({ data: [], error: null }),
+        insert: async (data: any[]) => ({ data, error: null, count: data.length }),
+        upsert: async (data: any[]) => ({ data, error: null, count: data.length }),
       }),
-    }),
-  } as any
-
-  return mockClient
+    } as any;
+    return mockClient;
+  }
+  return supabase;
 }
