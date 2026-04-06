@@ -1,0 +1,170 @@
+import React, { useState, useRef, useCallback } from 'react'
+import Papa from 'papaparse'
+import * as XLSX from 'xlsx'
+import { useUploadStore } from '../../store/useUploadStore'
+import DataPreviewTable from './DataPreviewTable'
+import ValidationResults from './ValidationResults'
+
+
+export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'historicos', onUpload?: (data: any[]) => Promise<{success: boolean, count?: number, error?: string}> }) {
+  const [data, setData] = useState<any[]>([])
+  const [errors, setErrors] = useState<any[]>([])
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  const uploadStore = useUploadStore()
+
+  const handleUpload = useCallback(async () => {
+    if (!onUpload) {
+      uploadStore.setStatus('error')
+      uploadStore.setMessage('Hook de upload no configurado')
+      return
+    }
+
+    uploadStore.setStatus('uploading')
+    uploadStore.setProgress(0)
+    uploadStore.setMessage('Validando y subiendo datos...')
+
+    try {
+      const result = await onUpload(data)
+      uploadStore.setProgress(100)
+      if (result.success) {
+        uploadStore.setStatus('success')
+        uploadStore.setMessage(`Éxito: ${result.count || data.length} registros subidos a Supabase`)
+      } else {
+        uploadStore.setStatus('error')
+        uploadStore.setMessage(`Error: ${result.error}`)
+      }
+    } catch (err: any) {
+      uploadStore.setStatus('error')
+      uploadStore.setMessage(`Error: ${err.message}`)
+    }
+  }, [data, uploadStore, onUpload])
+
+  const onFile = async (file: File | null) => {
+    if (!file) return
+    const name = file.name.toLowerCase()
+    try {
+      if (name.endsWith('.csv')) {
+        Papa.parse(file, {
+          header: true,
+          skipEmptyLines: true,
+          complete: (results) => {
+            setData(results.data as any[])
+            setErrors([])
+          },
+          error: (err) => setErrors([{ message: err.message }]),
+        })
+        return
+      }
+
+      if (name.endsWith('.xls') || name.endsWith('.xlsx')) {
+        const ab = await file.arrayBuffer()
+        const wb = XLSX.read(ab, { type: 'array' })
+        const sheetName = wb.SheetNames[0]
+        const ws = wb.Sheets[sheetName]
+        let json = XLSX.utils.sheet_to_json(ws, { defval: '', header: 1 }) as string[][]
+
+        // Skip filter rows
+        json = json.filter(row => !row.some(cell => cell && cell.toString().includes('Filtros aplicados')))
+        
+        // Find real header (contains 'Sede')
+        const headerIndex = json.findIndex(row => row.some(cell => cell === 'Sede'))
+        if (headerIndex > 0) {
+          json = json.slice(headerIndex)
+        }
+        
+        // Convert to object from row 0 as header
+        const headers = json[0] as string[]
+        const dataRows = json.slice(1).filter(row => row.some(cell => cell && cell !== ''))
+        const parsedData = dataRows.map(row => {
+          const obj: any = {}
+          headers.forEach((header, i) => {
+            obj[header] = row[i] || ''
+          })
+          return obj
+        })
+        
+        setData(parsedData)
+        setErrors([])
+        return
+      }
+
+      // Fallback: try CSV parse
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          setData(results.data as any[])
+          setErrors([])
+        },
+        error: (err) => setErrors([{ message: err.message }]),
+      })
+    } catch (err: any) {
+      setErrors([{ message: err.message ?? String(err) }])
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-4">
+        <label className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer hover:bg-blue-700">
+          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16V4m0 0L3 8m4-4 4 4m6 8v-8a2 2 0 00-2-2h-3"/></svg>
+          <span>Elegir archivo</span>
+          <input
+            ref={inputRef}
+            type="file"
+            accept=".csv,.xlsx,.xls"
+            className="hidden"
+            onChange={(e) => onFile(e.target.files?.[0] ?? null)}
+          />
+        </label>
+        <div className="text-sm text-gray-600">Acepta CSV (recomendado)</div>
+      </div>
+
+      <ValidationResults errors={errors} />
+
+      {data.length > 0 && errors.length === 0 && (
+        <div className="space-y-3">
+          <button
+            onClick={handleUpload}
+            disabled={uploadStore.status === 'uploading'}
+            className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:bg-green-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md transition-all duration-200"
+          >
+            {uploadStore.status === 'uploading' ? (
+              <>
+                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Subiendo...
+              </>
+            ) : (
+              'Subir Datos a DB'
+            )}
+          </button>
+
+          {uploadStore.status !== 'idle' && (
+            <div className="space-y-2 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center gap-2">
+                <div className="flex-1 bg-blue-200 rounded-full h-3">
+                  <div 
+                    className="bg-blue-600 h-3 rounded-full transition-all duration-300" 
+                    style={{width: `${uploadStore.progress}%`}}
+                  ></div>
+                </div>
+                <span className="text-sm font-medium text-blue-800">{uploadStore.progress}%</span>
+              </div>
+              {uploadStore.message && (
+                <p className="text-sm text-blue-800">{uploadStore.message}</p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="mt-2">
+        <DataPreviewTable data={data} />
+      </div>
+    </div>
+  )
+}
