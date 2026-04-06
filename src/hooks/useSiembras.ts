@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { useSupabase } from './useSupabase'
-import { siembraRowSchema, SiembraRow } from '../utils/validators'
+import { SiembraRow } from '../utils/validators'
 import { useUploadStore } from '../store/useUploadStore'
-import { insertSiembrasBatch } from '../services/dataService'
-import { v4 as uuidv4 } from 'uuid'
+// Note: inserts are performed by backend /planos endpoint
 
 export function useSiembras() {
   const [loading, setLoading] = useState(false)
@@ -58,40 +57,57 @@ export function useSiembras() {
       setError(null)
       setUploading(true)
 
-      // Validar rows con errores detallados
-      const validRows: SiembraRow[] = []
-      const validationErrors: any[] = []
-      for (const [index, row] of rows.entries()) {
-        const result = siembraRowSchema.safeParse(row)
-        if (!result.success) {
-          validationErrors.push({ 
-            rowIndex: index + 2, 
-            row: row as any, 
-            errors: result.error.flatten().fieldErrors 
-          })
-        } else {
-          validRows.push(result.data)
+      // Delegate normalization and validation to the batch service which
+      // knows how to map different header variants to our schema.
+      // Map incoming rows to server-expected keys (normalize header variants)
+      const normalize = (raw: any) => {
+        const obj: any = {}
+        for (const k of Object.keys(raw)) {
+          const v = raw[k]
+          const mk = String(k).replace(/\s+/g, '').toLowerCase()
+          switch (mk) {
+            case 'bloque': obj.Bloque = String(v ?? '').trim(); break
+            case 'nave': obj.Nave = String(v ?? '').trim(); break
+            case 'cama': obj.Cama = String(v ?? '').trim(); break
+            case 'producto': obj.Producto = String(v ?? '').trim(); break
+            case 'color': obj.Color = String(v ?? '').trim(); break
+            case 'variedad': obj.Variedad = String(v ?? '').trim(); break
+            case 'fechasiembra':
+            case 'fechadesiembra':
+            case 'fechadesiembra':
+            case 'fechade siembra':
+            case 'fechadesiembra': obj.FechaSiembra = String(v ?? '').trim(); break
+            case 'plantas':
+            case 'plantassembradas':
+            case 'cantidad': obj.PlantasSembradas = Number(v || 0); break
+            case 'aream2':
+            case 'area':
+            case 'áream2': obj.AreaM2 = v ? Number(v) : null; break
+            case 'estado': obj.Estado = String(v ?? '').trim(); break
+            default: break
+          }
         }
+        return obj
       }
 
-      if (validationErrors.length === rows.length) {
-        console.error('All validation errors:', validationErrors.slice(0, 10))
-        throw new Error(`Todas las filas (${rows.length}) inválidas. Primer error fila 2: ${JSON.stringify(validationErrors[0])}`)
-      } else if (validationErrors.length > 0) {
-        console.warn('Some validation errors, uploading valid ones:', validRows.length, 'valid')
-      }
+      const payloadRows = rows.map(r => normalize(r))
 
-      // Use real service for hierarchy insert
-      const DUMMY_USER_ID = '00000000-0000-0000-0000-000000000001'
-      const result = await insertSiembrasBatch(validRows, DUMMY_USER_ID)
-      
-      if (result.errors.length > 0) {
-        console.warn('Insert errors:', result.errors)
-        throw new Error(`Inserted ${result.inserted}, ${result.errors.length} errors`)
+      // Send rows to the backend endpoint which uses the Supabase Service Role
+      // to perform upserts and hierarchical creation. Backend returns { inserted, errors }
+      const resp = await fetch((import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000') + '/planos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payloadRows)
+      })
+      const payload = await resp.json()
+      if (!resp.ok) {
+        throw new Error(payload.error || JSON.stringify(payload))
       }
-
+      if (payload.errors && payload.errors.length > 0) {
+        console.warn('Backend reported errors:', payload.errors)
+      }
       await fetchSiembras()
-      return { success: true, count: result.inserted }
+      return { success: true, count: payload.inserted || 0 }
     } catch (err: any) {
       setError(err.message)
       return { success: false, error: err.message }

@@ -25,13 +25,12 @@ function normalizeRow(raw: any) {
         break
       case 'fechasiembra':
       case 'fechadesiembra':
-      case 'fechasiembra':
-        normalized.FechaSiembra = String(v ?? '').trim()
+        normalized['Fecha de siembra'] = String(v ?? '').trim()
         break
       case 'cantidad':
       case 'plantas':
       case 'plantassembradas':
-        normalized.Cantidad = v
+        normalized['Plantas sembradas'] = v
         break
       default:
         // ignore
@@ -49,14 +48,11 @@ export async function insertSiembrasBatch(rows: any[], userId: string) {
   rows.forEach((raw, i) => {
     try {
       const normalized = normalizeRow(raw)
-      const parsed = siembraRowSchema.parse(normalized)
-      // parse/normalize date
-      const iso = parseDate(parsed.FechaSiembra as unknown as string)
-      if (!iso) throw new Error('FechaSiembra inválida')
-      const prepared: SiembraRow = {
-        ...parsed,
-        FechaSiembra: iso,
-      } as any
+      const parsed = siembraRowSchema.safeParse(normalized)
+      if (!parsed.success) {
+        throw parsed.error
+      }
+      const prepared: SiembraRow = parsed.data
       validRows.push({ row: prepared, index: i })
     } catch (e: any) {
       rowErrors.push({ index: i, errors: [e?.message ?? String(e)] })
@@ -166,10 +162,10 @@ export async function insertSiembrasBatch(rows: any[], userId: string) {
     siembrasToInsert.push({
       cama_id,
       variedad_id,
-      fecha_siembra: row.FechaSiembra,
-      plantas_sembradas: Number(row.Cantidad),
-      estado: 'ACTIVO',
-      usuario_id: userId,
+      fecha_siembra: row['Fecha de siembra'],
+      plantas_sembradas: row['Plantas sembradas'],
+      estado: 'EN PRODUCCION',
+      creado_por: userId,
     })
     rowIndexToPayloadIndex.push(index)
   })

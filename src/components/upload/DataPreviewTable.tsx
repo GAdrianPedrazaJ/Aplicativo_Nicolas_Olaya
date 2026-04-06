@@ -13,10 +13,40 @@ type RowData = Record<string, unknown>
 
 const columnHelper = createColumnHelper<RowData>()
 
-export default function DataPreviewTable({ data }: { data: RowData[] }) {
+export default function DataPreviewTable({ data, onMapped }: { data: RowData[], onMapped?: (mapped: RowData[]) => void }) {
   if (!data || data.length === 0) return <div className="text-sm text-gray-500 p-8 text-center">No hay datos cargados.</div>
 
   const keys = Array.from(new Set(data.flatMap((r) => Object.keys(r))))
+
+  // Fields we expect to map to
+  const targetFields = [
+    'Bloque', 'Nave', 'Cama', 'Producto', 'Color', 'Variedad', 'FechaSiembra', 'PlantasSembradas', 'AreaM2', 'Estado'
+  ]
+
+  // helper: normalize header for matching
+  const norm = (s: string) => String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/\s+/g, '').replace(/[_-]/g, '').toLowerCase()
+
+  // default auto mapping
+  const autoMapping: Record<string, string | undefined> = {}
+  targetFields.forEach((t) => {
+    const found = keys.find((k) => norm(k) === norm(t) || norm(k).includes(norm(t)) || norm(t).includes(norm(k)))
+    if (found) autoMapping[t] = found
+    else autoMapping[t] = undefined
+  })
+
+  const [mapping, setMapping] = React.useState<Record<string, string | undefined>>(autoMapping)
+
+  const applyMapping = () => {
+    const mapped = data.map((row) => {
+      const out: any = {}
+      targetFields.forEach((t) => {
+        const source = mapping[t]
+        if (source) out[t] = row[source]
+      })
+      return out
+    })
+    onMapped?.(mapped)
+  }
 
   const columns = keys.map((header) =>
     columnHelper.accessor(header as keyof RowData, {
@@ -42,6 +72,31 @@ export default function DataPreviewTable({ data }: { data: RowData[] }) {
 
   return (
     <div className="w-full">
+      {/* Mapping controls */}
+      <div className="mb-4 space-y-3">
+        <div className="flex flex-wrap gap-3">
+          {targetFields.map((tf) => (
+            <div key={tf} className="flex items-center gap-2">
+              <label className="text-xs text-gray-700 w-28">{tf}</label>
+              <select
+                value={mapping[tf] ?? ''}
+                onChange={(e) => setMapping((m) => ({ ...m, [tf]: e.target.value || undefined }))}
+                className="p-2 border border-gray-300 rounded-md text-sm"
+              >
+                <option value="">-- sin asignar --</option>
+                {keys.map((k) => (
+                  <option key={k} value={k}>{k}</option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-2">
+          <button onClick={() => setMapping(autoMapping)} className="px-3 py-2 bg-gray-200 rounded">Auto map</button>
+          <button onClick={applyMapping} className="px-3 py-2 bg-blue-600 text-white rounded">Aplicar mapeo</button>
+        </div>
+      </div>
+
       {/* Search */}
       <div className="mb-4">
         <input

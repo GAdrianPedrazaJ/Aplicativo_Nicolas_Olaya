@@ -8,7 +8,9 @@ import ValidationResults from './ValidationResults'
 
 export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'historicos', onUpload?: (data: any[]) => Promise<{success: boolean, count?: number, error?: string}> }) {
   const [data, setData] = useState<any[]>([])
+  const [mappedData, setMappedData] = useState<any[] | null>(null)
   const [errors, setErrors] = useState<any[]>([])
+  const [showSample, setShowSample] = useState<boolean>(true)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const uploadStore = useUploadStore()
@@ -25,11 +27,12 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
     uploadStore.setMessage('Validando y subiendo datos...')
 
     try {
-      const result = await onUpload(data)
+      const payload = (mappedData && mappedData.length > 0) ? mappedData : data
+      const result = await onUpload(payload)
       uploadStore.setProgress(100)
       if (result.success) {
         uploadStore.setStatus('success')
-        uploadStore.setMessage(`Éxito: ${result.count || data.length} registros subidos a Supabase`)
+        uploadStore.setMessage(`Éxito: ${result.count || payload.length} registros subidos a Supabase`)
       } else {
         uploadStore.setStatus('error')
         uploadStore.setMessage(`Error: ${result.error}`)
@@ -38,7 +41,7 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       uploadStore.setStatus('error')
       uploadStore.setMessage(`Error: ${err.message}`)
     }
-  }, [data, uploadStore, onUpload])
+  }, [data, mappedData, uploadStore, onUpload])
 
   const onFile = async (file: File | null) => {
     if (!file) return
@@ -67,15 +70,18 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
         // Skip filter rows
         json = json.filter(row => !row.some(cell => cell && cell.toString().includes('Filtros aplicados')))
         
-        // Find real header (contains 'Sede')
-        const headerIndex = json.findIndex(row => row.some(cell => cell === 'Sede'))
-        if (headerIndex > 0) {
-          json = json.slice(headerIndex)
+        // Heuristic: find first row that looks like a header (has >= 3 non-empty cells)
+        const headerIndex = json.findIndex(
+          (row) => Array.isArray(row) && row.filter((cell) => cell !== null && cell !== undefined && String(cell).trim() !== '').length >= 3
+        )
+        const startIndex = headerIndex >= 0 ? headerIndex : 0
+        if (startIndex > 0) {
+          json = json.slice(startIndex)
         }
         
         // Convert to object from row 0 as header
-        const headers = json[0] as string[]
-        const dataRows = json.slice(1).filter(row => row.some(cell => cell && cell !== ''))
+        const headers = (json[0] || []).map((h) => (h == null ? '' : String(h).trim())) as string[]
+        const dataRows = json.slice(1).filter((row) => Array.isArray(row) && row.some((cell) => cell !== null && cell !== undefined && String(cell).trim() !== ''))
         const parsedData = dataRows.map(row => {
           const obj: any = {}
           headers.forEach((header, i) => {
@@ -84,7 +90,11 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
           return obj
         })
         
+        // reset any previous mapping when loading a new file
+        console.debug('Parsed XLSX headers:', headers)
+        console.debug('Parsed rows count:', parsedData.length)
         setData(parsedData)
+        setMappedData(null)
         setErrors([])
         return
       }
@@ -163,7 +173,23 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       )}
 
       <div className="mt-2">
-        <DataPreviewTable data={data} />
+        <DataPreviewTable data={data} onMapped={(m) => setMappedData(m)} />
+        {mappedData && mappedData.length > 0 && (
+          <div className="mt-2 space-y-2">
+            <div className="text-sm text-gray-700">Se aplicó mapeo: <span className="font-medium">{mappedData.length}</span> filas preparadas para subir.</div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowSample((s) => !s)}
+                className="px-2 py-1 text-sm bg-gray-100 border rounded"
+              >
+                {showSample ? 'Ocultar muestra' : 'Mostrar muestra (5 filas)'}
+              </button>
+            </div>
+            {showSample && (
+              <pre className="mt-2 p-3 bg-gray-900 text-white text-xs rounded overflow-auto max-h-48">{JSON.stringify(mappedData.slice(0, 5), null, 2)}</pre>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
