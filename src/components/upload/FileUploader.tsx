@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx'
 import { useUploadStore } from '../../store/useUploadStore'
 import DataPreviewTable from './DataPreviewTable'
 import ValidationResults from './ValidationResults'
+import BulkRetryModal from './BulkRetryModal'
 
 
 export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'historicos', onUpload?: (data: any[]) => Promise<{success: boolean, count?: number, error?: string}> }) {
@@ -81,6 +82,54 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       uploadStore.setMessage(`Error: ${err.message}`)
     }
   }, [onUpload, uploadStore])
+
+  // Retry all errored rows in bulk (sequential, to show progress)
+  const [retrying, setRetrying] = useState(false)
+  const [retryTotal, setRetryTotal] = useState(0)
+  const [retryDone, setRetryDone] = useState(0)
+
+  const retryAll = useCallback(async () => {
+    if (!onUpload) return
+    if (!errors || errors.length === 0) return
+    const raws = errors.map((e) => e.raw ?? e)
+    uploadStore.setStatus('uploading')
+    uploadStore.setMessage(`Reintentando ${raws.length} filas...`)
+    uploadStore.setProgress(0)
+    setRetrying(true)
+    setRetryTotal(raws.length)
+    setRetryDone(0)
+    const remainingErrors: any[] = []
+    try {
+      for (let i = 0; i < raws.length; i++) {
+        const row = raws[i]
+        const result = await onUpload([row])
+        if (result && Array.isArray((result as any).errors) && (result as any).errors.length > 0) {
+          // collect returned errors
+          remainingErrors.push(...(result as any).errors)
+        }
+        const done = i + 1
+        setRetryDone(done)
+        const percent = Math.round((done / raws.length) * 100)
+        uploadStore.setProgress(percent)
+        uploadStore.setMessage(`Reintentando ${done}/${raws.length} filas...`)
+      }
+
+      if (remainingErrors.length > 0) {
+        setErrors(remainingErrors)
+        uploadStore.setStatus('error')
+        uploadStore.setMessage(`Se completó el reintento. ${remainingErrors.length} errores restantes.`)
+      } else {
+        setErrors([])
+        uploadStore.setStatus('success')
+        uploadStore.setMessage(`Reintento masivo completado: ${raws.length} filas`)
+      }
+    } catch (err: any) {
+      uploadStore.setStatus('error')
+      uploadStore.setMessage(`Error: ${err.message}`)
+    } finally {
+      setRetrying(false)
+    }
+  }, [errors, onUpload, uploadStore])
 
   // Edit a specific errored row: populate mapping editor with raw data
   const editRowForRetry = useCallback((errRow: any) => {
@@ -178,7 +227,7 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
         <div className="text-sm text-gray-600">Acepta CSV (recomendado)</div>
       </div>
 
-      <ValidationResults errors={errors} onEdit={editRowForRetry} onRetryNow={retryRowNow} />
+      <ValidationResults errors={errors} onEdit={editRowForRetry} onRetryNow={retryRowNow} onRetryAll={retryAll} />
 
       {data.length > 0 && errors.length === 0 && (
         <div className="space-y-3">
@@ -208,7 +257,7 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       )}
 
       <div className="mt-2">
-        <DataPreviewTable data={data} onMapped={(m) => setMappedData(m)} />
+        <DataPreviewTable data={(mappedData && mappedData.length > 0) ? mappedData : data} onMapped={(m) => setMappedData(m)} />
         {mappedData && mappedData.length > 0 && (
           <div className="mt-2 space-y-2">
             <div className="text-sm text-gray-700">Se aplicó mapeo: <span className="font-medium">{mappedData.length}</span> filas preparadas para subir.</div>
@@ -220,12 +269,11 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
                 {showSample ? 'Ocultar muestra' : 'Mostrar muestra (5 filas)'}
               </button>
             </div>
-            {showSample && (
-              <pre className="mt-2 p-3 bg-gray-900 text-white text-xs rounded overflow-auto max-h-48">{JSON.stringify(mappedData.slice(0, 5), null, 2)}</pre>
-            )}
+            {/* JSON preview removed per request */}
           </div>
         )}
       </div>
+      <BulkRetryModal open={retrying} total={retryTotal} done={retryDone} onClose={() => setRetrying(false)} />
     </div>
   )
 }

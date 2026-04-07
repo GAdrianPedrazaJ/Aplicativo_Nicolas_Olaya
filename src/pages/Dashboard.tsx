@@ -57,7 +57,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-6">
           <div className="card border rounded-lg p-6 bg-white">
             <h3 className="text-lg font-medium mb-4">Subir Nuevo Plan</h3>
             {/* Show uploader only to roles 'uploader' or 'admin' (useAuth is a stub for now) */}

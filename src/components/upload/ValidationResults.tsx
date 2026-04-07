@@ -1,11 +1,16 @@
 import React from 'react'
 
-export default function ValidationResults({ errors, onEdit, onRetryNow }: { errors: any[], onEdit?: (err: any) => void, onRetryNow?: (err: any) => void }) {
+export default function ValidationResults({ errors, onEdit, onRetryNow, onRetryAll }: { errors: any[], onEdit?: (err: any) => void, onRetryNow?: (err: any) => void, onRetryAll?: () => void }) {
   if (!errors || errors.length === 0) return null
 
   return (
     <div className="p-4 bg-red-50 border-l-4 border-red-400">
-      <h4 className="font-semibold text-red-800 mb-3">❌ {errors.length} errores de validación</h4>
+      <div className="flex items-center justify-between">
+        <h4 className="font-semibold text-red-800 mb-3">❌ {errors.length} errores de validación</h4>
+        {onRetryAll && (
+          <button onClick={onRetryAll} className="px-3 py-1 text-sm bg-green-600 text-white rounded">Reintentar todos</button>
+        )}
+      </div>
       <div className="max-h-72 overflow-y-auto space-y-2">
         {errors.slice(0, 50).map((err, i) => (
           <div key={i} className="bg-white p-3 rounded border text-sm">

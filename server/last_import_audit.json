@@ -1,0 +1,3237 @@
+{
+  "productos": [
+    {
+      "id_producto": "652644fe-9356-44a4-8449-ac8af9a69182",
+      "nombre": "Rose - Red"
+    },
+    {
+      "id_producto": "82b96a23-3a16-4858-b0b9-b6f27a9049b4",
+      "nombre": "Rose - Color"
+    },
+    {
+      "id_producto": "273a16eb-c69a-44ad-b6e8-6a349564f556",
+      "nombre": "Rose - Ah!Maze"
+    },
+    {
+      "id_producto": "e55504ca-a8b3-4d24-a819-d5f1ff97a97e",
+      "nombre": "Rose - Spray"
+    },
+    {
+      "id_producto": "ad5653cb-4714-4b94-8794-f3cd9754dbe7",
+      "nombre": "Alstroemeria"
+    },
+    {
+      "id_producto": "1a14cbd5-5a86-4a87-b0f1-8520ce92abb8",
+      "nombre": "Campanulas"
+    },
+    {
+      "id_producto": "c2b4ff89-6aa9-4e50-83c2-4c1f87e8f507",
+      "nombre": "Astronova"
+    },
+    {
+      "id_producto": "72d5c50d-e5dc-426a-8c99-85ec0989a92f",
+      "nombre": "Delphinium Spray"
+    },
+    {
+      "id_producto": "91a6951c-368a-4ea3-9aed-eaf512d9b745",
+      "nombre": "Veronica Spray"
+    }
+  ],
+  "colores": [
+    {
+      "id_color": "1b80442c-5434-4f29-8709-4b816cac9722",
+      "nombre": "Red",
+      "producto": "Rose - Red"
+    },
+    {
+      "id_color": "d63948e3-d08a-42d7-a182-f77bc8cb5fb3",
+      "nombre": "Novelty Pink",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "52fe54b7-d0ae-4532-a487-ba9cf9db0cbf",
+      "nombre": "White",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "cad63cd7-2b1d-4171-a787-b31d9141b4ae",
+      "nombre": "Orange",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "259bde9d-a307-4420-b72f-825ff09029d7",
+      "nombre": "DarkPink",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "af94d370-044d-46f2-8622-1d1a83da93ed",
+      "nombre": "Pink",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "5b31e276-e5a3-451e-8e34-1ab551ca5d80",
+      "nombre": "Lavender",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "7644d8da-736d-40f3-bdad-5b26e5cd1e0c",
+      "nombre": "Novelty Orange",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "896c6cb5-e130-49bf-a81b-ae6a4e7a32bc",
+      "nombre": "Yellow",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "eabc9bb2-4568-47f1-b89f-4daa4e530c1b",
+      "nombre": "Peach",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "43e1204a-22fb-48ce-9974-3c204ed0bc49",
+      "nombre": "Novelty Yellow",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "42a945c1-d4d5-4282-bff4-f051a067dae6",
+      "nombre": "Orange",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "7f76022c-8e48-45ab-984b-f1c37d4db2ec",
+      "nombre": "Lavender",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "5e652dbd-677d-42c4-bbfb-542984076355",
+      "nombre": "Novelty Yellow",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "ba3b6eee-10ae-4d14-8a70-796a1e4615d0",
+      "nombre": "Pink",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "891f4e6d-0a48-4c92-85b2-6ab2e0b94abe",
+      "nombre": "Peach",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "36c336f8-3d0c-490c-afa3-e0895db59cca",
+      "nombre": "INDETERMINATE",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "4a35ed30-e637-4be4-aed1-639b23bbfb43",
+      "nombre": "Yellow",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "ec8e801f-8f34-475f-b077-2567526a1e28",
+      "nombre": "Orange",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "f4818b1f-edd8-4ae8-9f0a-fc0be6c76b13",
+      "nombre": "Pink",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "69b71a64-2c88-4366-8672-cd64419c7374",
+      "nombre": "DarkPink",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "af7f39f2-914d-430a-bcb2-c5d5e7f8c91e",
+      "nombre": "Red",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "800be2be-3149-4d98-97c0-cf7ad845dbbb",
+      "nombre": "Novelty Orange",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "6bf30b7a-9626-4db0-b631-336d3fac51f5",
+      "nombre": "INDETERMINATE",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "5f8edb9a-21dd-41a8-b24d-04fe771bc7c5",
+      "nombre": "White",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "9c960e4d-db81-4aa0-b826-a9c28c5125ae",
+      "nombre": "Novelty Color",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "5cde9f33-2a78-433e-9fc3-79b23dd81d00",
+      "nombre": "Red",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "1d4cc88e-dc36-407c-a1e7-f423e50359c0",
+      "nombre": "DarkPink",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "f744966f-3709-4540-895b-187cfb03aeff",
+      "nombre": "Red",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "8377a66f-8758-4511-a3e3-a53defc25c68",
+      "nombre": "Novelty Yellow",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "efd300d0-8569-47aa-b098-bc50cf0ccc2e",
+      "nombre": "Novelty Red",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "0e0cc175-7b2d-4de2-a1f9-d3bb95c1b8dd",
+      "nombre": "Novelty Pink",
+      "producto": "Rose - Spray"
+    },
+    {
+      "id_color": "9c21477d-6bfa-46ab-bb1d-043171cd2009",
+      "nombre": "INDETERMINATE",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "a528523e-673a-4665-84ed-31dffe83d7a9",
+      "nombre": "Green",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "7755fb26-cf09-4a3a-b360-e652b0555db7",
+      "nombre": "Novelty Red",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "e3a6942c-42a0-4282-b7a3-7ca7018c56a1",
+      "nombre": "Lavender",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "c365f4ac-747a-461f-8598-dd4142c5bb4d",
+      "nombre": "Yellow",
+      "producto": "Rose - Ah!Maze"
+    },
+    {
+      "id_color": "125d3831-2ef8-4444-866a-e0d320820115",
+      "nombre": "Green",
+      "producto": "Rose - Color"
+    },
+    {
+      "id_color": "57663103-ac7f-4fd6-ad24-fa4536ed2d91",
+      "nombre": "Orange",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "8137dc85-af38-4c86-ba87-fba147a39614",
+      "nombre": "Yellow",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "8d56cacd-94b4-4862-a3af-0d5cec81989d",
+      "nombre": "Burgundy",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "9301c441-09c4-4c3e-9851-0a14c0381817",
+      "nombre": "Lavender",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "84fa6f69-bed9-4c32-bbdc-cf74d147eb4e",
+      "nombre": "Red",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "686ac664-5673-4ee4-a51b-585995adee72",
+      "nombre": "White",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "6ec13ff7-f758-4d35-b17c-63b0d5174a17",
+      "nombre": "Pink",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "1e64c0a0-3f01-4f43-ab32-ece461f3c29c",
+      "nombre": "Purple",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "be13010e-5584-4dc3-bbe9-64acc041799c",
+      "nombre": "DarkPink",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "c855ef2f-982d-4e8e-bc60-700f10dc8385",
+      "nombre": "Peach",
+      "producto": "Alstroemeria"
+    },
+    {
+      "id_color": "5bb9e8c0-0162-4da6-a6c6-645f2d0bd6a3",
+      "nombre": "Pink",
+      "producto": "Campanulas"
+    },
+    {
+      "id_color": "ceb74db3-0c53-465d-81ee-631ed1c9cc85",
+      "nombre": "White",
+      "producto": "Campanulas"
+    },
+    {
+      "id_color": "eac79622-4566-461f-8fe1-01682e6335a6",
+      "nombre": "Purple",
+      "producto": "Campanulas"
+    },
+    {
+      "id_color": "386d2325-abc7-4823-99f2-f6ca6724dbb2",
+      "nombre": "Lavender",
+      "producto": "Astronova"
+    },
+    {
+      "id_color": "cbe664fc-20d6-44ee-abf9-051abcdc3927",
+      "nombre": "DarkPink",
+      "producto": "Astronova"
+    },
+    {
+      "id_color": "eeeaf5cf-3d35-4ba4-bd1a-88ae66cdb38b",
+      "nombre": "Purple",
+      "producto": "Astronova"
+    },
+    {
+      "id_color": "0927fcfd-3595-4f2d-9451-c38908e74849",
+      "nombre": "Blue",
+      "producto": "Delphinium Spray"
+    },
+    {
+      "id_color": "d1659aae-a99d-4e5a-9957-d572a7ae5dbd",
+      "nombre": "Purple",
+      "producto": "Veronica Spray"
+    },
+    {
+      "id_color": "4df95a20-d79a-4d5b-a043-a3ea84574df6",
+      "nombre": "Pink",
+      "producto": "Veronica Spray"
+    }
+  ],
+  "variedades": [
+    {
+      "id_variedad": "00660cd2-f053-40f8-9a67-a3588b7dbfcb",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "1a371656-dd65-4166-9612-1f425c7de35e",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "b29811aa-83da-4a01-a5c6-c1f5a2ea6127",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "9174d096-5bf6-4be6-bd5a-d374ff384a95",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "d16fbf17-503c-4bda-8a27-3eab357948a2",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "bb2ae710-37d5-4ae5-9dac-4e30b689df14",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "76201e62-fb11-4170-a672-c615173c0dff",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "b3b85eb8-56da-4b85-89ec-1dfa1994ec3c",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "86df87fd-168c-497c-9930-1c2eb0d7f32b",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "331db846-2e80-47e2-9197-c1bb0e3e039b",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "60fd434d-617f-43b8-90ae-9a3818a01355",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "c09d36e4-0759-4eeb-aff5-418d47e71abc",
+      "producto": "Rose - Color",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "d92453d6-b57c-45cd-bd3c-9c4f9d053ea4",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "f87b64cd-96b6-453f-b2cb-7272b3de995f",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "afc2af5a-b123-4580-84ce-a9b87f9ebb7e",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "6c84d736-71c0-4fb1-8615-1b3fdb313501",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "65a73c34-f587-4f26-9cd0-5c4c67e23677",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "e4396dc3-1a38-434a-b0ab-9923f7cda46d",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "db8fea8b-0762-41bb-9704-e38899ac2c43",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "2d422e9a-1c4e-408f-9bc7-aa7497cdd373",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "4e772456-8259-4831-b058-7292bbba7f85",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "3e4744e2-70eb-4bc8-aac0-ead51d33cde8",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "bf575090-7ca0-48eb-91e5-b8be52d2cb45",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "0421e578-8294-4047-ba57-6b8683bcc47a",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "cecfce95-4614-4d7a-8a5c-e080a57425f6",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "92435700-5472-48e5-b2bf-a946df41c758",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "96c90d76-b6b5-42d6-ab0c-e79277a10f88",
+      "producto": "Rose - Color",
+      "color": "Novelty Yellow"
+    },
+    {
+      "id_variedad": "824a422d-1c78-4154-8652-6537ed3dcbf4",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "9ca6fd1f-0b06-4552-80a4-8aa8072bdbd4",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "68e78e8c-129b-449c-82e6-4ccaa838f250",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "9e744934-b9a9-40d0-bb5e-8f15c6b527cd",
+      "producto": "Rose - Ah!Maze",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "7b790d6b-efd7-4798-9aaa-805aed0d0c5a",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "4ad0266d-79af-42ee-861e-360794d338c0",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "db46e445-cc56-44d2-b1f5-202ce97b843e",
+      "producto": "Rose - Ah!Maze",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "76806006-c18e-40e7-8da9-1e724dd9203c",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "c93406d0-886e-4151-b079-588b0a85091e",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "82d326d6-ebf9-46d7-a302-3fd3c6861a66",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "52b074f5-9645-4c78-9981-1fbf76e19abe",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "e203534d-11cd-4cdd-9339-3f75283c5457",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "a3c83610-cc1d-40d8-b9ca-2397e48daa51",
+      "producto": "Rose - Spray",
+      "color": "Novelty Yellow"
+    },
+    {
+      "id_variedad": "1571f1aa-7fdd-4095-bfc5-158b2b566187",
+      "producto": "Rose - Ah!Maze",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "55438925-94b7-4d39-8dde-d8308b84082e",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "0dfa7ad2-ad38-4912-a68c-2fd195692699",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "58a144e2-fd6f-4799-b066-af3f46181e2a",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "86b29d05-c530-4763-8149-386ee5fdd7ba",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "677e9335-209a-4594-870e-f0bc064e92b7",
+      "producto": "Rose - Color",
+      "color": "INDETERMINATE"
+    },
+    {
+      "id_variedad": "a18efe2b-f28f-41e2-a699-40c889c232b9",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "5d3fd980-2560-4562-b242-fedec7ae3532",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "672b6d1e-8a6b-4ad5-a091-e50d8d0d647c",
+      "producto": "Rose - Spray",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "69fc9123-125f-42a0-8bdc-905abc3201ac",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "ba75ec53-9558-4dad-b1f7-fc827c80ffd1",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "547ccaca-90c5-4860-a288-7d567eb7e3fe",
+      "producto": "Rose - Spray",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "1756da4a-cbee-4ead-9164-28129d089a77",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "ec14cc60-014d-4c19-8f3b-f44fb7fafdb6",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "1d8d25c4-fff5-4e86-8c40-a1820f846316",
+      "producto": "Rose - Spray",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "f283cde7-b743-42f2-b0ab-a0b8de9e1f35",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "d5fa3ccd-57fa-45d2-abd9-5f97afcba870",
+      "producto": "Rose - Ah!Maze",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "6ff7b526-9b71-44fd-a23c-0bb337b2ea98",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "edcd0928-3686-465b-8aad-1ae29404dd3a",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "647fe630-64d9-49f2-9ffd-21c8f688227e",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "eb2bb65c-c07f-4cd7-939a-183acdaa30c9",
+      "producto": "Rose - Spray",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "16e48d45-e2a3-484c-8b40-978aac6f1261",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "564791e0-c2c1-45ca-bf35-b72838930b37",
+      "producto": "Rose - Spray",
+      "color": "INDETERMINATE"
+    },
+    {
+      "id_variedad": "66fc58b8-7a79-4a12-8fdc-16162081a043",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "ced6a3e6-a86a-4a69-8395-441f43792f90",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "b94c1468-eab4-4652-8107-4811f3c25a1a",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "98738419-183c-4c72-9d54-832c10037bfb",
+      "producto": "Rose - Color",
+      "color": "Novelty Color"
+    },
+    {
+      "id_variedad": "72235c44-3833-4ef9-b60d-ac28e1a1bdd6",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "178a17bf-af54-4e09-9790-9cd4f4cbff06",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "aa3ecf80-9957-42c5-a713-46092231d090",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "2a57f5a2-e2cc-4734-bfdc-c5015e04a99f",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "06734f94-4b4d-4a01-8d54-e3af4c25a8d1",
+      "producto": "Rose - Color",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "627c20ac-3785-4ec8-b5c5-1bf7083fc4df",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "140e920d-3823-48d6-9284-c56eab5bc259",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "a18f93c4-0622-4d28-b2ac-a8bc1fadda6e",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "b53e73ce-b21a-44c0-9da1-05a227da03c2",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "b4d817fa-304e-4fe2-bdd6-eb9b4adebde4",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "a64b5de3-de72-4ca8-bb18-9f8bd4a01c8b",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "48f439dc-eef0-41d4-8637-490e95816e59",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "7af36c7e-7e46-451d-8be6-0fe51156298b",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "d9cdd772-04e0-4078-9571-9934dcadd5a9",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "a849c3bd-711e-488c-925a-2aead14521d4",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "aee3bc8f-5e60-41c1-9ad2-208c65724a61",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "500324cb-9e78-44a4-ad59-bdb5bf8ca23c",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "229e2095-1656-4296-9caf-f5fa0892106d",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "5e48e066-0f36-4682-a556-acba1aa6e756",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "35007268-b8f2-4f28-a0d8-4eb7b7e01255",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "4e42fcaa-eccc-4d59-87b5-a3bd68a83cff",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "80fb406c-0419-4e8f-9272-3792ff4bd05c",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "2d04727e-5719-4d95-8477-9f86b090946b",
+      "producto": "Rose - Ah!Maze",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "86b832a3-e90c-408f-93ea-1ec8ecaa7e63",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "9f2cbbaf-8080-4f03-81da-67928b8ef650",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "0619f4ad-4f83-4e1e-87d1-723256db688e",
+      "producto": "Rose - Spray",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "08469dbd-8839-4ba9-9e67-817afd94c29f",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "24e69db9-e96b-487a-a370-d3eff3b10ec7",
+      "producto": "Rose - Spray",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "5fb97479-ff5e-4463-8697-c3761cb282ef",
+      "producto": "Rose - Spray",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "774346ca-32b3-49de-a691-390644f639db",
+      "producto": "Rose - Color",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "1096e94a-2e25-4845-94f6-3f28acf7a708",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "f29939ba-bd11-4462-8612-d3b2a1aa4d3e",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "b14e3e23-2aa6-41ec-9baa-b412cf945ce6",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "273b946c-de99-45c3-8d34-98d90b88f3de",
+      "producto": "Rose - Spray",
+      "color": "Novelty Yellow"
+    },
+    {
+      "id_variedad": "9a207423-d0d8-4084-a7d6-b1653c9b31d4",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "b66241c4-681b-4b3e-ac30-69f66eab3d98",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "6395abe6-34dd-4e53-bedf-42886b472be3",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "b189fb3f-8787-4a5d-80af-92756c6eae5f",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "8ad32433-7d36-4216-a672-2fe8aa2ecb02",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "b1c239b5-0692-47c0-99c4-8eeee1778827",
+      "producto": "Rose - Color",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "6b2ca5ac-a48b-4c21-a18b-3b7ecd9aa183",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "2e371602-595b-4897-b66c-485ab9bc380e",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "a11d78e8-a847-4285-a6dd-1c8aac51e9c5",
+      "producto": "Rose - Spray",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "4eca4b6d-7431-4d3e-ad8a-89ff1e41015a",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "242370db-344b-4584-a915-2bf28946aac6",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "6ff00b59-875e-406e-84e4-217b165c5c65",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "f2cbeb2a-79f7-4f91-b195-8c9ddcebb89d",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "893813e6-8866-4b1b-b1b2-769c94485f32",
+      "producto": "Rose - Ah!Maze",
+      "color": "Novelty Yellow"
+    },
+    {
+      "id_variedad": "b84abd40-c564-441f-a698-1cad59d533e4",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "237991b4-697a-4f9c-8f3d-9f90407079b3",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "a616bbe9-db0f-46c1-b453-dd8d3a8ce3a5",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "3b5e0fcd-c574-4a37-9d44-919efc3bf439",
+      "producto": "Rose - Spray",
+      "color": "Novelty Red"
+    },
+    {
+      "id_variedad": "f4c072e2-5652-4e08-971d-0da1a05b2a0d",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "b95f7946-5c3c-415f-b66b-905063f83398",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "daf06aad-2427-46ef-89f8-18507923576a",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "0c670711-2520-4281-974f-922259aae4a4",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "221965df-becc-4d8e-afe0-ec76a76336aa",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "40bdbec1-90cd-4cff-8eee-9f7100fa6d33",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "aefd4ebf-299f-49b6-9654-6689e134af04",
+      "producto": "Rose - Spray",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "f7ef04bd-5e09-4e3e-bc86-bb12f0836f58",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "1bbefb74-d552-4617-a267-7b4549f53a0d",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "cc9e6101-11a8-4011-99a7-fca1fe85399c",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "10d9d825-217e-4b4a-858e-614d6f2a956c",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "05f1833f-25af-4413-9906-0ffe9ec828fa",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "c4d86c2f-1896-437d-8646-d7527a7a82f3",
+      "producto": "Rose - Ah!Maze",
+      "color": "Novelty Yellow"
+    },
+    {
+      "id_variedad": "cca71e33-bf0c-4d01-8871-acc7f4110c24",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "d47d9ce3-cf19-4e58-a4b9-777fce3d0e6d",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "d17661b1-239f-458d-bd28-080c99f7bdc2",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "104478f3-3e2b-4c93-a964-7c9d3aa8ce0c",
+      "producto": "Rose - Spray",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "ad77af17-54ed-488f-8408-db234bb4df2c",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "37482ac0-6642-4eba-a8eb-71d30adf5e33",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "5c7e5820-c854-437f-a61c-efe63ffef34f",
+      "producto": "Rose - Ah!Maze",
+      "color": "INDETERMINATE"
+    },
+    {
+      "id_variedad": "d20cf848-f93a-4223-8ff0-57269603d62b",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "b1f9a54e-6519-40ac-9635-b41cce7c91e1",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "a0c96526-2f27-4ad9-8044-661bad344de5",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "5f20b888-bc8e-4127-9432-bb8a0502ffa6",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "f318e854-454a-4c5e-bbc8-ca8f215c2ba8",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "a2c09c4d-fb74-4235-b5d8-31adbc14f5c4",
+      "producto": "Rose - Color",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "0756e337-99ca-496f-8259-e6d071018625",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "2f00da4e-d474-4141-b0c9-dc247a8c3c9d",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "fcc80c1d-f0ca-4e56-8a0e-64149f7cbd7e",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "721b62a9-e17f-4dbd-97bc-2b0d0aa4dc07",
+      "producto": "Rose - Spray",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "495f635a-b79d-40b2-80b6-9be7cd7ced11",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "fc209b34-cab2-4978-8484-515922773f22",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "d363eef5-e8cd-4e37-a4a3-7c7b46cbdba7",
+      "producto": "Rose - Spray",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "358c5ef0-dfe8-49b6-aa43-a1ff821eab11",
+      "producto": "Rose - Ah!Maze",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "ba9c6488-371d-4ab7-9e78-326f03f69bb5",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "6011ebb8-dbe2-4b7d-9d33-ac7cb66116ac",
+      "producto": "Rose - Spray",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "f70974bb-5d8b-44d0-a3ae-947243caca8d",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "eaa7b8cc-ff20-4195-9af4-b5071304ff8c",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "f02f6916-4caf-41dc-a74c-4765c9959383",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "d6963815-2ecc-4c7f-b827-ac9208839f8e",
+      "producto": "Rose - Ah!Maze",
+      "color": "Green"
+    },
+    {
+      "id_variedad": "b1b19bc7-f29d-4e8c-b51a-f4a49b43c606",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "08fa8117-d4e4-4b19-9fea-85d46ed7cb7e",
+      "producto": "Rose - Spray",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "df6fd456-3929-40d6-8c90-e4976dda369c",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "29a3d106-25c9-4c91-95fe-cdfc3e73416e",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "b8b77194-66bd-4795-b687-9fd04bb20339",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "e3d9574f-11a3-41a0-865b-094f1de8cc71",
+      "producto": "Rose - Spray",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "2783dac5-fccd-4eff-aeae-08431487ce99",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "c41375ff-2630-463a-809e-986f615af461",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "4681936c-c784-4dce-9fe6-be8b94110c6f",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "f88ddee7-225f-4597-914d-c2d7534d0a94",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "1c36d81e-cf11-4191-9aba-5b02ebec5d22",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "5a4f3f50-6ecd-40c7-a964-1dd279f63ed2",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "b6d54d13-8c22-40df-bafd-feac2ba7480b",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "deb436b7-336c-446e-bde2-6610cbfbae6e",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "5e2427f2-bfc5-4d32-a5ba-805a8569ba83",
+      "producto": "Rose - Spray",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "6f10efd8-207d-43af-8679-4ab5653ce3e6",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "fa8df2f7-2a57-42aa-b8e1-87e571c6b04a",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "82460046-ec71-4a29-a8bc-0635723702cd",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "7d2c0a43-abfe-4684-bd95-84d8e389a643",
+      "producto": "Rose - Color",
+      "color": "Novelty Red"
+    },
+    {
+      "id_variedad": "aeb96683-6b30-406a-92df-79b7db2d2b58",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "06b56f7d-99eb-4e41-a6e1-727bf1cf63c3",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "47d9ae9a-551b-4b4f-b0b3-e4fde182859e",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "a023e0ea-526a-4af1-846c-360248cabf98",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "6fe2f7d7-5c3a-4279-a9e5-1d8fc868ca91",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "57210e80-b005-4c8f-bf0b-1d81f496193e",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "06b8074a-a539-4335-8195-ad44eb5b0812",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "b6403315-cff3-49fd-88dd-d9493b67f6c5",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "50118d92-2cb7-46f0-9760-e74cb5d3fe65",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "0e28a461-4cb6-4b3f-9e79-9f33ba50c4f1",
+      "producto": "Rose - Spray",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "0b4066da-7891-43ca-8bf9-317699eafc12",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "8573464b-5bea-48fb-8d3f-fd18636d06e7",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "1b47a9fc-bcb5-4259-a405-972f82e92684",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "227d7df7-1741-4357-bc92-da55b2bb1255",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "72bfea63-49be-4a47-ab32-0f711fc137f8",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "068a74b1-e44c-47eb-8740-d602b7ed26c0",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "4fe27d33-c023-4620-b0b4-8e7560a9c625",
+      "producto": "Rose - Ah!Maze",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "0f730e5e-aa6c-4794-a8a8-ac10585d1ba4",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "77e8896e-f620-413e-a86e-44a9cc42f9fc",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "6d8471a5-6f15-4fc5-a491-0c97ca7c264a",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "0b2e1b8c-dfe0-40bd-9722-23750419a5c1",
+      "producto": "Rose - Ah!Maze",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "33d10e85-c514-4705-ae4e-e160ef971e79",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "2fff7097-3129-4f02-b02c-9f948629f06e",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "f0e17b19-f64e-4f1a-9aa2-2dcb6bddb14e",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "224e6869-7042-4ba3-9874-71303ac09af8",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "9a996770-c384-4541-99dd-6dc43a999b01",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "5ef5e6f3-5a66-46e1-8efa-f6a4bf79682f",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "ed09d562-014d-4bc2-9dbc-481b7ad90b4a",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "f1f8bbfc-3e1a-4485-96bd-93d2d4f6dfee",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "59a72849-29b3-4631-a2e8-8f17180f2bbd",
+      "producto": "Rose - Spray",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "261292c9-6b3c-4f74-8265-6503dd0625c1",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "fe8f66c0-0e63-4eaa-9d46-b04e8d7a93a0",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "938957f9-200e-4fc6-8df9-fbc9e9cbde8d",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "a5af2d07-1e48-4e73-b5f0-f97bee378016",
+      "producto": "Rose - Ah!Maze",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "deb52489-5ad7-4998-8115-8d2be2c3be22",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "4160e5d0-a34c-4623-9237-c73dd3beb52a",
+      "producto": "Rose - Ah!Maze",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "a41bcc01-c6a5-4f25-967e-fd0f109700f5",
+      "producto": "Rose - Spray",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "8b276259-4de9-4b0b-be4c-d98b5e115890",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "b77efc4b-00b4-47bf-b5cd-a28daf8689fd",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "96205b02-dac1-4632-a871-ef2e7c4f05cb",
+      "producto": "Rose - Ah!Maze",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "ca8e052d-a7a7-4f1b-a6a2-364cd640b4cf",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "39f3eec6-73a8-4fa6-ae72-084494f5b662",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "a20887f0-e8d0-4786-b555-6898501a39d7",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "16c586b9-6e0b-4b96-a3b6-908745bed73e",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "1a4a5102-804a-4037-9d8c-1bb1477f358e",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "4b99e921-f26a-4a5d-a4a3-db5a839e8761",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "c3ec2bf3-9dac-4679-8461-aa3f8a02bcb6",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "d11ff255-2ada-4c45-b341-1de600e97f20",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "c9fcd136-d986-4016-842b-02213e5230c3",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "33777041-f108-4da6-a056-e44ff0bc8c8f",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "d2364771-193b-4556-8654-4468ad00ac26",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "06f6f9ba-3a1b-4d12-9ecf-c58c3c60f1f8",
+      "producto": "Rose - Color",
+      "color": "Novelty Yellow"
+    },
+    {
+      "id_variedad": "dd5fd58a-1c61-406d-afa8-66966da1cf56",
+      "producto": "Rose - Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "217e88ff-ad31-44b4-94f8-56047020cc30",
+      "producto": "Rose - Color",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "f6a7cb17-c70c-45f8-bb36-eca89775b596",
+      "producto": "Rose - Color",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "c5d06482-1387-4f5f-9f1c-d75e892a4ecc",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "28ba68e8-8756-4206-9f53-e33e44d16be5",
+      "producto": "Rose - Color",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "615d39f0-b508-40a1-8f81-d8321f3186b2",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "6b0f5240-121a-412b-b4f7-07c923967023",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "2ef0114f-8209-409d-82e0-c5e82c364d78",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "3ed14442-3e73-4031-b868-c6cc3fbd46f1",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "7e5a2fee-22aa-4076-83fd-bb42074eb3a7",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "cd4ed738-3ced-43ea-9fbf-dc92d5bc3d3c",
+      "producto": "Rose - Spray",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "dd8b2843-2827-4e4b-a03b-cec68cd86332",
+      "producto": "Rose - Spray",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "39525488-0e9c-4284-8a1f-5676f2f7c355",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "38657a25-86db-40ce-ae21-76b2cd0db191",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "4f61f1f6-8806-4c7e-a4f7-8f9cf52ab43b",
+      "producto": "Rose - Spray",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "05e2f04b-de99-4243-87ae-2a357228dcb7",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "e1a472f1-f7d8-429d-bbf0-1f480e2e207a",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "5ac496aa-93f5-4662-9a02-0aa0f5b031b5",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "1ef5d709-7118-4e28-b8a3-471d56b57f29",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "5bf899a8-342b-4e05-9c4d-4a4b1d049de0",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "548a1dfb-84ad-46bd-ba78-84893cb2db92",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "7f1e7007-3532-448f-863e-cc4076877cb9",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "ba85e8a2-0232-49e5-ab31-c5ef21381f9a",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "f5d6cba1-c192-4ff6-acc6-b4ff54a650a3",
+      "producto": "Rose - Spray",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "6fec8dc9-cd5a-4df9-b57e-2494a9a407da",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "795663a5-cbf8-464c-86f4-d97f537b5fbd",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "b2dbdd9e-2661-487c-a5dd-7ee4a424c5db",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "087dfcd8-d348-4d84-9242-d61611516508",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "a002371b-4c8d-43c1-888f-4725dc899ce4",
+      "producto": "Rose - Spray",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "b23d696c-6ee1-49e2-b172-43ae6d1f6e02",
+      "producto": "Rose - Color",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "252130f4-d4d0-4d35-b41f-0c8c6dba7223",
+      "producto": "Rose - Spray",
+      "color": "Novelty Orange"
+    },
+    {
+      "id_variedad": "fce293cd-4dcc-4e3e-830b-9139bacdacea",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "d17e889f-105d-49c0-ae9f-0225a2164aa8",
+      "producto": "Rose - Color",
+      "color": "Green"
+    },
+    {
+      "id_variedad": "f2db4ee1-2bc8-4d57-9028-e7401a30f292",
+      "producto": "Rose - Color",
+      "color": "Novelty Yellow"
+    },
+    {
+      "id_variedad": "32a27d4b-48bc-4af6-bf3a-57ea0d6c955a",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "7eb34150-fb95-4350-b962-d3ebbfc62237",
+      "producto": "Rose - Spray",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "0757acc5-1d39-4025-a5f4-447758462a51",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "c48ec3be-3a4a-4254-b338-8d61e54be71b",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "2b8bcbd9-4eb9-4537-b846-5e5b0608f140",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "e06443d1-0af3-43b1-9aac-75accb519274",
+      "producto": "Rose - Spray",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "88cd80b7-c97a-48bc-af04-8fcae5336d79",
+      "producto": "Rose - Color",
+      "color": "Novelty Pink"
+    },
+    {
+      "id_variedad": "ffad0fab-ca2e-4a37-8b09-ece2367aa5ea",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "3f065937-3f15-4a3a-8a11-32394fa1b3f2",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "1165f124-865a-401c-871d-073c0953f260",
+      "producto": "Rose - Color",
+      "color": "White"
+    },
+    {
+      "id_variedad": "54d4e078-316a-4551-962c-34b2aa4d2df3",
+      "producto": "Rose - Spray",
+      "color": "White"
+    },
+    {
+      "id_variedad": "626165dc-c851-45fa-b9c2-b2723bd35dee",
+      "producto": "Rose - Spray",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "69d9d38d-4980-4b8e-90a6-ac83c9daed0d",
+      "producto": "Rose - Color",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "0cf87fd6-a80a-4865-8ee7-f6d15dd7996c",
+      "producto": "Rose - Color",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "8442e575-b596-4c7d-bc5b-9b48e5e9ff23",
+      "producto": "Rose - Red",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "4c0fe0b0-7fed-4ed6-8245-3bd821f685c3",
+      "producto": "Rose - Spray",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "63a5c974-fb77-444b-927c-5c3657273884",
+      "producto": "Alstroemeria",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "55b7e54b-e040-42a6-858e-b0d61a56133f",
+      "producto": "Alstroemeria",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "e213c38a-4671-4028-b96b-92f39c31597c",
+      "producto": "Alstroemeria",
+      "color": "Burgundy"
+    },
+    {
+      "id_variedad": "18c2e666-a4c1-48d7-9a89-60da27e0256f",
+      "producto": "Alstroemeria",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "9f1d0aa0-a688-418c-ab17-5e960dfc3846",
+      "producto": "Alstroemeria",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "6782a9d6-f1a6-4ba9-ae43-66d13534c2d1",
+      "producto": "Alstroemeria",
+      "color": "White"
+    },
+    {
+      "id_variedad": "6e008630-a432-4b7b-a715-f377142966ce",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "d94b43dc-04a9-4207-a949-af7b350adffd",
+      "producto": "Alstroemeria",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "dcf52247-d3d5-49a3-81d0-ddab3704857b",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "df86ea54-2ae8-49e5-a200-e2e06321a293",
+      "producto": "Alstroemeria",
+      "color": "Peach"
+    },
+    {
+      "id_variedad": "05c5dbf5-6e7c-4d60-99f6-0824571c5802",
+      "producto": "Alstroemeria",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "a9b2f5e9-a36a-4bca-ad30-eeb94f82257a",
+      "producto": "Alstroemeria",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "5a0f3352-26cd-40df-883f-b607787d67e3",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "c57d24c2-9442-4966-97bc-f248909acf73",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "33845e97-c519-4bda-ad5a-7850b4314181",
+      "producto": "Alstroemeria",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "f9822124-2dd8-495b-973c-6f7d02d71ddd",
+      "producto": "Alstroemeria",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "243f9536-04b4-4591-a5d7-44858a7d5186",
+      "producto": "Alstroemeria",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "8eb4814c-4756-4a89-a509-ce613b917fe0",
+      "producto": "Alstroemeria",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "7170081c-dcb4-4786-809d-b2ac2b45d4d0",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "a41d401d-c27a-4828-b84e-29d4985f1429",
+      "producto": "Alstroemeria",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "2e643e03-a7b3-4e79-817b-f1ce67c69a02",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "b04f4b59-1367-4e54-86de-504c24140167",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "4d4d6ce5-a003-49c2-9d7c-30cc25464c25",
+      "producto": "Alstroemeria",
+      "color": "White"
+    },
+    {
+      "id_variedad": "2cf7f2c8-49ab-473b-9fdb-8e2b1db6afb1",
+      "producto": "Alstroemeria",
+      "color": "White"
+    },
+    {
+      "id_variedad": "dc1433cf-2b1f-4363-a1af-1b4fab5a95b4",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "44b0f873-0b17-4d33-b0e0-072e9fd2535c",
+      "producto": "Alstroemeria",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "a3a5adae-a90c-4a7e-97cb-556d3c0b392c",
+      "producto": "Alstroemeria",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "e725ae72-529e-4dba-8f9d-fb7b97b63412",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "dc28c40b-0c1d-4635-aabb-2336dd3c7d01",
+      "producto": "Alstroemeria",
+      "color": "White"
+    },
+    {
+      "id_variedad": "de8898f5-7a73-462c-b234-c19ad15257e5",
+      "producto": "Alstroemeria",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "966b22aa-8000-4fb0-bc35-5f44d4189a47",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "a9359fe5-9590-44b2-87bf-5b5bf35c27da",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "cef94a0a-3d21-4fdc-9940-48172df1ee5e",
+      "producto": "Alstroemeria",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "ae33003f-0004-4a0d-9d97-62db80e011b0",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "e8256e4e-e32d-432f-b020-1dabc0726050",
+      "producto": "Campanulas",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "be7bb38f-94c0-44cf-991d-0d0a50c5bb72",
+      "producto": "Campanulas",
+      "color": "White"
+    },
+    {
+      "id_variedad": "8bc9233a-bac9-4794-b66b-1b51b50cff20",
+      "producto": "Campanulas",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "bf54428a-9e23-4100-a79e-187972b34001",
+      "producto": "Astronova",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "7b8306db-a563-498b-96c1-09805d198ae7",
+      "producto": "Astronova",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "45e9eb1a-5077-4b39-bfc3-de9e31243e60",
+      "producto": "Astronova",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "81ad5294-14fd-479f-8527-28ee48944c48",
+      "producto": "Astronova",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "ce55a4f1-2503-413b-b45e-e109df3c6725",
+      "producto": "Delphinium Spray",
+      "color": "Blue"
+    },
+    {
+      "id_variedad": "3764ec5c-8251-469c-801d-eb7f8726cbdf",
+      "producto": "Veronica Spray",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "66dbdfbe-dbb4-46c4-b74f-7400e130522c",
+      "producto": "Veronica Spray",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "5c234c3e-b631-4dae-bd2f-2fc45865e2c0",
+      "producto": "Alstroemeria",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "589300ff-4267-4064-b533-f38dc89d5871",
+      "producto": "Alstroemeria",
+      "color": "Red"
+    },
+    {
+      "id_variedad": "2bdc4aaf-0d50-4a7c-929a-f747f91f4bc4",
+      "producto": "Alstroemeria",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "0c9f7f6e-838a-4b7c-9c66-1d6f16640a9f",
+      "producto": "Alstroemeria",
+      "color": "Lavender"
+    },
+    {
+      "id_variedad": "2e1c9e6c-a056-424d-897d-616271ef43e2",
+      "producto": "Alstroemeria",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "3d2bf542-bcff-4b33-a41c-e36a68663deb",
+      "producto": "Alstroemeria",
+      "color": "Purple"
+    },
+    {
+      "id_variedad": "907061b0-f1cf-4972-b623-2b4640ab9387",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "d1ac9537-2d1e-4e52-884f-8f22c77f7052",
+      "producto": "Alstroemeria",
+      "color": "White"
+    },
+    {
+      "id_variedad": "7d20da50-f71c-4847-96d4-37e81b618b15",
+      "producto": "Alstroemeria",
+      "color": "White"
+    },
+    {
+      "id_variedad": "a7a240e2-b427-49e1-9caf-ea42b101dcc4",
+      "producto": "Alstroemeria",
+      "color": "White"
+    },
+    {
+      "id_variedad": "4f5154c9-ffbd-4f92-8c67-8df294b70f48",
+      "producto": "Alstroemeria",
+      "color": "Yellow"
+    },
+    {
+      "id_variedad": "664b1275-ec98-4446-ac54-f86506e8d411",
+      "producto": "Alstroemeria",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "4abed9c4-f472-497b-a56e-154f8a2fc644",
+      "producto": "Alstroemeria",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "3e2a979c-b642-4ceb-abb3-59d4dcf22c96",
+      "producto": "Alstroemeria",
+      "color": "Orange"
+    },
+    {
+      "id_variedad": "fea8cbd3-7255-4eb6-913f-65289d1e3a5e",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "8f0cf780-42b1-4d5b-b7f0-1cf5f97c1d64",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "67e8ae9e-fd4b-42e7-b22f-9d91ab2827c3",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "244701e9-85a9-493f-9a89-d92cb22dc17f",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "889f40e9-50d9-4734-ba02-e0b18cd7837a",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    },
+    {
+      "id_variedad": "192e17ba-d504-4cc4-b9ff-602d72db56b9",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "d8bed753-9ad3-47a7-99d6-5178f4233ddb",
+      "producto": "Alstroemeria",
+      "color": "Pink"
+    },
+    {
+      "id_variedad": "c513d662-2ef0-4b67-afb9-85532a0b1028",
+      "producto": "Alstroemeria",
+      "color": "DarkPink"
+    }
+  ],
+  "bloques": [
+    {
+      "id_bloque": "c7a55284-255e-46d8-ba31-8919c0c80ee8",
+      "nombre": "B001"
+    },
+    {
+      "id_bloque": "7c7bcbe4-6817-4b57-b2bd-140a7833812e",
+      "nombre": "B002"
+    },
+    {
+      "id_bloque": "471fb3b2-970b-40b9-98d5-f9464de38385",
+      "nombre": "B003"
+    },
+    {
+      "id_bloque": "5fd96348-477c-4eec-8873-7c0067256e9d",
+      "nombre": "B004"
+    },
+    {
+      "id_bloque": "fbb56964-25cb-4642-9e75-50e23df3a2e2",
+      "nombre": "B005"
+    },
+    {
+      "id_bloque": "3b082715-e80b-4f9f-802f-a00424ec36dd",
+      "nombre": "B006"
+    },
+    {
+      "id_bloque": "4b45eb95-a7aa-4c12-8f31-9725fe487882",
+      "nombre": "B009"
+    },
+    {
+      "id_bloque": "d966ed65-177e-4849-86fe-fa6e6df5faa1",
+      "nombre": "B012"
+    },
+    {
+      "id_bloque": "6752d4c7-ab2b-4ac4-9f91-6e40fc191ec9",
+      "nombre": "B016"
+    },
+    {
+      "id_bloque": "270f6dfd-e494-484a-8530-74d782d44d82",
+      "nombre": "B017"
+    },
+    {
+      "id_bloque": "5bbaf579-366f-4f37-9521-44421800cfdc",
+      "nombre": "B026"
+    },
+    {
+      "id_bloque": "e7785553-61e4-4123-9e6c-92f5e3c99f4a",
+      "nombre": "B029"
+    },
+    {
+      "id_bloque": "a9921a54-3a7a-4709-91a7-a929217fab14",
+      "nombre": "B030"
+    },
+    {
+      "id_bloque": "8a877bb2-3078-4ad1-9052-d7d7a6801ce9",
+      "nombre": "B033"
+    },
+    {
+      "id_bloque": "a13bc389-f708-4b3a-91db-b568717cd2aa",
+      "nombre": "B10A"
+    },
+    {
+      "id_bloque": "508a434c-df6f-48d2-8fbc-aa97f1b0c641",
+      "nombre": "BINV"
+    },
+    {
+      "id_bloque": "8b5c7025-4c15-4d0e-b13d-5ed209a63949",
+      "nombre": "BINVP"
+    },
+    {
+      "id_bloque": "6579387a-086e-4aae-a991-59fa6c5a9818",
+      "nombre": "BPM68"
+    },
+    {
+      "id_bloque": "eb1e06b1-55a7-471b-8f68-afb7fef32761",
+      "nombre": "BPM69"
+    },
+    {
+      "id_bloque": "1422d03b-dc15-4035-8fff-d5ba2a1ec545",
+      "nombre": "BPM70"
+    },
+    {
+      "id_bloque": "a127643c-c302-46c4-8d18-8bad89d3dca2",
+      "nombre": "BPM73"
+    },
+    {
+      "id_bloque": "1bac3f62-e9bd-4983-9d3b-e31e1c2f9747",
+      "nombre": "BPM77"
+    },
+    {
+      "id_bloque": "233451fd-20e3-4425-94c9-5c72faf1cea2",
+      "nombre": "BPM78"
+    },
+    {
+      "id_bloque": "2596ed41-2b6c-43a1-8fcc-e9daf75973dc",
+      "nombre": "BPM79"
+    },
+    {
+      "id_bloque": "f950ea7e-4a33-4328-aa4c-fc40df4395ea",
+      "nombre": "BPM80"
+    },
+    {
+      "id_bloque": "d92d8f3d-fe78-4be2-b08e-22c3ab749d1e",
+      "nombre": "BPM82"
+    },
+    {
+      "id_bloque": "61b2acc1-5360-4808-8931-738c856a6883",
+      "nombre": "BPM86"
+    },
+    {
+      "id_bloque": "2c87f8da-f19f-458c-b014-1ad888ad2b8b",
+      "nombre": "BPM89"
+    }
+  ],
+  "naves": [
+    {
+      "id_nave": "b795b062-775c-4904-adc1-c11c60384d2c",
+      "nombre": "B001N005",
+      "bloque": "B001"
+    },
+    {
+      "id_nave": "d437273c-f363-49d2-a679-7a6f14fd4329",
+      "nombre": "B001N006",
+      "bloque": "B001"
+    },
+    {
+      "id_nave": "5ded634a-f59a-432f-ab00-448a9bb1f18a",
+      "nombre": "B001N008",
+      "bloque": "B001"
+    },
+    {
+      "id_nave": "d6419c02-1d00-4db5-979e-821f941ec55c",
+      "nombre": "B002N001",
+      "bloque": "B002"
+    },
+    {
+      "id_nave": "89b837f9-0e28-43f8-bb50-a5e862b1611e",
+      "nombre": "B002N007",
+      "bloque": "B002"
+    },
+    {
+      "id_nave": "23669750-deaf-4928-a1cc-eb87d5cb70ef",
+      "nombre": "B002N013",
+      "bloque": "B002"
+    },
+    {
+      "id_nave": "88d61847-a0a7-4b49-a124-88cf4a4a515c",
+      "nombre": "B003N010",
+      "bloque": "B003"
+    },
+    {
+      "id_nave": "b4a56c92-12b7-4d85-a95a-eb2734af94b9",
+      "nombre": "B003N016",
+      "bloque": "B003"
+    },
+    {
+      "id_nave": "99783034-811c-4518-a68b-8abe5d2a64ce",
+      "nombre": "B004N001",
+      "bloque": "B004"
+    },
+    {
+      "id_nave": "929ba265-0467-4326-94d9-a7589bc802b8",
+      "nombre": "B004N005",
+      "bloque": "B004"
+    },
+    {
+      "id_nave": "ef80e906-b558-481a-8a85-8e6f7e2500e4",
+      "nombre": "B004N010",
+      "bloque": "B004"
+    },
+    {
+      "id_nave": "5d967e18-4536-49fb-81b3-6432837e8a94",
+      "nombre": "B005N001",
+      "bloque": "B005"
+    },
+    {
+      "id_nave": "a3d5bef4-8ea3-4a0b-b7b1-cb357b5be0b1",
+      "nombre": "B005N010",
+      "bloque": "B005"
+    },
+    {
+      "id_nave": "4597ef8f-dd25-4773-bdbd-4d4fc0b9e313",
+      "nombre": "B006N001",
+      "bloque": "B006"
+    },
+    {
+      "id_nave": "e8762e14-c305-4205-a12c-9d0e37879220",
+      "nombre": "B006N005",
+      "bloque": "B006"
+    },
+    {
+      "id_nave": "740f47d6-94cd-46b2-8af9-fbb2775bf769",
+      "nombre": "B006N009",
+      "bloque": "B006"
+    },
+    {
+      "id_nave": "7755a31c-d925-4840-aaed-3322e155a548",
+      "nombre": "B006N025",
+      "bloque": "B006"
+    },
+    {
+      "id_nave": "90185f86-ca1a-4e99-b1c0-ac3dddb64ebc",
+      "nombre": "B009N004",
+      "bloque": "B009"
+    },
+    {
+      "id_nave": "0edffc79-8b54-4bf7-bce8-903f917321b1",
+      "nombre": "B012N006",
+      "bloque": "B012"
+    },
+    {
+      "id_nave": "418f48d1-88fd-4a81-a06c-39350895e98f",
+      "nombre": "B016N007",
+      "bloque": "B016"
+    },
+    {
+      "id_nave": "1770e7a6-8936-46da-875c-eb414eedeaac",
+      "nombre": "B017N015",
+      "bloque": "B017"
+    },
+    {
+      "id_nave": "f6b63484-c8b7-421e-a8ca-249582f529e7",
+      "nombre": "B026N001",
+      "bloque": "B026"
+    },
+    {
+      "id_nave": "38105823-9d98-413d-9215-7afc0cd53828",
+      "nombre": "B029N015",
+      "bloque": "B029"
+    },
+    {
+      "id_nave": "f9d9c7d6-834e-4827-8022-4ae0920471a8",
+      "nombre": "B030N019",
+      "bloque": "B030"
+    },
+    {
+      "id_nave": "04ba14a6-c0d6-4048-8d8d-84de321ea24e",
+      "nombre": "B033N017",
+      "bloque": "B033"
+    },
+    {
+      "id_nave": "73010bea-a3c2-480d-983e-4a092ca54355",
+      "nombre": "B10AN001",
+      "bloque": "B10A"
+    },
+    {
+      "id_nave": "c461ada0-60a1-41c0-ad2f-fc217433ba92",
+      "nombre": "B10AN002",
+      "bloque": "B10A"
+    },
+    {
+      "id_nave": "caaee7d3-8d54-4a34-9d36-69f816e18c83",
+      "nombre": "BINVN003",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "4d75d787-3e3e-4d7e-a70a-102fb9be0744",
+      "nombre": "BINVN004",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "bdf77ed4-247a-407c-9cc3-3a6a24ab1d21",
+      "nombre": "BINVN005",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "232fcdf9-25b8-451b-a264-24315336292f",
+      "nombre": "BINVN006",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "c5a977a4-ef4d-4bc4-b831-6379e98a4629",
+      "nombre": "BINVN007",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "aaaa30f4-d5a7-43e4-afba-6d5f2683b04b",
+      "nombre": "BINVN008",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "95d49473-53b9-4217-b844-c12561e318b1",
+      "nombre": "BINVN009",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "c7c3e686-a989-4c1f-872e-4333dc9a7175",
+      "nombre": "BINVN010",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "3fb0b8aa-8f29-4a6f-a9e7-7545631be19f",
+      "nombre": "BINVN011",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "113561d5-ca73-4d23-8bdb-7e3d73ba4821",
+      "nombre": "BINVN012",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "1c50be9c-742e-444b-ba32-113561f10464",
+      "nombre": "BINVN013",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "867e426d-3c78-4b54-b67d-570211f4748d",
+      "nombre": "BINVN014",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "0785e3f2-6585-4820-bbd2-510884ec6f3b",
+      "nombre": "BINVN015",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "1b728cad-e096-418d-9c3e-fdef2ad4ae3e",
+      "nombre": "BINVN016",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "a21cb0dd-ff6c-4f2c-9f5d-8c789f145a68",
+      "nombre": "BINVN017",
+      "bloque": "BINV"
+    },
+    {
+      "id_nave": "1247f8b0-babb-403c-b023-4fdd10b4e18d",
+      "nombre": "BINVPN001",
+      "bloque": "BINVP"
+    },
+    {
+      "id_nave": "7f6f9552-9842-4205-b4de-1f4abe5bc3ea",
+      "nombre": "BINVPN002",
+      "bloque": "BINVP"
+    },
+    {
+      "id_nave": "4b562b71-a214-45d3-99c7-85699be8eb64",
+      "nombre": "BINVPN003",
+      "bloque": "BINVP"
+    },
+    {
+      "id_nave": "a267464d-aa58-4c64-8091-5d8fcfc1e003",
+      "nombre": "BPM68N001",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "263f4f98-b8ef-4755-88cb-dc706dfc746f",
+      "nombre": "BPM68N005",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "45486076-c90a-414e-89c4-893bd0227713",
+      "nombre": "BPM69N001",
+      "bloque": "BPM69"
+    },
+    {
+      "id_nave": "93437dd1-5284-45bc-afb8-ea706d13c9da",
+      "nombre": "BPM69N003",
+      "bloque": "BPM69"
+    },
+    {
+      "id_nave": "b49f98d7-85d2-410c-b6b6-e426103aeaa7",
+      "nombre": "BPM69N009",
+      "bloque": "BPM69"
+    },
+    {
+      "id_nave": "8ebd5f82-40b8-43d6-97fd-1c0937b30cd9",
+      "nombre": "BPM69N017",
+      "bloque": "BPM69"
+    },
+    {
+      "id_nave": "5e06a92f-8621-46d3-b2ab-b7dc334fb71d",
+      "nombre": "BPM70N001",
+      "bloque": "BPM70"
+    },
+    {
+      "id_nave": "46444f02-a038-4035-8571-12d6fdc461ed",
+      "nombre": "BPM73N001",
+      "bloque": "BPM73"
+    },
+    {
+      "id_nave": "f1b55d3c-29a1-4379-913d-dcebbb7aa7e6",
+      "nombre": "BPM77N001",
+      "bloque": "BPM77"
+    },
+    {
+      "id_nave": "942d3a20-301c-4095-a3bd-736809e930a4",
+      "nombre": "BPM77N003",
+      "bloque": "BPM77"
+    },
+    {
+      "id_nave": "7b258930-5c49-4bf7-9b7f-d5267a151628",
+      "nombre": "BPM77N008",
+      "bloque": "BPM77"
+    },
+    {
+      "id_nave": "3955dbdb-99ce-4749-8118-f3226a40ad0b",
+      "nombre": "BPM77N009",
+      "bloque": "BPM77"
+    },
+    {
+      "id_nave": "1166c5b2-8b01-4d52-b281-8d3991ca6d43",
+      "nombre": "BPM77N012",
+      "bloque": "BPM77"
+    },
+    {
+      "id_nave": "db68605d-bde1-48b4-8214-d4d2fc99f691",
+      "nombre": "BPM78N003",
+      "bloque": "BPM78"
+    },
+    {
+      "id_nave": "b15ddd71-0cc8-40f6-a7ea-ab205080dc9e",
+      "nombre": "BPM78N004",
+      "bloque": "BPM78"
+    },
+    {
+      "id_nave": "0daa4ff5-2a68-4578-8847-19d9113dd3de",
+      "nombre": "BPM79N002",
+      "bloque": "BPM79"
+    },
+    {
+      "id_nave": "187349bd-7461-4f20-bf90-42a49f4c08ba",
+      "nombre": "BPM79N005",
+      "bloque": "BPM79"
+    },
+    {
+      "id_nave": "3991dc12-fde2-4bc2-ad7c-bd476581d2ce",
+      "nombre": "BPM79N010",
+      "bloque": "BPM79"
+    },
+    {
+      "id_nave": "bdf28d87-6a31-4106-8a6b-89bed520b346",
+      "nombre": "BPM79N015",
+      "bloque": "BPM79"
+    },
+    {
+      "id_nave": "e0b76b78-9acf-4ec6-9fdb-e160e5114e9b",
+      "nombre": "BPM79N016",
+      "bloque": "BPM79"
+    },
+    {
+      "id_nave": "e24e92f9-2839-4ead-aef8-7346d77dd40f",
+      "nombre": "BPM79N018",
+      "bloque": "BPM79"
+    },
+    {
+      "id_nave": "61724795-2e96-40e4-9a02-3aab062c6d3a",
+      "nombre": "BPM80N003",
+      "bloque": "BPM80"
+    },
+    {
+      "id_nave": "2906766c-0a06-49ee-8db2-48ca5c6fe0c9",
+      "nombre": "BPM80N007",
+      "bloque": "BPM80"
+    },
+    {
+      "id_nave": "422debc6-28b9-48ae-a888-8e67e1a12d10",
+      "nombre": "BPM80N011",
+      "bloque": "BPM80"
+    },
+    {
+      "id_nave": "a4ba765d-a47d-4110-8312-b15df8ab957f",
+      "nombre": "BPM82N014",
+      "bloque": "BPM82"
+    },
+    {
+      "id_nave": "65b94bf1-d813-43da-ab7d-780856d60817",
+      "nombre": "BPM82N015",
+      "bloque": "BPM82"
+    },
+    {
+      "id_nave": "dbdfb4b1-8a8e-46a3-a889-8057e9c743ab",
+      "nombre": "BPM86N002",
+      "bloque": "BPM86"
+    },
+    {
+      "id_nave": "74abbcf7-fcc4-45dc-b83d-9fbb1f13c14a",
+      "nombre": "BPM86N009",
+      "bloque": "BPM86"
+    },
+    {
+      "id_nave": "bafd83b6-5e42-4f0f-955c-5d4aea12c813",
+      "nombre": "BPM89N002",
+      "bloque": "BPM89"
+    }
+  ],
+  "camas": [
+    {
+      "id_cama": "3492259f-6466-4d63-b99e-59a6fcfcef97",
+      "nombre": "B001N005C001",
+      "nave": "B001N005"
+    },
+    {
+      "id_cama": "5aabcbf9-0472-49ef-ae68-e7941f1cca66",
+      "nombre": "B001N005C005",
+      "nave": "B001N005"
+    },
+    {
+      "id_cama": "effce6f1-cf39-499f-a123-9708afac20eb",
+      "nombre": "B001N006C001",
+      "nave": "B001N006"
+    },
+    {
+      "id_cama": "d52c789a-33d9-42fd-ba26-9aadf1cf24c6",
+      "nombre": "B001N008C001",
+      "nave": "B001N008"
+    },
+    {
+      "id_cama": "29bf953d-9528-46ae-af6f-1960b90ada5c",
+      "nombre": "B001N008C005",
+      "nave": "B001N008"
+    },
+    {
+      "id_cama": "2fee4fb6-76c6-40af-8c80-fccf042eb77e",
+      "nombre": "B002N001C001",
+      "nave": "B002N001"
+    },
+    {
+      "id_cama": "0a0fe11d-e85c-4482-b87f-ecc8e770eed0",
+      "nombre": "B002N007C001",
+      "nave": "B002N007"
+    },
+    {
+      "id_cama": "4a8b62b2-86b0-45e4-89df-b3210dba9cb0",
+      "nombre": "B002N013C001",
+      "nave": "B002N013"
+    },
+    {
+      "id_cama": "65628070-1b8a-4170-87c9-2fa4b0077d28",
+      "nombre": "B003N010C001",
+      "nave": "B003N010"
+    },
+    {
+      "id_cama": "afb62bc7-6a8b-4d94-8293-d1ac9c39597f",
+      "nombre": "B003N016C001",
+      "nave": "B003N016"
+    },
+    {
+      "id_cama": "fa641039-a41f-4217-921f-a6f536a7fb5b",
+      "nombre": "B004N001C001",
+      "nave": "B004N001"
+    },
+    {
+      "id_cama": "31d04fa0-c7e1-4043-ab13-b0065eaae2ba",
+      "nombre": "B004N005C001",
+      "nave": "B004N005"
+    },
+    {
+      "id_cama": "74265a21-bdd7-4f33-aa35-9acb19f6e18c",
+      "nombre": "B004N010C001",
+      "nave": "B004N010"
+    },
+    {
+      "id_cama": "452021f6-44fb-4baf-8120-d0b0527dda4a",
+      "nombre": "B005N001C001",
+      "nave": "B005N001"
+    },
+    {
+      "id_cama": "a5fe31d6-c475-48fd-a16e-e07efc541e17",
+      "nombre": "B005N010C005",
+      "nave": "B005N010"
+    },
+    {
+      "id_cama": "162d7780-8fb2-4c83-b794-8c5a8c791407",
+      "nombre": "B006N001C001",
+      "nave": "B006N001"
+    },
+    {
+      "id_cama": "84cbecad-62ba-4796-a4e5-310e0ddf5367",
+      "nombre": "B006N005C001",
+      "nave": "B006N005"
+    },
+    {
+      "id_cama": "40c5fc1d-ad20-4851-a548-1291ebba3381",
+      "nombre": "B006N009C001",
+      "nave": "B006N009"
+    },
+    {
+      "id_cama": "349257bc-c898-4a02-9f70-28ed031a0934",
+      "nombre": "B006N025C001",
+      "nave": "B006N025"
+    },
+    {
+      "id_cama": "848114b9-3d5d-465f-bb82-d31a646853d0",
+      "nombre": "B009N004C001",
+      "nave": "B009N004"
+    },
+    {
+      "id_cama": "e26562dd-d773-4d44-9a2e-506cf0076971",
+      "nombre": "B012N006C001",
+      "nave": "B012N006"
+    },
+    {
+      "id_cama": "c62138a5-d43c-4951-b212-127342e61306",
+      "nombre": "B016N007C001",
+      "nave": "B016N007"
+    },
+    {
+      "id_cama": "a4274344-8bd5-4829-8355-d04d5fe03baf",
+      "nombre": "B017N015C001",
+      "nave": "B017N015"
+    },
+    {
+      "id_cama": "f01defae-faf7-456a-a522-fbea53295e3d",
+      "nombre": "B026N001C001",
+      "nave": "B026N001"
+    },
+    {
+      "id_cama": "fa3c5bd9-17c8-4ddb-a838-65e61b1973bf",
+      "nombre": "B029N015C001",
+      "nave": "B029N015"
+    },
+    {
+      "id_cama": "1d2846a5-a0f3-4cf8-83eb-26112a884e93",
+      "nombre": "B030N019C005",
+      "nave": "B030N019"
+    },
+    {
+      "id_cama": "95dbafaf-b8a3-4ee5-bf97-3378bbdf9639",
+      "nombre": "B033N017C001",
+      "nave": "B033N017"
+    },
+    {
+      "id_cama": "c1b670f9-ae00-4c24-b363-5d18604414eb",
+      "nombre": "B10AN001C002",
+      "nave": "B10AN001"
+    },
+    {
+      "id_cama": "606382e7-1c88-436b-9d7f-a512a5269ba3",
+      "nombre": "B10AN001C004",
+      "nave": "B10AN001"
+    },
+    {
+      "id_cama": "6de95580-16ec-49f4-8a82-f8839c6c0acd",
+      "nombre": "B10AN001C006",
+      "nave": "B10AN001"
+    },
+    {
+      "id_cama": "f79bd756-bf3a-4733-a654-81169ebf9167",
+      "nombre": "B10AN002C005",
+      "nave": "B10AN002"
+    },
+    {
+      "id_cama": "38f9f8e3-1e61-424f-a03a-49c9e39ce93f",
+      "nombre": "B10AN002C002",
+      "nave": "B10AN002"
+    },
+    {
+      "id_cama": "d87025a9-cfbb-4da8-8400-e5b043910cc2",
+      "nombre": "BINVN003C004",
+      "nave": "BINVN003"
+    },
+    {
+      "id_cama": "6cae6797-4697-473c-be5d-1a948c120038",
+      "nombre": "BINVN004C002",
+      "nave": "BINVN004"
+    },
+    {
+      "id_cama": "7dfc6f9b-f755-4c51-a19d-7a5d94a36437",
+      "nombre": "BINVN004C001",
+      "nave": "BINVN004"
+    },
+    {
+      "id_cama": "8196d389-3612-45a6-b9b8-c1de9725ad21",
+      "nombre": "BINVN004C003",
+      "nave": "BINVN004"
+    },
+    {
+      "id_cama": "63ab0cc4-52f9-4afb-973b-de4e3654a390",
+      "nombre": "BINVN004C004",
+      "nave": "BINVN004"
+    },
+    {
+      "id_cama": "041ce325-038a-4533-af7b-bc6429b57849",
+      "nombre": "BINVN005C001",
+      "nave": "BINVN005"
+    },
+    {
+      "id_cama": "a4e7b180-a286-4972-915f-7d660a2dd3d1",
+      "nombre": "BINVN005C002",
+      "nave": "BINVN005"
+    },
+    {
+      "id_cama": "dea95416-5f2a-4414-90da-ec35c4d533c9",
+      "nombre": "BINVN005C004",
+      "nave": "BINVN005"
+    },
+    {
+      "id_cama": "62048410-02fd-4bb3-9f5b-d96169cb3c7d",
+      "nombre": "BINVN005C003",
+      "nave": "BINVN005"
+    },
+    {
+      "id_cama": "091f2dad-332d-40a9-bc08-cc9a667a3cef",
+      "nombre": "BINVN006C001",
+      "nave": "BINVN006"
+    },
+    {
+      "id_cama": "85b63668-c568-48a3-8099-6794dea3f01c",
+      "nombre": "BINVN006C002",
+      "nave": "BINVN006"
+    },
+    {
+      "id_cama": "1338d65a-b9e4-4c26-9047-0175b991e18e",
+      "nombre": "BINVN006C003",
+      "nave": "BINVN006"
+    },
+    {
+      "id_cama": "889a795e-b126-41e7-bfb9-cd8bca6596b5",
+      "nombre": "BINVN006C004",
+      "nave": "BINVN006"
+    },
+    {
+      "id_cama": "9a2652d0-0047-4aae-8022-a9064bb95e17",
+      "nombre": "BINVN007C001",
+      "nave": "BINVN007"
+    },
+    {
+      "id_cama": "d0ce49e8-b20f-400a-8341-ee8ba8b1348e",
+      "nombre": "BINVN007C002",
+      "nave": "BINVN007"
+    },
+    {
+      "id_cama": "4df6b165-b4d2-4ec8-936c-cdb3b402bcad",
+      "nombre": "BINVN007C003",
+      "nave": "BINVN007"
+    },
+    {
+      "id_cama": "daa66d69-075d-46fa-9f81-6564fdc0db88",
+      "nombre": "BINVN007C004",
+      "nave": "BINVN007"
+    },
+    {
+      "id_cama": "46b2842f-a7bd-406b-a2c0-3aa909d38ded",
+      "nombre": "BINVN008C004",
+      "nave": "BINVN008"
+    },
+    {
+      "id_cama": "8486d82d-403e-42b7-a5a9-880745812c39",
+      "nombre": "BINVN008C002",
+      "nave": "BINVN008"
+    },
+    {
+      "id_cama": "a9cfbed0-b25d-4a15-94bb-e972c3f7c7eb",
+      "nombre": "BINVN008C003",
+      "nave": "BINVN008"
+    },
+    {
+      "id_cama": "ec2719f9-41e0-470c-a954-a7695baf0b87",
+      "nombre": "BINVN008C001",
+      "nave": "BINVN008"
+    },
+    {
+      "id_cama": "7795ed98-3378-4c23-85d4-b211091425ee",
+      "nombre": "BINVN009C002",
+      "nave": "BINVN009"
+    },
+    {
+      "id_cama": "77ec01f6-c05e-47c2-becf-464137f09c69",
+      "nombre": "BINVN009C003",
+      "nave": "BINVN009"
+    },
+    {
+      "id_cama": "28df4d53-06d9-45f2-9194-12c05db87eab",
+      "nombre": "BINVN009C001",
+      "nave": "BINVN009"
+    },
+    {
+      "id_cama": "0a976e7f-0572-4c73-83e8-39896b44aa03",
+      "nombre": "BINVN009C004",
+      "nave": "BINVN009"
+    },
+    {
+      "id_cama": "809829ed-a053-48c9-809d-7a677d6e978b",
+      "nombre": "BINVN010C001",
+      "nave": "BINVN010"
+    },
+    {
+      "id_cama": "84d132b1-5def-4843-8df9-7f83a8d7ae39",
+      "nombre": "BINVN010C003",
+      "nave": "BINVN010"
+    },
+    {
+      "id_cama": "e7d11947-c10d-4690-8617-07c522998b8e",
+      "nombre": "BINVN010C004",
+      "nave": "BINVN010"
+    },
+    {
+      "id_cama": "52fb29c4-6f2c-4b84-b17c-c56886e721a2",
+      "nombre": "BINVN010C002",
+      "nave": "BINVN010"
+    },
+    {
+      "id_cama": "71cefda1-e7ee-4390-aeda-4d27b1a693c7",
+      "nombre": "BINVN011C001",
+      "nave": "BINVN011"
+    },
+    {
+      "id_cama": "eaa2b41c-b5c4-4bb8-a485-d6451f79767c",
+      "nombre": "BINVN011C003",
+      "nave": "BINVN011"
+    },
+    {
+      "id_cama": "9d976090-d756-4232-8304-6343835f1119",
+      "nombre": "BINVN011C002",
+      "nave": "BINVN011"
+    },
+    {
+      "id_cama": "1dadadc9-63df-4bc7-a0d6-af4f7075eefb",
+      "nombre": "BINVN011C004",
+      "nave": "BINVN011"
+    },
+    {
+      "id_cama": "7279ffd2-bba1-4ed2-9165-7639f29c00d8",
+      "nombre": "BINVN012C001",
+      "nave": "BINVN012"
+    },
+    {
+      "id_cama": "814894ea-284d-4f5b-a9d5-5a14bb800755",
+      "nombre": "BINVN012C002",
+      "nave": "BINVN012"
+    },
+    {
+      "id_cama": "2ea72c13-8394-472b-8503-2508cf2b3b53",
+      "nombre": "BINVN012C003",
+      "nave": "BINVN012"
+    },
+    {
+      "id_cama": "d5ff3aef-d908-44b6-9971-20a480402632",
+      "nombre": "BINVN012C004",
+      "nave": "BINVN012"
+    },
+    {
+      "id_cama": "b18abf57-26e0-487c-9407-5a370575cc0e",
+      "nombre": "BINVN013C002",
+      "nave": "BINVN013"
+    },
+    {
+      "id_cama": "9ba07b8f-51af-4985-8cae-e49199eeaaaa",
+      "nombre": "BINVN013C001",
+      "nave": "BINVN013"
+    },
+    {
+      "id_cama": "6bd6c878-4764-47b2-bf4c-278eb3b84a66",
+      "nombre": "BINVN013C003",
+      "nave": "BINVN013"
+    },
+    {
+      "id_cama": "706bead5-6e62-4dc9-8a5f-44e3e3e05b2a",
+      "nombre": "BINVN014C001",
+      "nave": "BINVN014"
+    },
+    {
+      "id_cama": "e47caf44-791b-40b5-945b-d05c4d83dc93",
+      "nombre": "BINVN014C002",
+      "nave": "BINVN014"
+    },
+    {
+      "id_cama": "74fc4386-71a1-4731-8fc3-4761fc563609",
+      "nombre": "BINVN014C003",
+      "nave": "BINVN014"
+    },
+    {
+      "id_cama": "59eb66db-ac80-4d42-9707-bae9809a56e6",
+      "nombre": "BINVN014C004",
+      "nave": "BINVN014"
+    },
+    {
+      "id_cama": "8f1c90f7-4fe3-46b8-8cac-50bca2505b98",
+      "nombre": "BINVN015C001",
+      "nave": "BINVN015"
+    },
+    {
+      "id_cama": "1405b9b2-bd5e-4534-a22a-2eb230cfd34f",
+      "nombre": "BINVN015C002",
+      "nave": "BINVN015"
+    },
+    {
+      "id_cama": "115159ad-cc44-4c5f-b6d2-a14877e92965",
+      "nombre": "BINVN015C003",
+      "nave": "BINVN015"
+    },
+    {
+      "id_cama": "0a9dbece-a813-4592-ad08-5e88bb1c4f06",
+      "nombre": "BINVN015C004",
+      "nave": "BINVN015"
+    },
+    {
+      "id_cama": "23f5192b-15ae-4489-b6ec-d1c556b9ebbe",
+      "nombre": "BINVN016C001",
+      "nave": "BINVN016"
+    },
+    {
+      "id_cama": "65b19a9c-7505-46fe-9ab2-a1de94065b59",
+      "nombre": "BINVN016C003",
+      "nave": "BINVN016"
+    },
+    {
+      "id_cama": "064fa880-803b-4424-9ffb-b87329d5c5ec",
+      "nombre": "BINVN016C004",
+      "nave": "BINVN016"
+    },
+    {
+      "id_cama": "44b85878-206b-4036-a0f4-cd8679936048",
+      "nombre": "BINVN017C001",
+      "nave": "BINVN017"
+    },
+    {
+      "id_cama": "b4f6e2c2-7aac-41c1-b1c9-d0694deb3f27",
+      "nombre": "BINVN017C002",
+      "nave": "BINVN017"
+    },
+    {
+      "id_cama": "3f0f6cc1-6b3f-48be-bb45-43fed9e824bd",
+      "nombre": "BINVN017C003",
+      "nave": "BINVN017"
+    },
+    {
+      "id_cama": "3a1c08f6-982e-4da4-bf71-7a506cfdf0d4",
+      "nombre": "BINVN017C004",
+      "nave": "BINVN017"
+    },
+    {
+      "id_cama": "f9861c9c-85e3-40b9-9a38-bb9de7ccbd74",
+      "nombre": "BINVPN001C001",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "b42bc21b-8e44-4260-aa01-92a0ada292dc",
+      "nombre": "BINVPN001C003",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "09db5fed-c490-4b29-a4ef-75fd227ec8f5",
+      "nombre": "BINVPN001C005",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "40b5f98a-9672-4dd4-8f87-a19c0eb7d08b",
+      "nombre": "BINVPN001C007",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "af9f2a4f-f60b-479f-928e-a9e0b0353bd9",
+      "nombre": "BINVPN001C009",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "504bfcae-b433-48e5-b6be-74981ad049ff",
+      "nombre": "BINVPN001C004",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "cdacb182-bf49-4d38-841b-1eafdc6f516a",
+      "nombre": "BINVPN001C008",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "d684d73f-73cd-46e4-a68a-41335fcc6bcd",
+      "nombre": "BINVPN001C010",
+      "nave": "BINVPN001"
+    },
+    {
+      "id_cama": "56802a0d-4b4b-4e4b-9092-c7e951630dd5",
+      "nombre": "BINVPN002C011",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "fb176a3c-efea-4c29-99ba-19c9db818411",
+      "nombre": "BINVPN002C013",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "99399ebd-d279-417f-9fb8-099cb94f130f",
+      "nombre": "BINVPN002C015",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "15145934-f125-43d9-8522-98233a94e007",
+      "nombre": "BINVPN002C017",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "9721e022-4df3-4544-9bfd-9a8237576445",
+      "nombre": "BINVPN002C019",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "0245c772-430f-46ca-9217-1145b2377040",
+      "nombre": "BINVPN002C012",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "a6fa811f-0d91-47c7-b821-8de0495667d2",
+      "nombre": "BINVPN002C014",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "d9ee1d71-cf04-4524-b47a-f3a69cd921ca",
+      "nombre": "BINVPN002C016",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "08c8d04c-c532-435e-911c-d3ae84288afb",
+      "nombre": "BINVPN002C018",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "49fb9a6a-c269-48a8-b2dc-db9c533cb3d1",
+      "nombre": "BINVPN002C020",
+      "nave": "BINVPN002"
+    },
+    {
+      "id_cama": "cb4c2aed-7a53-4c21-942d-cf78a042dbab",
+      "nombre": "BINVPN003C021",
+      "nave": "BINVPN003"
+    },
+    {
+      "id_cama": "572c6a39-9bfd-4e4c-a6d3-aea31ec21c5f",
+      "nombre": "BPM68N001C001",
+      "nave": "BPM68N001"
+    },
+    {
+      "id_cama": "15c66199-0a6c-433d-ac03-ab2dedcc193b",
+      "nombre": "BPM68N001C009",
+      "nave": "BPM68N001"
+    },
+    {
+      "id_cama": "33f8ccbc-0763-4512-b3fd-97d28cfdb66b",
+      "nombre": "BPM68N005C001",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "8be3e93b-2040-446e-870a-afe14efe4ab9",
+      "nombre": "BPM69N001C007",
+      "nave": "BPM69N001"
+    },
+    {
+      "id_cama": "2ce71a2b-e0a6-4b77-8ab2-a1b6ee2b714d",
+      "nombre": "BPM69N003C001",
+      "nave": "BPM69N003"
+    },
+    {
+      "id_cama": "f9afc5e1-943f-4649-bf5e-502e88c40d92",
+      "nombre": "BPM69N009C007",
+      "nave": "BPM69N009"
+    },
+    {
+      "id_cama": "4952d758-d833-4829-9162-90e7facb7cde",
+      "nombre": "BPM69N017C007",
+      "nave": "BPM69N017"
+    },
+    {
+      "id_cama": "5431ca3b-387b-4ba8-85b6-77aa02eecef8",
+      "nombre": "BPM70N001C001",
+      "nave": "BPM70N001"
+    },
+    {
+      "id_cama": "bd0bbc4b-c156-4baa-9702-5971e999cc5b",
+      "nombre": "BPM73N001C001",
+      "nave": "BPM73N001"
+    },
+    {
+      "id_cama": "1f550939-01de-48b0-9d53-c5a9c14ad3c6",
+      "nombre": "BPM73N001C002",
+      "nave": "BPM73N001"
+    },
+    {
+      "id_cama": "ba275e33-addf-4658-8df9-120e7d4e39e4",
+      "nombre": "BPM77N001C003",
+      "nave": "BPM77N001"
+    },
+    {
+      "id_cama": "8331105b-3389-49b7-ab4e-6925c2b314ac",
+      "nombre": "BPM77N003C001",
+      "nave": "BPM77N003"
+    },
+    {
+      "id_cama": "1c18ef6f-0829-4855-be8f-4a7eabd69f60",
+      "nombre": "BPM77N008C003",
+      "nave": "BPM77N008"
+    },
+    {
+      "id_cama": "4a6fe737-84fc-4722-8fdb-713a1264fa22",
+      "nombre": "BPM77N009C001",
+      "nave": "BPM77N009"
+    },
+    {
+      "id_cama": "e6e64838-b0d6-44cc-83ce-330210ef3808",
+      "nombre": "BPM77N009C009",
+      "nave": "BPM77N009"
+    },
+    {
+      "id_cama": "4ddc5a34-ec0d-467a-85ca-f4acf6fe715d",
+      "nombre": "BPM77N012C001",
+      "nave": "BPM77N012"
+    },
+    {
+      "id_cama": "30a1ff57-c523-4cd3-af7a-79b96bb6bae4",
+      "nombre": "BPM78N003C001",
+      "nave": "BPM78N003"
+    },
+    {
+      "id_cama": "3bcdd05f-1031-429d-8c02-d7f9e06ec8b0",
+      "nombre": "BPM78N004C005",
+      "nave": "BPM78N004"
+    },
+    {
+      "id_cama": "bd66844f-1034-4c9b-a82a-10ba8afce372",
+      "nombre": "BPM79N002C005",
+      "nave": "BPM79N002"
+    },
+    {
+      "id_cama": "d15f8be5-606c-4506-b43a-d3e7c8334b5a",
+      "nombre": "BPM79N005C001",
+      "nave": "BPM79N005"
+    },
+    {
+      "id_cama": "6d66a700-5908-485d-b171-c8e7fb446a2c",
+      "nombre": "BPM79N010C007",
+      "nave": "BPM79N010"
+    },
+    {
+      "id_cama": "1015624e-2ce3-4f65-8daf-bf0c64194b5f",
+      "nombre": "BPM79N015C007",
+      "nave": "BPM79N015"
+    },
+    {
+      "id_cama": "2e090b5d-2eaa-458f-aafd-008484e12d34",
+      "nombre": "BPM79N016C009",
+      "nave": "BPM79N016"
+    },
+    {
+      "id_cama": "1bead9ec-2d2e-434f-aead-c1c1226fa124",
+      "nombre": "BPM79N018C001",
+      "nave": "BPM79N018"
+    },
+    {
+      "id_cama": "e7c58589-39fa-4bd5-845c-4db0ab37cd09",
+      "nombre": "BPM80N003C001",
+      "nave": "BPM80N003"
+    },
+    {
+      "id_cama": "53332f00-a78d-45c5-977d-98cad2b1e09b",
+      "nombre": "BPM80N007C009",
+      "nave": "BPM80N007"
+    },
+    {
+      "id_cama": "1f9739e3-da56-48a4-9fe5-d5116b5b0492",
+      "nombre": "BPM80N011C003",
+      "nave": "BPM80N011"
+    },
+    {
+      "id_cama": "04597bb7-7f26-42e0-a831-c7fbadf4f76e",
+      "nombre": "BPM82N014C006",
+      "nave": "BPM82N014"
+    },
+    {
+      "id_cama": "ca8f6f29-667f-4788-9775-ea8da3d6efb3",
+      "nombre": "BPM82N015C005",
+      "nave": "BPM82N015"
+    },
+    {
+      "id_cama": "50623be6-aa1b-4447-bc4c-4112ca25ea41",
+      "nombre": "BPM86N002C003",
+      "nave": "BPM86N002"
+    },
+    {
+      "id_cama": "209d3919-24b0-4e02-a28d-ec6bdd5fbc33",
+      "nombre": "BPM86N009C005",
+      "nave": "BPM86N009"
+    },
+    {
+      "id_cama": "48201bb1-14ba-4592-a21e-5adc0e6e6cf4",
+      "nombre": "BPM89N002C005",
+      "nave": "BPM89N002"
+    }
+  ]
+}

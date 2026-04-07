@@ -1,0 +1,11 @@
+2026-04-07T12:51:16.105Z - /planos error:
+[object Object]
+
+2026-04-07T13:04:16.150Z - /planos error:
+{
+  "code": "23514",
+  "details": "Failing row contains (cd6499b8-25e6-4517-919b-a4e890d17ec6, fbf672f7-39c1-4a2c-af4b-85ea04e5c41b, ae3b655f-5a7a-43bb-9522-a58e33ab080e, 2025-06-20, 462, 462, Vegetativo, dbe395e8-6d27-4285-80d2-eacf0f6404e5, 2026-04-07 13:04:16.085418, 1, null, null, null, null).",
+  "hint": null,
+  "message": "new row for relation \"siembras\" violates check constraint \"siembras_estado_check\""
+}
+
