@@ -28,22 +28,25 @@ export function useSiembras() {
             id_cama,
             naves (
               id_nave,
+              numero_nave,
               bloques (nombre)
             ),
             numero_cama,
-            nombre
+            nombre,
+            area_m2
           ),
           variedades (
             id_variedad,
             colores (
               id_color,
+              nombre,
               productos (nombre)
             ),
             nombre
           )
         `)
         .order('fecha_siembra', { ascending: false })
-        .limit(50)
+        .limit(1000)
       if (error) throw error
       setSiembras(data || [])
     } catch (err: any) {
@@ -76,9 +79,6 @@ export function useSiembras() {
             case 'color': obj.Color = String(v ?? '').trim(); break
             case 'variedad': obj.Variedad = String(v ?? '').trim(); break
             case 'fechasiembra':
-            case 'fechadesiembra':
-            case 'fechadesiembra':
-            case 'fechade siembra':
             case 'fechadesiembra': obj.FechaSiembra = String(v ?? '').trim(); break
             case 'plantas':
             case 'plantassembradas':

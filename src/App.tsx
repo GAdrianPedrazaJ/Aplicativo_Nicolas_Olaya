@@ -18,8 +18,6 @@ export default function App() {
   <NavBar selected={view === 'dashboard' ? 'dashboard' : view === 'planos' ? 'planos' : view === 'historicos' ? 'historicos' : 'powerbi'} onSelect={(o) => setView(o as View)} />
 
       <main className="p-8 max-w-6xl mx-auto">
-        <h1 className="text-2xl font-semibold mb-6">Inicio</h1>
-
         <div className="space-y-6">
           {view === 'dashboard' && <Dashboard />}
 

@@ -174,12 +174,13 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
               }
               const combos = Array.from(map.values()).sort((a, b) => b.count - a.count)
 
-              // build product, color and variety option lists
+              // build product, color and variety option lists (with counts)
               const products = Array.from(new Map(combos.map(c => [norm(c.producto), c.producto])).values())
-              const colors = combos.map(c => ({ producto: c.producto, color: c.color, key: `${norm(c.producto)}||${norm(c.color)}` }))
-                .reduce((acc: Map<string, { producto: string; color: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, { producto: cur.producto, color: cur.color }); return acc }, new Map()).values()
-              const varieties = combos.map(c => ({ producto: c.producto, color: c.color, variedad: c.variedad, key: `${norm(c.producto)}||${norm(c.color)}||${norm(c.variedad)}` }))
-                .reduce((acc: Map<string, { producto: string; color: string; variedad: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, cur); return acc }, new Map()).values()
+              const productCounts = combos.reduce((acc: Map<string, number>, c) => { const k = norm(c.producto); acc.set(k, (acc.get(k) || 0) + c.count); return acc }, new Map())
+              const colors = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, key: `${norm(c.producto)}||${norm(c.color)}` }))
+                .reduce((acc: Map<string, { producto: string; color: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, { producto: cur.producto, color: cur.color }); return acc }, new Map()).values())
+              const varieties = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, variedad: c.variedad, key: `${norm(c.producto)}||${norm(c.color)}||${norm(c.variedad)}` }))
+                .reduce((acc: Map<string, { producto: string; color: string; variedad: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, cur); return acc }, new Map()).values())
 
               // component state
               const [selectedProducts, setSelectedProducts] = React.useState<Set<string>>(new Set())
@@ -231,23 +232,30 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div>
                       <div className="font-medium mb-2">Productos</div>
-                      <div className="max-h-40 overflow-auto border rounded p-2">
-                        {productList.map((p: string) => (
-                          <label key={p} className="flex items-center gap-2 mb-1">
-                            <input type="checkbox" checked={selectedProducts.has(norm(p))} onChange={() => toggleSet(selectedProducts, setSelectedProducts, norm(p))} />
-                            <div className="text-sm">{p || '(sin producto)'}</div>
-                          </label>
-                        ))}
+                      <div className="h-[40vh] overflow-auto border rounded p-2">
+                        {productList.map((p: string) => {
+                          const keyp = norm(p)
+                          const cnt = productCounts.get(keyp) || 0
+                          return (
+                            <label key={p} className="flex items-center justify-between gap-2 mb-1">
+                              <div className="flex items-center gap-2">
+                                <input type="checkbox" checked={selectedProducts.has(keyp)} onChange={() => toggleSet(selectedProducts, setSelectedProducts, keyp)} />
+                                <div className="text-sm">{p || '(sin producto)'}</div>
+                              </div>
+                              <div className="text-xs text-gray-400">{cnt}</div>
+                            </label>
+                          )
+                        })}
                         <div className="mt-2 flex gap-2">
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedProducts(new Set(productList.map((p: string) => norm(p))))}>Seleccionar todo</button>
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedProducts(new Set())}>Limpiar</button>
+                          <button className="px-2 py-1 text-sm bg-white border rounded text-green-700" onClick={() => setSelectedProducts(new Set(productList.map((p: string) => norm(p))))}>Seleccionar todo</button>
+                          <button className="px-2 py-1 text-sm bg-white border rounded" onClick={() => setSelectedProducts(new Set())}>Limpiar</button>
                         </div>
                       </div>
                     </div>
 
                     <div>
                       <div className="font-medium mb-2">Colores (por producto)</div>
-                      <div className="max-h-40 overflow-auto border rounded p-2">
+                      <div className="h-[40vh] overflow-auto border rounded p-2">
                         {colorList.map((c: any) => {
                           const key = `${norm(c.producto)}||${norm(c.color)}`
                           return (
@@ -269,7 +277,7 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
 
                     <div>
                       <div className="font-medium mb-2">Variedades (por color & producto)</div>
-                      <div className="max-h-40 overflow-auto border rounded p-2">
+                      <div className="h-[40vh] overflow-auto border rounded p-2">
                         {varietyList.map((v: any) => {
                           const key = `${norm(v.producto)}||${norm(v.color)}||${norm(v.variedad)}`
                           return (
@@ -308,7 +316,7 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                         })
                         onMapped?.(fullMapped)
                       }}
-                      className="px-4 py-2 bg-gray-200 text-gray-800 rounded"
+                      className="px-4 py-2 bg-white border text-green-700 rounded"
                     >Limpiar filtros</button>
 
                     <button
@@ -324,7 +332,7 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                         })
                         onMapped?.(mapped)
                       }}
-                      className="px-4 py-2 bg-blue-600 text-white rounded"
+                      className="px-4 py-2 bg-green-600 text-white rounded"
                     >Aplicar selección</button>
                   </div>
                 </div>
