@@ -3,11 +3,26 @@ const express = require('express')
 const cors = require('cors')
 const { createClient } = require('@supabase/supabase-js')
 const { z } = require('zod')
+const path = require('path')
+const fs = require('fs')
 
 const app = express()
 app.use(cors())
 // allow larger payloads for big spreadsheets
 app.use(express.json({ limit: '50mb' }))
+
+// If a built frontend exists at ../dist, serve it as static assets (SPA fallback)
+try {
+  const distPath = path.join(__dirname, '..', 'dist')
+  if (fs.existsSync(distPath)) {
+    app.use(express.static(distPath))
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'))
+    })
+  }
+} catch (e) {
+  console.error('Error configuring static frontend serve:', e)
+}
 
 const PORT = process.env.PORT || 4000
 const SUPABASE_URL = process.env.SUPABASE_URL
