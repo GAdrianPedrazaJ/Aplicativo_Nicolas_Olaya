@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev:server": "nodemon server/index.js",
+    "dev:client": "vite",
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
     "build": "vite build",
     "preview": "vite preview",
     "start": "node server/index.js"
@@ -17,6 +19,10 @@
     "uuid": "^13.0.0",
     "xlsx": "^0.18.5",
     "zod": "^3.0.0",
+    "express": "^4.18.2",
+    "pg": "^8.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "zustand": "^4.0.0"
   },
   "devDependencies": {
@@ -27,6 +33,8 @@
     "postcss": "^8.0.0",
     "tailwindcss": "^3.0.0",
     "typescript": "^5.0.0",
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "nodemon": "^2.0.0",
+    "concurrently": "^8.0.0"
   }
 }

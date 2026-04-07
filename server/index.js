@@ -11,19 +11,6 @@ app.use(cors())
 // allow larger payloads for big spreadsheets
 app.use(express.json({ limit: '50mb' }))
 
-// If a built frontend exists at ../dist, serve it as static assets (SPA fallback)
-try {
-  const distPath = path.join(__dirname, '..', 'dist')
-  if (fs.existsSync(distPath)) {
-    app.use(express.static(distPath))
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'))
-    })
-  }
-} catch (e) {
-  console.error('Error configuring static frontend serve:', e)
-}
-
 const PORT = process.env.PORT || 4000
 const SUPABASE_URL = process.env.SUPABASE_URL
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
