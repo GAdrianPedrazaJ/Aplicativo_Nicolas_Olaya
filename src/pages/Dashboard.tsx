@@ -30,37 +30,17 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold">Panel de Control</h2>
-          </div>
-          <nav className="flex gap-2">
-            <button className="px-3 py-2 rounded border text-sm">Planes de Siembra</button>
-            <button className="px-3 py-2 rounded border text-sm">Históricos</button>
-            <button className="px-3 py-2 rounded bg-indigo-600 text-white text-sm">Power BI</button>
-          </nav>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold">RDC Tandil SAS — Control de Siembras</h2>
+          <p className="text-sm text-gray-500">Resumen ejecutivo</p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-          <div className="p-4 bg-white border rounded-lg">
-            <div className="text-xs text-gray-500 uppercase font-semibold">Siembras Activas</div>
-            <div className="text-2xl font-bold">{rows.length}</div>
-          </div>
-          <div className="p-4 bg-white border rounded-lg">
-            <div className="text-xs text-gray-500 uppercase font-semibold">Página</div>
-            <div className="text-2xl font-bold">{pageIndex + 1} / {pageCount}</div>
-          </div>
-          <div className="p-4 bg-white border rounded-lg">
-            <div className="text-xs text-gray-500 uppercase font-semibold">Estado</div>
-            <div className="text-xl font-semibold text-green-700">{loading ? 'Cargando...' : 'Listo'}</div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-6">
-          <div className="card border rounded-lg p-6 bg-white">
-            <h3 className="text-lg font-medium mb-4">Subir Nuevo Plan</h3>
-            {/* Show uploader only to roles 'uploader' or 'admin' (useAuth is a stub for now) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-9 space-y-6">
+          <div className="p-6 bg-white rounded-lg shadow">
+            <h3 className="text-lg font-semibold mb-4">Subir Nuevo Plan</h3>
             {(() => {
               const auth = useAuth()
               if (!auth.isLoggedIn) return <div className="text-sm text-gray-600">Inicia sesión para subir archivos.</div>
@@ -71,66 +51,96 @@ export default function Dashboard() {
             })()}
           </div>
 
-          <div className="card border rounded-lg p-6 bg-white">
-            <h3 className="text-lg font-medium mb-4">Estado de Carga</h3>
-            <div className="flex flex-col gap-3">
-              <div className="flex justify-between text-sm text-gray-600">
-                <span>{uploadStore.message ?? 'Validando y subiendo datos...'}</span>
-                <span className="font-semibold">{uploadStore.status === 'uploading' ? '...' : (uploadStore.status === 'error' ? 'Error' : 'OK')}</span>
-              </div>
-              <div className="w-full bg-gray-100 rounded h-3 overflow-hidden">
-                <div className="h-3 bg-gradient-to-r from-blue-500 to-indigo-600" style={{ width: `${uploadStore.progress}%` }} />
-              </div>
-              <div className="text-xs text-gray-500">{uploadStore.progress}%</div>
+          <div className="p-6 bg-white rounded-lg shadow">
+            <h3 className="text-lg font-semibold mb-4">Siembras (vista previa)</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="text-xs text-gray-500 uppercase">
+                  <tr>
+                    <th className="p-3 text-left">Sede</th>
+                    <th className="p-3 text-left">Bloque</th>
+                    <th className="p-3 text-left">Lado</th>
+                    <th className="p-3 text-left">Nave</th>
+                    <th className="p-3 text-left">Cama</th>
+                    <th className="p-3 text-left">Área (m²)</th>
+                    <th className="p-3 text-left">Tipo de siembra</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-700">
+                  { /* Reuse rows for preview - show a sample */ }
+                  {rows.slice(0, 10).map((r: any, idx: number) => (
+                    <tr key={idx} className="border-t hover:bg-gray-50">
+                      <td className="p-3">{r.sede || 'TN'}</td>
+                      <td className="p-3">{r.bloque}</td>
+                      <td className="p-3">{r.lado}</td>
+                      <td className="p-3">{r.nave}</td>
+                      <td className="p-3">{r.cama}</td>
+                      <td className="p-3">{r.area}</td>
+                      <td className="p-3">{r.estado}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 bg-white border rounded-lg p-6">
-          <h3 className="text-lg font-medium mb-4">Siembras Registradas</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="text-xs text-gray-500 uppercase">
-                <tr>
-                  <th className="p-2 text-left">Bloque</th>
-                  <th className="p-2 text-left">Nave</th>
-                  <th className="p-2 text-left">Cama</th>
-                  <th className="p-2 text-left">Área (m²)</th>
-                  <th className="p-2 text-left">Estado</th>
-                  <th className="p-2 text-left">Producto</th>
-                  <th className="p-2 text-left">Color</th>
-                  <th className="p-2 text-left">Variedad</th>
-                  <th className="p-2 text-left">Fecha</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-700">
-                {pageRows.map((r: any) => (
-                  <tr key={r.id} className="border-t">
-                    <td className="p-2">{r.bloque}</td>
-                    <td className="p-2">{r.nave}</td>
-                    <td className="p-2">{r.cama}</td>
-                    <td className="p-2">{r.area}</td>
-                    <td className="p-2">{r.estado}</td>
-                    <td className="p-2">{r.producto}</td>
-                    <td className="p-2">{r.color}</td>
-                    <td className="p-2">{r.variedad}</td>
-                    <td className="p-2">{r.fecha}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="flex items-center justify-between mt-4">
-            <div className="text-sm text-gray-500">Página {pageIndex + 1} de {pageCount}</div>
-            <div className="flex gap-2">
-              <button onClick={() => setPageIndex(Math.max(0, pageIndex - 1))} className="px-3 py-1 border rounded">‹</button>
-              <button onClick={() => setPageIndex(Math.min(pageCount - 1, pageIndex + 1))} className="px-3 py-1 border rounded">›</button>
-              <select value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPageIndex(0) }} className="ml-2 border rounded p-1">
-                <option value={10}>10</option>
-                <option value={25}>25</option>
-                <option value={50}>50</option>
-              </select>
+        <aside className="lg:col-span-3 space-y-6">
+          <div className="p-6 bg-white rounded-lg shadow">
+            <h4 className="text-lg font-medium mb-2">Estado de Carga</h4>
+            <div className="text-sm text-gray-600 mb-2">{uploadStore.message ?? 'Validando y subiendo datos...'}</div>
+            <div className="w-full bg-gray-100 rounded h-3 overflow-hidden">
+              <div className="h-3 bg-gradient-to-r from-blue-500 to-indigo-600" style={{ width: `${uploadStore.progress}%` }} />
             </div>
+            <div className="text-xs text-gray-500 mt-2">{uploadStore.progress}% • {uploadStore.status === 'uploading' ? 'Subiendo...' : (uploadStore.status === 'error' ? 'Error' : 'OK')}</div>
+          </div>
+        </aside>
+      </div>
+
+      <div className="p-6 bg-white rounded-lg shadow">
+        <h3 className="text-lg font-semibold mb-4">Siembras Registradas</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-xs text-gray-500 uppercase">
+              <tr>
+                <th className="p-3 text-left">Bloque</th>
+                <th className="p-3 text-left">Nave</th>
+                <th className="p-3 text-left">Cama</th>
+                <th className="p-3 text-left">Área (m²)</th>
+                <th className="p-3 text-left">Estado</th>
+                <th className="p-3 text-left">Producto</th>
+                <th className="p-3 text-left">Color</th>
+                <th className="p-3 text-left">Variedad</th>
+                <th className="p-3 text-left">Fecha</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700">
+              {pageRows.map((r: any) => (
+                <tr key={r.id} className="border-t hover:bg-gray-50">
+                  <td className="p-3">{r.bloque}</td>
+                  <td className="p-3">{r.nave}</td>
+                  <td className="p-3">{r.cama}</td>
+                  <td className="p-3">{r.area}</td>
+                  <td className="p-3">{r.estado}</td>
+                  <td className="p-3">{r.producto}</td>
+                  <td className="p-3">{r.color}</td>
+                  <td className="p-3">{r.variedad}</td>
+                  <td className="p-3">{r.fecha}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex items-center justify-between mt-4">
+          <div className="text-sm text-gray-500">Página {pageIndex + 1} de {pageCount}</div>
+          <div className="flex gap-2">
+            <button onClick={() => setPageIndex(Math.max(0, pageIndex - 1))} className="px-3 py-1 border rounded">‹</button>
+            <button onClick={() => setPageIndex(Math.min(pageCount - 1, pageIndex + 1))} className="px-3 py-1 border rounded">›</button>
+            <select value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPageIndex(0) }} className="ml-2 border rounded p-1">
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+            </select>
           </div>
         </div>
       </div>

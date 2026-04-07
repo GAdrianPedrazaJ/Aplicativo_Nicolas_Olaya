@@ -257,7 +257,7 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       )}
 
       <div className="mt-2">
-        <DataPreviewTable data={(mappedData && mappedData.length > 0) ? mappedData : data} onMapped={(m) => setMappedData(m)} />
+        <DataPreviewTable data={data} onMapped={(m) => setMappedData(m)} />
         {mappedData && mappedData.length > 0 && (
           <div className="mt-2 space-y-2">
             <div className="text-sm text-gray-700">Se aplicó mapeo: <span className="font-medium">{mappedData.length}</span> filas preparadas para subir.</div>
