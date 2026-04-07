@@ -112,6 +112,14 @@ app.post('/planos', async (req, res) => {
   const rows = Array.isArray(req.body) ? req.body : req.body.rows
   if (!rows || !Array.isArray(rows)) return res.status(400).json({ error: 'Se requiere un arreglo de filas' })
 
+  // Dev logging: incoming payload overview
+  try {
+    console.log(`[planos] incoming rows: ${rows.length}`)
+    if (rows.length > 0) console.debug('[planos] sample rows:', JSON.stringify(rows.slice(0, Math.min(5, rows.length))))
+  } catch (e) {
+    // ignore stringify errors
+  }
+
   const errors = []
   const valid = []
 
@@ -178,6 +186,7 @@ app.post('/planos', async (req, res) => {
       return { bloque, nave }
     })
     for (const it of uniqueNaves) {
+      console.debug('[planos] ensuring nave for', it)
       const bloque_id = bloqueMap.get(it.bloque)
       const parsedNaveNumMatch = String(it.nave ?? '').match(/(\d+)/)
       const parsedNaveNum = parsedNaveNumMatch ? Number(parsedNaveNumMatch[1]) : null
@@ -187,12 +196,15 @@ app.post('/planos', async (req, res) => {
         naveMap.set(`${it.bloque}||${it.nave}`, found.data[0].id_nave)
         continue
       }
-      const insResp = await supabase.from('naves').insert([{ numero_nave: parsedNaveNum, nombre: it.nave, id_bloque: bloque_id }]).select('id_nave')
+      const payload = { numero_nave: parsedNaveNum, nombre: it.nave, id_bloque: bloque_id }
+      console.debug('[planos] inserting nave payload:', payload)
+      const insResp = await supabase.from('naves').insert([payload]).select('id_nave')
       const ins = (insResp && insResp.data) || []
       if (ins.length) {
         naveMap.set(`${it.bloque}||${it.nave}`, ins[0].id_nave)
       } else {
         errors.push({ message: 'No se pudo insertar nave', entry: it, detail: insResp && insResp.error })
+        console.error('[planos] failed insert nave:', insResp && insResp.error)
       }
     }
 
@@ -202,6 +214,7 @@ app.post('/planos', async (req, res) => {
       return { bloque, nave, cama }
     })
     for (const it of uniqueCamas) {
+      console.debug('[planos] ensuring cama for', it)
       const naveKey = `${it.bloque}||${it.nave}`
       const id_nave = naveMap.get(naveKey)
       const parsedCamaNumMatch = String(it.cama ?? '').match(/(\d+)/)
@@ -214,12 +227,14 @@ app.post('/planos', async (req, res) => {
       }
       const areaVal = (it.AreaM2 !== undefined && it.AreaM2 !== null) ? Number(it.AreaM2) : 0
       const payload = { numero_cama: parsedCamaNum, nombre: it.cama, id_nave, area_m2: isNaN(areaVal) ? 0 : areaVal }
+      console.debug('[planos] inserting cama payload:', payload)
       const insResp = await supabase.from('camas').insert([payload]).select('id_cama')
       const ins = (insResp && insResp.data) || []
       if (ins.length) {
         camaMap.set(`${it.bloque}||${it.nave}||${it.cama}`, ins[0].id_cama)
       } else {
         errors.push({ message: 'No se pudo insertar cama', entry: it, detail: insResp && insResp.error })
+        console.error('[planos] failed insert cama:', insResp && insResp.error)
       }
     }
 
@@ -231,6 +246,7 @@ app.post('/planos', async (req, res) => {
       exist.forEach((p) => productoMap.set(p.nombre, p.id_producto))
       const missing = productos.filter((p) => !productoMap.has(p)).map((nombre) => ({ nombre }))
       if (missing.length) {
+        console.debug('[planos] inserting productos:', missing)
         const insResp = await supabase.from('productos').insert(missing).select('id_producto,nombre')
         const ins = (insResp && insResp.data) || []
         ins.forEach((p) => productoMap.set(p.nombre, p.id_producto))
@@ -243,6 +259,7 @@ app.post('/planos', async (req, res) => {
       return { producto, color }
     })
     for (const it of colores) {
+      console.debug('[planos] ensuring color for', it)
       const id_producto = productoMap.get(it.producto)
       const foundResp = await supabase.from('colores').select('id_color').match({ nombre: it.color, id_producto }).limit(1)
       const found = (foundResp && foundResp.data) || []
@@ -250,10 +267,11 @@ app.post('/planos', async (req, res) => {
         colorMap.set(`${it.producto}||${it.color}`, found[0].id_color)
         continue
       }
+      console.debug('[planos] inserting color payload:', { nombre: it.color, id_producto })
       const insResp = await supabase.from('colores').insert([{ nombre: it.color, id_producto }]).select('id_color')
       const ins = (insResp && insResp.data) || []
       if (ins.length) colorMap.set(`${it.producto}||${it.color}`, ins[0].id_color)
-      else errors.push({ message: 'No se pudo insertar color', entry: it, detail: insResp && insResp.error })
+      else { errors.push({ message: 'No se pudo insertar color', entry: it, detail: insResp && insResp.error }); console.error('[planos] failed insert color:', insResp && insResp.error) }
     }
 
     // variedades
@@ -262,6 +280,7 @@ app.post('/planos', async (req, res) => {
       return { producto, color, variedad }
     })
     for (const it of variedades) {
+      console.debug('[planos] ensuring variedad for', it)
       const id_producto = productoMap.get(it.producto)
       const id_color = colorMap.get(`${it.producto}||${it.color}`)
       const foundResp = await supabase.from('variedades').select('id_variedad').match({ nombre: it.variedad, id_color }).limit(1)
@@ -270,10 +289,11 @@ app.post('/planos', async (req, res) => {
         variedadMap.set(`${it.producto}||${it.color}||${it.variedad}`, found[0].id_variedad)
         continue
       }
+      console.debug('[planos] inserting variedad payload:', { nombre: it.variedad, id_color })
       const insResp = await supabase.from('variedades').insert([{ nombre: it.variedad, id_color }]).select('id_variedad')
       const ins = (insResp && insResp.data) || []
       if (ins.length) variedadMap.set(`${it.producto}||${it.color}||${it.variedad}`, ins[0].id_variedad)
-      else errors.push({ message: 'No se pudo insertar variedad', entry: it, detail: insResp && insResp.error })
+      else { errors.push({ message: 'No se pudo insertar variedad', entry: it, detail: insResp && insResp.error }); console.error('[planos] failed insert variedad:', insResp && insResp.error) }
     }
 
     // 5. prepare siembras payloads
@@ -292,16 +312,23 @@ app.post('/planos', async (req, res) => {
 
     // insert siembras
     if (siembras.length) {
+      console.debug('[planos] inserting siembras count:', siembras.length)
       const { data: insSiembras, error: insErr } = await supabase.from('siembras').insert(siembras).select('id_siembra,id_cama,fecha_siembra')
-      if (insErr) throw insErr
+      if (insErr) { console.error('[planos] failed insert siembras:', insErr); throw insErr }
       // create ciclos for inserted siembras
       const ciclos = (insSiembras || []).map((s) => ({ id_siembra: s.id_siembra, numero_ciclo: 1, fecha_inicio: s.fecha_siembra, estado: 'ACTIVO' }))
       if (ciclos.length) {
+        console.debug('[planos] inserting ciclos count:', ciclos.length)
         const { error: cErr } = await supabase.from('ciclos_produccion').insert(ciclos)
-        if (cErr) throw cErr
+        if (cErr) { console.error('[planos] failed insert ciclos:', cErr); throw cErr }
       }
     }
 
+    // Dev logging: outcome
+    try {
+      console.log(`[planos] inserted: ${siembras.length}, errors: ${errors.length}, bloquesKnown: ${bloqueMap.size}`)
+      if (errors && errors.length) console.debug('[planos] errors detail:', JSON.stringify(errors.slice(0, Math.min(10, errors.length))))
+    } catch (e) {}
     return res.json({ inserted: siembras.length, errors, details: { bloques: bloqueMap.size } })
   } catch (err) {
     console.error(err)

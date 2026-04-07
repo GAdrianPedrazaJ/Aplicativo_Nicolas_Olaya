@@ -10,6 +10,9 @@ export function useSiembras() {
   const [siembras, setSiembras] = useState<any[]>([])
   const supabase = useSupabase()
   const setUploading = useUploadStore((state) => state.setUploading)
+  const setProgress = useUploadStore((state) => state.setProgress)
+  const setStatus = useUploadStore((state) => state.setStatus)
+  const setMessage = useUploadStore((state) => state.setMessage)
 
   const fetchSiembras = async () => {
     try {
@@ -94,6 +97,9 @@ export function useSiembras() {
 
       // Send rows to the backend endpoint which uses the Supabase Service Role
       // to perform upserts and hierarchical creation. Backend returns { inserted, errors }
+      setStatus('uploading')
+      setProgress(0)
+      setMessage('Enviando filas al servidor...')
       const resp = await fetch((import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000') + '/planos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -101,15 +107,47 @@ export function useSiembras() {
       })
       const payload = await resp.json()
       if (!resp.ok) {
+        setStatus('error')
+        setMessage(payload.error || JSON.stringify(payload))
         throw new Error(payload.error || JSON.stringify(payload))
       }
-      if (payload.errors && payload.errors.length > 0) {
-        console.warn('Backend reported errors:', payload.errors)
+
+      // Normalize backend errors into a client-friendly shape
+      const backendErrors: Array<{ rowIndex?: number, messages: string[], raw?: any }> = []
+      if (payload.errors && Array.isArray(payload.errors) && payload.errors.length) {
+        for (const e of payload.errors) {
+          // e may be { index, issues, raw } from validation or { index, message }
+          const rowIndex = e.index ?? e.rowIndex
+          const messages: string[] = []
+          if (e.issues && Array.isArray(e.issues)) {
+            for (const it of e.issues) {
+              if (it.message) messages.push(it.message)
+              else messages.push(JSON.stringify(it))
+            }
+          } else if (e.message) {
+            messages.push(String(e.message))
+          } else if (e.issues && typeof e.issues === 'object') {
+            messages.push(JSON.stringify(e.issues))
+          }
+          backendErrors.push({ rowIndex, messages, raw: e.raw ?? null })
+        }
       }
+
+      // compute and publish progress based on successful inserts vs total rows
+      const total = payloadRows.length || 0
+      const inserted = payload.inserted || 0
+      const percent = total > 0 ? Math.round((inserted / total) * 100) : 100
+      setProgress(percent)
+      setStatus('success')
+      setMessage(`Se subieron ${inserted} de ${total} filas.`)
+
+      // Refresh siembras after attempted upload
       await fetchSiembras()
-      return { success: true, count: payload.inserted || 0 }
+      return { success: true, count: inserted || 0, errors: backendErrors }
     } catch (err: any) {
       setError(err.message)
+      setStatus('error')
+      setMessage(err.message)
       return { success: false, error: err.message }
     } finally {
       setLoading(false)

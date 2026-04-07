@@ -29,10 +29,18 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
     try {
       const payload = (mappedData && mappedData.length > 0) ? mappedData : data
       const result = await onUpload(payload)
-      uploadStore.setProgress(100)
+      // If backend returned per-row errors, show them in the UI
+      if (result && Array.isArray((result as any).errors) && (result as any).errors.length > 0) {
+        setErrors((result as any).errors)
+        uploadStore.setStatus('error')
+        uploadStore.setMessage(`Se subieron ${result.count || 0} filas. ${ (result as any).errors.length } errores.`)
+        return
+      }
+
       if (result.success) {
         uploadStore.setStatus('success')
         uploadStore.setMessage(`Éxito: ${result.count || payload.length} registros subidos a Supabase`)
+        setErrors([])
       } else {
         uploadStore.setStatus('error')
         uploadStore.setMessage(`Error: ${result.error}`)
@@ -42,6 +50,45 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       uploadStore.setMessage(`Error: ${err.message}`)
     }
   }, [data, mappedData, uploadStore, onUpload])
+
+  // Retry a single errored row immediately (no mapping step)
+  const retryRowNow = useCallback(async (errRow: any) => {
+    if (!onUpload) return
+    const raw = errRow.raw ?? errRow
+    uploadStore.setStatus('uploading')
+    uploadStore.setProgress(0)
+    uploadStore.setMessage('Reintentando fila...')
+    try {
+      const result = await onUpload([raw])
+      if (result && Array.isArray((result as any).errors) && (result as any).errors.length > 0) {
+        // still has errors: update panel
+        setErrors((result as any).errors)
+        uploadStore.setStatus('error')
+        uploadStore.setMessage(`Reintento: ${ (result as any).errors.length } errores.`)
+        return
+      }
+      if (result.success) {
+        uploadStore.setStatus('success')
+        uploadStore.setMessage(`Reintento exitoso: 1 fila`)
+        // remove the specific error from list
+        setErrors((prev) => prev.filter((e) => e !== errRow))
+      } else {
+        uploadStore.setStatus('error')
+        uploadStore.setMessage(`Error: ${result.error}`)
+      }
+    } catch (err: any) {
+      uploadStore.setStatus('error')
+      uploadStore.setMessage(`Error: ${err.message}`)
+    }
+  }, [onUpload, uploadStore])
+
+  // Edit a specific errored row: populate mapping editor with raw data
+  const editRowForRetry = useCallback((errRow: any) => {
+    const raw = errRow.raw ?? errRow
+    setMappedData([raw])
+    setShowSample(true)
+    uploadStore.setMessage('Edita la fila en el mapeo y pulsa "Subir Datos a DB" para reintentar')
+  }, [uploadStore])
 
   const onFile = async (file: File | null) => {
     if (!file) return
@@ -131,7 +178,7 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
         <div className="text-sm text-gray-600">Acepta CSV (recomendado)</div>
       </div>
 
-      <ValidationResults errors={errors} />
+      <ValidationResults errors={errors} onEdit={editRowForRetry} onRetryNow={retryRowNow} />
 
       {data.length > 0 && errors.length === 0 && (
         <div className="space-y-3">
@@ -153,21 +200,9 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
             )}
           </button>
 
-          {uploadStore.status !== 'idle' && (
-            <div className="space-y-2 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <div className="flex items-center gap-2">
-                <div className="flex-1 bg-blue-200 rounded-full h-3">
-                  <div 
-                    className="bg-blue-600 h-3 rounded-full transition-all duration-300" 
-                    style={{width: `${uploadStore.progress}%`}}
-                  ></div>
-                </div>
-                <span className="text-sm font-medium text-blue-800">{uploadStore.progress}%</span>
-              </div>
-              {uploadStore.message && (
-                <p className="text-sm text-blue-800">{uploadStore.message}</p>
-              )}
-            </div>
+          {/* Progress indicator moved to Dashboard; keep local messages only */}
+          {uploadStore.status !== 'idle' && uploadStore.message && (
+            <div className="mt-2 p-2 text-sm text-blue-800">{uploadStore.message}</div>
           )}
         </div>
       )}

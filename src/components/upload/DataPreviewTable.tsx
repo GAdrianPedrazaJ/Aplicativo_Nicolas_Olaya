@@ -26,7 +26,7 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
   // helper: normalize header for matching
   const norm = (s: string) => String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/\s+/g, '').replace(/[_-]/g, '').toLowerCase()
 
-  // default auto mapping
+  // default auto mapping: use header names first, then try to infer from sample values
   const autoMapping: Record<string, string | undefined> = {}
   targetFields.forEach((t) => {
     const found = keys.find((k) => norm(k) === norm(t) || norm(k).includes(norm(t)) || norm(t).includes(norm(k)))
@@ -34,7 +34,62 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
     else autoMapping[t] = undefined
   })
 
+  // If FechaSiembra (or other fields) not found by header, try infer by sample values
+  const inferFromValues = () => {
+    if (!data || data.length === 0) return
+    const sampleSize = Math.min(10, data.length)
+    const sampleRows = data.slice(0, sampleSize)
+
+    // helper: is date-like
+    const isDateLike = (v: any) => {
+      if (v == null) return false
+      const s = String(v).trim()
+      if (!s) return false
+      // ISO date
+      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return true
+      // slashed dates dd/mm/yyyy or mm/dd/yyyy
+      if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(s)) return true
+      // excel serial-ish numeric values (between 20000 and 46000)
+      if (/^\d+$/.test(s)) {
+        const n = Number(s)
+        if (n > 20000 && n < 50000) return true
+      }
+      return false
+    }
+
+    // check each key for date-like values
+    for (const k of keys) {
+      if (autoMapping['FechaSiembra']) break
+      let count = 0
+      for (const r of sampleRows) {
+        if (isDateLike(r[k])) count++
+      }
+      // if majority of sample rows look like dates, choose this column
+      if (count >= Math.max(1, Math.floor(sampleSize * 0.6))) {
+        autoMapping['FechaSiembra'] = k
+      }
+    }
+  }
+  inferFromValues()
+
   const [mapping, setMapping] = React.useState<Record<string, string | undefined>>(autoMapping)
+
+  // When headers/keys change, reapply auto-mapping so fields like FechaSiembra get detected
+  React.useEffect(() => {
+    setMapping(autoMapping)
+    // apply mapping automatically to parent so mappedData isn't empty by accident
+    const mapped = data.map((row) => {
+      const out: any = {}
+      targetFields.forEach((t) => {
+        const source = autoMapping[t]
+        if (source) out[t] = row[source]
+      })
+      return out
+    })
+    onMapped?.(mapped)
+    // use stable dependency: comma-joined keys
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keys.join(',')])
 
   const applyMapping = () => {
     const mapped = data.map((row) => {
@@ -48,13 +103,13 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
     onMapped?.(mapped)
   }
 
-  const columns = keys.map((header) =>
+  const columns = React.useMemo(() => keys.map((header) =>
     columnHelper.accessor(header as keyof RowData, {
       id: header,
       header,
       cell: (info) => String(info.getValue() ?? ''),
     })
-  )
+  ), [keys])
 
   const table = useReactTable({
     data,
