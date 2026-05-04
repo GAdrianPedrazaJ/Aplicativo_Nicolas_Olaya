@@ -46,8 +46,22 @@ export function useSiembras() {
           )
         `)
         .order('fecha_siembra', { ascending: false })
-        .limit(1000)
       if (error) throw error
+      
+      // Debug: Log products being loaded with details
+      const allProducts = new Set(
+        (data || []).map(s => s?.variedades?.colores?.productos?.nombre).filter(p => p && p !== 'N/A')
+      )
+      const productsArray = Array.from(allProducts)
+      console.log('Productos en Siembras page:', productsArray)
+      productsArray.forEach(p => {
+        const count = (data || []).filter(s => s?.variedades?.colores?.productos?.nombre === p).length
+        console.log(`  - ${p}: ${count} siembras`)
+      })
+      // Check for N/A (missing relationships)
+      const naCount = (data || []).filter(s => !s?.variedades?.colores?.productos?.nombre).length
+      if (naCount > 0) console.warn(`  - Sin relación producto: ${naCount} siembras`)
+      
       setSiembras(data || [])
     } catch (err: any) {
       console.error('Fetch siembras error:', err)
@@ -57,7 +71,7 @@ export function useSiembras() {
     }
   }
 
-  const uploadData = async (rows: SiembraRow[]) => {
+  const uploadData = async (rows: any[]) => {
     try {
       setLoading(true)
       setError(null)

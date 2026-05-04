@@ -11,18 +11,7 @@ app.use(cors())
 // allow larger payloads for big spreadsheets
 app.use(express.json({ limit: '50mb' }))
 
-// If a built frontend exists at ../dist, serve it as static assets (SPA fallback)
-try {
-  const distPath = path.join(__dirname, '..', 'dist')
-  if (fs.existsSync(distPath)) {
-    app.use(express.static(distPath))
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'))
-    })
-  }
-} catch (e) {
-  console.error('Error configuring static frontend serve:', e)
-}
+// Note: static frontend serving is configured after API routes below
 
 const PORT = process.env.PORT || 4000
 const SUPABASE_URL = process.env.SUPABASE_URL
@@ -537,6 +526,10 @@ app.post('/planos/preview', (req, res) => {
 })
 // Basic root page and health
 app.get('/', (req, res) => {
+  const distPath = path.join(__dirname, '..', 'dist')
+  if (fs.existsSync(distPath)) {
+    return res.sendFile(path.join(distPath, 'index.html'))
+  }
   res.send(`<html><body style="font-family: Arial, Helvetica, sans-serif; padding:20px">
     <h2>RDC Tandil SAS - Backend</h2>
     <p>POST <code>/planos</code> to insert planos de siembra.</p>
@@ -547,5 +540,18 @@ app.get('/', (req, res) => {
 })
 
 app.get('/health', (req, res) => res.json({ status: 'ok', env: process.env.NODE_ENV || 'development' }))
+
+// Serve built frontend if it exists (placed after API routes so they aren't overridden)
+try {
+  const distPath = path.join(__dirname, '..', 'dist')
+  if (fs.existsSync(distPath)) {
+    app.use(express.static(distPath))
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'))
+    })
+  }
+} catch (e) {
+  console.error('Error configuring static frontend serve:', e)
+}
 
 app.listen(PORT, () => console.log(`RDC backend listening on ${PORT}`))

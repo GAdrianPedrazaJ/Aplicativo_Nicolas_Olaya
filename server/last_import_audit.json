@@ -1,86 +1,682 @@
 {
   "productos": [
     {
-      "id_producto": "ba9ef400-e112-4616-a507-12049f940ed3",
-      "nombre": "Astronova"
+      "id_producto": "7d7f389c-3d2c-43c2-b446-bd89c98436fd",
+      "nombre": "Campanulas"
     }
   ],
   "colores": [
     {
-      "id_color": "fddd2800-092c-494d-801e-38df4dc02593",
-      "nombre": "Lavender",
-      "producto": "Astronova"
-    },
-    {
-      "id_color": "525239d5-4765-4b4d-b610-538925a37a90",
-      "nombre": "DarkPink",
-      "producto": "Astronova"
-    },
-    {
-      "id_color": "f438ab8d-5f1e-4919-95e2-34607c673910",
-      "nombre": "Purple",
-      "producto": "Astronova"
+      "id_color": "7c577b20-42fd-407b-b820-566403809cf6",
+      "nombre": "Pink",
+      "producto": "Campanulas"
     }
   ],
   "variedades": [
     {
-      "id_variedad": "06d8ed20-515d-4605-ba3e-1dfbe4a238fe",
-      "producto": "Astronova",
-      "color": "Lavender"
-    },
-    {
-      "id_variedad": "5dec8fa6-7003-43fa-98ae-e74922a76218",
-      "producto": "Astronova",
-      "color": "DarkPink"
-    },
-    {
-      "id_variedad": "6b7838ea-c350-496d-bccb-fad3087497c0",
-      "producto": "Astronova",
-      "color": "Purple"
+      "id_variedad": "6c742560-0d7b-45c3-aa3e-e43ccb1d5ccd",
+      "producto": "Campanulas",
+      "color": "Pink"
     }
   ],
   "bloques": [],
   "naves": [
     {
-      "id_nave": "c94f9c4f-d3ed-4d77-8994-2a5938b26887",
-      "nombre": "BPM69N001",
-      "bloque": "BPM69"
+      "id_nave": "8caf5cba-6d25-4592-aaef-c7faeae94b34",
+      "nombre": "BPM68N002",
+      "bloque": "BPM68"
     },
     {
-      "id_nave": "da16138e-8a58-4347-943c-8e0ff5f4b8c0",
-      "nombre": "BPM69N002",
-      "bloque": "BPM69"
+      "id_nave": "69f9abb2-2a43-4749-8e51-e5c84a06d137",
+      "nombre": "BPM68N003",
+      "bloque": "BPM68"
     },
     {
-      "id_nave": "d1963b52-a657-45cc-b33c-dd82f6f8df4e",
-      "nombre": "BPM69N003",
-      "bloque": "BPM69"
+      "id_nave": "8d7e54c1-53a9-46b1-b823-bf90c3e10526",
+      "nombre": "BPM68N004",
+      "bloque": "BPM68"
     },
     {
-      "id_nave": "ae703db8-99cf-4066-ba5a-05d447bbe484",
-      "nombre": "BPM69N004",
-      "bloque": "BPM69"
+      "id_nave": "6e254946-1d3e-4c2c-af80-07975afcb493",
+      "nombre": "BPM68N005",
+      "bloque": "BPM68"
     },
     {
-      "id_nave": "8d292a34-ed00-48f8-9cea-698d627cf7b4",
-      "nombre": "BPM69N005",
-      "bloque": "BPM69"
+      "id_nave": "362b9613-5e57-4e52-8339-4bed399100d7",
+      "nombre": "BPM68N007",
+      "bloque": "BPM68"
     },
     {
-      "id_nave": "d37b3c75-11bc-4151-ae9f-3aecdebdecfa",
-      "nombre": "BPM69N006",
-      "bloque": "BPM69"
+      "id_nave": "e13d6e50-4452-4f34-8c28-6643bcb15712",
+      "nombre": "BPM68N008",
+      "bloque": "BPM68"
     },
     {
-      "id_nave": "10f66e0f-c233-4861-ae2b-5ed113fee1c2",
-      "nombre": "BPM69N007",
-      "bloque": "BPM69"
+      "id_nave": "b932455f-e817-4ec6-b815-ad10f92c083d",
+      "nombre": "BPM68N009",
+      "bloque": "BPM68"
     },
     {
-      "id_nave": "3de9a643-4b70-42d4-92e8-fa9bbc56711d",
-      "nombre": "BPM69N008",
-      "bloque": "BPM69"
+      "id_nave": "663a5ed5-8fd3-4ec2-ad47-5ad3062bd05e",
+      "nombre": "BPM68N010",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "b9d0e2e9-10c3-432a-ae37-338f447c7330",
+      "nombre": "BPM68N011",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "0326aca9-8192-4205-88e4-eb28c014f0a9",
+      "nombre": "BPM68N012",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "f6172194-8c3a-4545-aaba-79ce8049bdff",
+      "nombre": "BPM68N013",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "17c2489e-c4e7-4a23-8352-ba196917b1b3",
+      "nombre": "BPM68N015",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "15604143-112a-475f-92a3-b8542757aa48",
+      "nombre": "BPM68N016",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "6e3bb69c-b93f-4a97-8991-6a4a43e9d8c6",
+      "nombre": "BPM68N017",
+      "bloque": "BPM68"
+    },
+    {
+      "id_nave": "4e300aaa-97d1-4395-8b75-92dc9e20a1c2",
+      "nombre": "BPM71N003",
+      "bloque": "BPM71"
+    },
+    {
+      "id_nave": "d1d5c561-b985-4092-b6ec-948db4aba0c8",
+      "nombre": "BPM71N004",
+      "bloque": "BPM71"
+    },
+    {
+      "id_nave": "5c437767-3c44-4c30-b98c-d2a1ae8e6ae2",
+      "nombre": "BPM71N005",
+      "bloque": "BPM71"
+    },
+    {
+      "id_nave": "b49dc20b-0104-45fe-ad3a-f497cc28b520",
+      "nombre": "BPM71N006",
+      "bloque": "BPM71"
+    },
+    {
+      "id_nave": "02664de4-67b8-43ea-bbf5-cd794b2265cf",
+      "nombre": "BPM71N007",
+      "bloque": "BPM71"
+    },
+    {
+      "id_nave": "b0256132-ffc8-4c91-9d58-bb267f8638bf",
+      "nombre": "BPM71N008",
+      "bloque": "BPM71"
+    },
+    {
+      "id_nave": "fa575ac7-1598-4e2d-9e7a-fd58f49c1da9",
+      "nombre": "BPM71N009",
+      "bloque": "BPM71"
     }
   ],
-  "camas": []
+  "camas": [
+    {
+      "id_cama": "0dace136-cf6c-4639-bee0-f95a8c80f243",
+      "nombre": "BPM68N002C001",
+      "nave": "BPM68N002"
+    },
+    {
+      "id_cama": "9f55ac32-216d-4f91-ac47-26f80c7f52ba",
+      "nombre": "BPM68N002C003",
+      "nave": "BPM68N002"
+    },
+    {
+      "id_cama": "711a7042-5a2d-467b-bb7f-9e51c4230293",
+      "nombre": "BPM68N002C005",
+      "nave": "BPM68N002"
+    },
+    {
+      "id_cama": "a47f5562-3ad3-4f18-832c-f93061223e90",
+      "nombre": "BPM68N002C007",
+      "nave": "BPM68N002"
+    },
+    {
+      "id_cama": "e38dfef9-4fe6-441d-b3f2-a39a3daf3b3d",
+      "nombre": "BPM68N002C009",
+      "nave": "BPM68N002"
+    },
+    {
+      "id_cama": "9573e278-7bd6-4f0c-b5ea-1229224b7efe",
+      "nombre": "BPM68N002C002",
+      "nave": "BPM68N002"
+    },
+    {
+      "id_cama": "d96d2b8c-d030-4937-a671-79e5c8b3f9b4",
+      "nombre": "BPM68N002C004",
+      "nave": "BPM68N002"
+    },
+    {
+      "id_cama": "fc7b9e34-9f1d-4e16-93cf-413e0df9d108",
+      "nombre": "BPM68N003C001",
+      "nave": "BPM68N003"
+    },
+    {
+      "id_cama": "d5d88b1d-6a95-49fc-aa2e-20e7743c43e7",
+      "nombre": "BPM68N003C003",
+      "nave": "BPM68N003"
+    },
+    {
+      "id_cama": "dbdedab3-e7b5-43a8-9294-8bc7982ba220",
+      "nombre": "BPM68N004C001",
+      "nave": "BPM68N004"
+    },
+    {
+      "id_cama": "8db6a8b6-d60f-4cc9-9c33-58a42ff504ff",
+      "nombre": "BPM68N004C003",
+      "nave": "BPM68N004"
+    },
+    {
+      "id_cama": "1a7ae1d7-9ae4-4b92-ad01-521bfd29c69a",
+      "nombre": "BPM68N004C005",
+      "nave": "BPM68N004"
+    },
+    {
+      "id_cama": "6e66db00-e837-402a-80be-77b1edaea090",
+      "nombre": "BPM68N004C007",
+      "nave": "BPM68N004"
+    },
+    {
+      "id_cama": "a2afd7bd-ab86-4a9a-afb8-0c2b4fdb89e3",
+      "nombre": "BPM68N004C009",
+      "nave": "BPM68N004"
+    },
+    {
+      "id_cama": "88da24f5-ce3c-48b4-a4a4-bb48b9776409",
+      "nombre": "BPM68N005C001",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "2adef071-4a38-43ac-b056-53e2833c53a5",
+      "nombre": "BPM68N005C003",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "f108654c-1fbe-4820-a8af-920cca406ee3",
+      "nombre": "BPM68N005C005",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "4e285974-33ba-49fd-a4fa-9aa65fbf62e2",
+      "nombre": "BPM68N005C007",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "a510569c-4bf4-45a4-84b5-622b879c847e",
+      "nombre": "BPM68N005C004",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "8bd38922-eaa1-43b8-b52d-61f1361390f9",
+      "nombre": "BPM68N005C006",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "ca9fe9fa-3593-46ab-aefc-1ccb31742927",
+      "nombre": "BPM68N005C008",
+      "nave": "BPM68N005"
+    },
+    {
+      "id_cama": "30dacef7-4264-49bf-9394-493a31f0d4f1",
+      "nombre": "BPM68N007C007",
+      "nave": "BPM68N007"
+    },
+    {
+      "id_cama": "de66fcdc-5837-40e0-bf54-f697d1af0f2a",
+      "nombre": "BPM68N007C009",
+      "nave": "BPM68N007"
+    },
+    {
+      "id_cama": "51e23b77-03ea-40dd-a77e-8619a672b060",
+      "nombre": "BPM68N008C001",
+      "nave": "BPM68N008"
+    },
+    {
+      "id_cama": "91bc9aef-bde3-4651-bb29-56a12dabb42c",
+      "nombre": "BPM68N008C003",
+      "nave": "BPM68N008"
+    },
+    {
+      "id_cama": "718f1e39-472a-4347-9d2a-e70bb3f176f0",
+      "nombre": "BPM68N008C005",
+      "nave": "BPM68N008"
+    },
+    {
+      "id_cama": "faf1e206-a9d5-44e7-928d-eb2de1e360f8",
+      "nombre": "BPM68N008C007",
+      "nave": "BPM68N008"
+    },
+    {
+      "id_cama": "450c1ca2-d4cf-498f-9a32-de905651c684",
+      "nombre": "BPM68N008C009",
+      "nave": "BPM68N008"
+    },
+    {
+      "id_cama": "3a20e0b8-318c-4b05-b8fd-a83926d7c578",
+      "nombre": "BPM68N009C001",
+      "nave": "BPM68N009"
+    },
+    {
+      "id_cama": "8f237824-e919-4a9f-ace4-e491daebf05b",
+      "nombre": "BPM68N009C003",
+      "nave": "BPM68N009"
+    },
+    {
+      "id_cama": "eefe942a-c8ac-4fe4-a998-7d7e73700ee2",
+      "nombre": "BPM68N009C005",
+      "nave": "BPM68N009"
+    },
+    {
+      "id_cama": "51214329-d827-48e9-847f-0faba7113be7",
+      "nombre": "BPM68N009C007",
+      "nave": "BPM68N009"
+    },
+    {
+      "id_cama": "d6b9a348-0940-4a5f-8ae8-6dc7b82b6fdc",
+      "nombre": "BPM68N010C007",
+      "nave": "BPM68N010"
+    },
+    {
+      "id_cama": "25a64f16-1628-4291-893b-1946e9ffec7d",
+      "nombre": "BPM68N010C008",
+      "nave": "BPM68N010"
+    },
+    {
+      "id_cama": "4ed90d4c-eda8-4b09-96fe-7b01d0b45b48",
+      "nombre": "BPM68N010C010",
+      "nave": "BPM68N010"
+    },
+    {
+      "id_cama": "499cdf19-ce02-4d15-9b4d-2a41e8e92e89",
+      "nombre": "BPM68N011C003",
+      "nave": "BPM68N011"
+    },
+    {
+      "id_cama": "a2bf75ef-25c6-4b62-a3eb-ee401f6fee2e",
+      "nombre": "BPM68N011C005",
+      "nave": "BPM68N011"
+    },
+    {
+      "id_cama": "ef230c6c-f5ba-4d75-bece-a474610e162c",
+      "nombre": "BPM68N011C007",
+      "nave": "BPM68N011"
+    },
+    {
+      "id_cama": "0034d6c3-d432-4375-abd6-883887de5b8f",
+      "nombre": "BPM68N011C009",
+      "nave": "BPM68N011"
+    },
+    {
+      "id_cama": "9ae37d0a-b865-4de3-82e3-2b0b474df6f8",
+      "nombre": "BPM68N011C004",
+      "nave": "BPM68N011"
+    },
+    {
+      "id_cama": "ecc6ec74-f010-4103-9148-cd0f05770404",
+      "nombre": "BPM68N011C006",
+      "nave": "BPM68N011"
+    },
+    {
+      "id_cama": "375a508b-8c49-4122-bea7-11196310dc05",
+      "nombre": "BPM68N012C001",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "81ed7e39-a153-48ce-8b65-35cf309c07e8",
+      "nombre": "BPM68N012C003",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "509b02e6-199e-42a4-ba74-9b751fcd88c7",
+      "nombre": "BPM68N012C005",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "ef197682-0af8-4644-a6d0-18b43deba285",
+      "nombre": "BPM68N012C007",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "f8c2eb0f-7713-49ef-a3d0-bcc563350515",
+      "nombre": "BPM68N012C009",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "7fc9518d-3895-4489-b4c6-6ec56c253fee",
+      "nombre": "BPM68N012C002",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "8fcf5a72-cc76-484b-a950-896bb593a3ae",
+      "nombre": "BPM68N012C004",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "7b033a30-1c58-4a2f-8c1f-9605f8903d5a",
+      "nombre": "BPM68N012C006",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "fd427ab8-426a-4cbc-8621-55fff7e2bcab",
+      "nombre": "BPM68N012C008",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "7f93bda5-3b2d-40da-96c7-8d15dcc75d3b",
+      "nombre": "BPM68N012C010",
+      "nave": "BPM68N012"
+    },
+    {
+      "id_cama": "dfcdac32-4645-47bd-acef-4a09b691381a",
+      "nombre": "BPM68N013C001",
+      "nave": "BPM68N013"
+    },
+    {
+      "id_cama": "d814c305-095f-4d94-af9a-48bdf467acdd",
+      "nombre": "BPM68N013C009",
+      "nave": "BPM68N013"
+    },
+    {
+      "id_cama": "c65434b3-cf0c-473c-bcce-3a341d34eb38",
+      "nombre": "BPM68N013C002",
+      "nave": "BPM68N013"
+    },
+    {
+      "id_cama": "337f5605-f3ea-4998-9488-e6b1c00a62dc",
+      "nombre": "BPM68N013C004",
+      "nave": "BPM68N013"
+    },
+    {
+      "id_cama": "a03f2b47-4830-4153-837b-f51e04c502b3",
+      "nombre": "BPM68N015C003",
+      "nave": "BPM68N015"
+    },
+    {
+      "id_cama": "4b77f3e3-1c22-4f4c-bbce-64b156ca287e",
+      "nombre": "BPM68N015C005",
+      "nave": "BPM68N015"
+    },
+    {
+      "id_cama": "c32b1876-da57-402a-987f-415d66ff7247",
+      "nombre": "BPM68N015C007",
+      "nave": "BPM68N015"
+    },
+    {
+      "id_cama": "a35c3571-6f0d-48a6-bc35-e3806cbd301c",
+      "nombre": "BPM68N015C004",
+      "nave": "BPM68N015"
+    },
+    {
+      "id_cama": "99160ee9-1630-49eb-997c-301d5a553d40",
+      "nombre": "BPM68N015C006",
+      "nave": "BPM68N015"
+    },
+    {
+      "id_cama": "d76857ed-2a37-4a18-bcaf-d3c8c667e6cc",
+      "nombre": "BPM68N015C008",
+      "nave": "BPM68N015"
+    },
+    {
+      "id_cama": "394520ce-8bcc-469c-8367-a6f659f38305",
+      "nombre": "BPM68N015C010",
+      "nave": "BPM68N015"
+    },
+    {
+      "id_cama": "b18f0585-477d-46cf-98e5-2df086161fa0",
+      "nombre": "BPM68N016C009",
+      "nave": "BPM68N016"
+    },
+    {
+      "id_cama": "98bdaa6e-b1ec-4327-8608-9cffcb0e9a80",
+      "nombre": "BPM68N016C010",
+      "nave": "BPM68N016"
+    },
+    {
+      "id_cama": "91854513-f8ca-499b-87bd-474c519316cd",
+      "nombre": "BPM68N017C001",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "43d85be2-2821-4438-befe-76ced26e5797",
+      "nombre": "BPM68N017C003",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "150b7db5-c612-4ded-8b27-3d2ba46aff40",
+      "nombre": "BPM68N017C005",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "fd08f5d1-a365-4945-86e2-f07e632f31b4",
+      "nombre": "BPM68N017C007",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "02328f03-0872-49c7-8825-c2adc9fd99fb",
+      "nombre": "BPM68N017C009",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "c69bc19e-ed56-4c5b-9d50-d1272fd83386",
+      "nombre": "BPM68N017C002",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "174ec831-2f2c-4db6-a3ee-6a380333102f",
+      "nombre": "BPM68N017C004",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "11bd1349-c936-4cc0-9207-937c73ee9172",
+      "nombre": "BPM68N017C006",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "1722c3ea-8aac-431f-ac04-6f1d34fa5306",
+      "nombre": "BPM68N017C008",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "6e4ebba9-530f-4be1-a73a-1eb54ffd504d",
+      "nombre": "BPM68N017C010",
+      "nave": "BPM68N017"
+    },
+    {
+      "id_cama": "9e0e8318-d002-492c-b37d-0698ba03a9b3",
+      "nombre": "BPM71N003C002",
+      "nave": "BPM71N003"
+    },
+    {
+      "id_cama": "c81c2be4-9cd9-4ada-a801-c28ffb8ee6ae",
+      "nombre": "BPM71N003C008",
+      "nave": "BPM71N003"
+    },
+    {
+      "id_cama": "d9acd1cc-6073-48aa-a87d-56393d9369cb",
+      "nombre": "BPM71N003C010",
+      "nave": "BPM71N003"
+    },
+    {
+      "id_cama": "639a8648-6891-4d96-9337-4a79d1bcb934",
+      "nombre": "BPM71N004C002",
+      "nave": "BPM71N004"
+    },
+    {
+      "id_cama": "b369afa8-79d6-4536-bd36-dc8c91ef5bef",
+      "nombre": "BPM71N004C004",
+      "nave": "BPM71N004"
+    },
+    {
+      "id_cama": "37f3300d-2cd4-478b-a611-44273122bd9f",
+      "nombre": "BPM71N004C006",
+      "nave": "BPM71N004"
+    },
+    {
+      "id_cama": "91baf8c2-6884-4105-865a-4282de37a41a",
+      "nombre": "BPM71N005C004",
+      "nave": "BPM71N005"
+    },
+    {
+      "id_cama": "ce41333d-6eef-4c0d-8e08-bfd6af9cb9f7",
+      "nombre": "BPM71N005C006",
+      "nave": "BPM71N005"
+    },
+    {
+      "id_cama": "360fe3d0-a14e-45c5-9abf-862322d26541",
+      "nombre": "BPM71N005C008",
+      "nave": "BPM71N005"
+    },
+    {
+      "id_cama": "5ecd038e-476d-4263-a0c7-53bb458ef98f",
+      "nombre": "BPM71N005C010",
+      "nave": "BPM71N005"
+    },
+    {
+      "id_cama": "772fa20c-5e68-4da0-8c9e-80d8d9c0bc6e",
+      "nombre": "BPM71N006C009",
+      "nave": "BPM71N006"
+    },
+    {
+      "id_cama": "ba9aec25-091f-4319-9587-3634588f43de",
+      "nombre": "BPM71N006C002",
+      "nave": "BPM71N006"
+    },
+    {
+      "id_cama": "001d4542-684d-43f2-9b57-ce0a4ce37d1e",
+      "nombre": "BPM71N006C004",
+      "nave": "BPM71N006"
+    },
+    {
+      "id_cama": "233dc1fb-8276-412c-a950-2db720ba29fb",
+      "nombre": "BPM71N006C006",
+      "nave": "BPM71N006"
+    },
+    {
+      "id_cama": "0b8d220f-dc17-4ee0-b951-d85f443dd133",
+      "nombre": "BPM71N007C001",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "b3b2bb80-58d5-4a30-8f95-01f841b8f79a",
+      "nombre": "BPM71N007C003",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "02f59dbd-933c-4123-afb6-df88f613a405",
+      "nombre": "BPM71N007C005",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "342f7b7e-c8cb-4277-8fac-dfc3a0fb8e29",
+      "nombre": "BPM71N007C007",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "f209e8e2-a4b0-436a-91f6-0e7bdd9a63b0",
+      "nombre": "BPM71N007C009",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "d9a6b7e7-0014-4d63-9cea-e004800e3b1e",
+      "nombre": "BPM71N007C002",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "bb2761d3-44f4-47f4-ba78-34adb9c4ae93",
+      "nombre": "BPM71N007C004",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "ac588fa8-b3b9-4f74-83c9-3eb3db53cf7b",
+      "nombre": "BPM71N007C006",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "2c4f0e16-3674-4bf0-9527-a2f55f2e86bd",
+      "nombre": "BPM71N007C008",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "76cd4b58-d4dc-4634-ad0a-f912f7bed6ec",
+      "nombre": "BPM71N007C010",
+      "nave": "BPM71N007"
+    },
+    {
+      "id_cama": "869375fe-1254-4409-bfe6-51173aeae77b",
+      "nombre": "BPM71N008C001",
+      "nave": "BPM71N008"
+    },
+    {
+      "id_cama": "5d7978d5-8fc8-45e0-8f48-a39e0499879d",
+      "nombre": "BPM71N008C002",
+      "nave": "BPM71N008"
+    },
+    {
+      "id_cama": "b2927af2-eec0-43a3-9318-f865468ce7cb",
+      "nombre": "BPM71N009C001",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "14ad7520-8631-4df6-aa63-90e3311b4091",
+      "nombre": "BPM71N009C003",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "6afede35-e976-43ad-9bf1-22e6823ff969",
+      "nombre": "BPM71N009C005",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "994da5c9-ab68-45ef-a304-523b77c0ea49",
+      "nombre": "BPM71N009C007",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "a39b304f-b2c0-4734-8719-b47127068849",
+      "nombre": "BPM71N009C009",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "b8264ab2-228d-401f-a91f-d37c9641a308",
+      "nombre": "BPM71N009C002",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "438bda90-2f57-491d-9ebb-d3eb0a2cc49a",
+      "nombre": "BPM71N009C004",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "ad467a70-4a6c-423e-8507-b38db7f70cbc",
+      "nombre": "BPM71N009C006",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "9363db22-dccc-4424-ba31-823f83c969bd",
+      "nombre": "BPM71N009C008",
+      "nave": "BPM71N009"
+    },
+    {
+      "id_cama": "6c1c57f3-cd41-4e93-b9bb-894e90bf29d9",
+      "nombre": "BPM71N009C010",
+      "nave": "BPM71N009"
+    }
+  ]
 }

@@ -2,15 +2,17 @@ import { z } from 'zod'
 
 export const siembraRowSchema = z.object({
   Bloque: z.string().optional(),
-  Lado: z.string().optional(),
   Nave: z.string(),
   Cama: z.string(),
+  Color: z.string(),
   Variedad: z.string(),
-  'Fecha de siembra': z.union([z.string(), z.number()]).pipe(z.coerce.date()).transform((d) => d.toISOString().split('T')[0]),
-  'Plantas sembradas': z.preprocess((v) => Number(v || 0), z.number().int().min(0)),
-  'Área (m2)': z.preprocess((v) => v ? Number(v) : null, z.number().optional()),
-}).refine((data) => data.Nave && data.Cama && data.Variedad && data['Fecha de siembra'] && data['Plantas sembradas'] != null, {
-  message: 'Campos requeridos: Nave, Cama, Variedad, Fecha de siembra, Plantas sembradas'
+  Producto: z.string().optional(),
+  FechaSiembra: z.string().min(1),
+  PlantasSembradas: z.preprocess((v) => Number(v || 0), z.number().int().nonnegative()),
+  AreaM2: z.preprocess((v) => v ? Number(v) : null, z.number().positive().optional()),
+  Estado: z.string().optional(),
+}).refine((data) => data.Nave && data.Cama && data.Color && data.Variedad && data.FechaSiembra && data.PlantasSembradas != null, {
+  message: 'Campos requeridos: Nave, Cama, Color, Variedad, FechaSiembra, PlantasSembradas'
 })
 
 export type SiembraRow = z.infer<typeof siembraRowSchema>

@@ -366,8 +366,8 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
                     {{
-                      asc: ' 🔼',
-                      desc: ' 🔽',
+                      asc: ' (asc)',
+                      desc: ' (desc)',
                     }[header.column.getIsSorted() as string] ?? null}
                   </th>
                 ))}

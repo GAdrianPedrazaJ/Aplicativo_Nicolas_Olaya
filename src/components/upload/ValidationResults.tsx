@@ -6,7 +6,7 @@ export default function ValidationResults({ errors, onEdit, onRetryNow, onRetryA
   return (
     <div className="p-4 bg-red-50 border-l-4 border-red-400">
       <div className="flex items-center justify-between">
-        <h4 className="font-semibold text-red-800 mb-3">❌ {errors.length} errores de validación</h4>
+        <h4 className="font-semibold text-red-800 mb-3">{errors.length} errores de validación</h4>
         {onRetryAll && (
           <button onClick={onRetryAll} className="px-3 py-1 text-sm bg-green-600 text-white rounded">Reintentar todos</button>
         )}
