@@ -2,34 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-xx@layer base {
+@layer base {
   html, body, #root {
     height: 100%;
     margin: 0;
     padding: 0;
+    @apply scroll-smooth;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
-    background-image:
-      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%);
+    @apply bg-[#F8FAFC] text-slate-900 antialiased font-sans;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-sm;
   }
 
   .btn-primary {
-    @apply px-4 py-2 bg-emerald-600 text-white rounded-lg font-medium transition-all
-           hover:bg-emerald-700 hover:shadow-lg active:scale-95 disabled:opacity-50
-           disabled:pointer-events-none;
+    @apply px-6 py-3 bg-slate-900 text-white rounded-2xl font-bold transition-all duration-300
+           hover:bg-indigo-600 hover:shadow-xl hover:shadow-indigo-500/20 active:scale-95
+           disabled:opacity-50 disabled:pointer-events-none text-sm tracking-wide;
   }
 
   .btn-secondary {
-    @apply px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg font-medium
-           transition-all hover:bg-slate-50 hover:border-slate-300 active:scale-95;
+    @apply px-6 py-3 bg-white text-slate-700 border border-slate-200 rounded-2xl font-bold
+           transition-all duration-300 hover:bg-slate-50 hover:border-slate-300 active:scale-95
+           text-sm tracking-wide;
   }
+
+  .input-field {
+    @apply w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl
+           focus:bg-white focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-600
+           transition-all outline-none text-slate-700 font-medium;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

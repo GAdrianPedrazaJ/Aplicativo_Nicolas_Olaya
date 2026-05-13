@@ -1,43 +1,84 @@
-import React from 'react'
-import { useState } from 'react'
-import CargaSiembras from './pages/CargaSiembras'
-import CargaHistoricos from './pages/CargaHistoricos'
-import PowerBI from './pages/PowerBI'
-import NavBar from './components/shared/NavBar'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthStore } from './store/useAuthStore';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import CargaSiembras from './pages/siembras/CargaSiembras';
+import CargaHistoricos from './pages/CargaHistoricos';
+import Reportes from './pages/reportes/Reportes';
+import Usuarios from './pages/usuarios/Usuarios';
+import Configuracion from './pages/configuracion/Configuracion';
 
-type View = 'planos' | 'historicos' | 'dashboard'
-
-type Option = 'planos' | 'historicos' | 'dashboard'
-
-export default function App() {
-  const [view, setView] = useState<View>('dashboard')
-  const isDashboard = view === 'dashboard'
+function App() {
+  const { isAuthenticated } = useAuthStore();
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-gray-50 text-gray-900 overflow-hidden">
-      <NavBar selected={view} onSelect={(o) => setView(o as View)} />
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+        />
 
-      {isDashboard ? (
-        <div className="flex-1 overflow-auto w-full">
-          <PowerBI />
-        </div>
-      ) : (
-        <main className="flex-1 overflow-auto w-full p-8">
-          <div className="max-w-6xl mx-auto space-y-6">
-            {view === 'planos' && (
-              <div className="grid gap-6 md:grid-cols-1">
-                <CargaSiembras />
-              </div>
-            )}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
 
-            {view === 'historicos' && (
-              <div className="grid gap-6 md:grid-cols-1">
-                <CargaHistoricos />
-              </div>
-            )}
-          </div>
-        </main>
-      )}
-    </div>
-  )
+        <Route
+          path="/siembras/cargar"
+          element={
+            <ProtectedRoute requiredRoles={['ADMIN', 'SUPERADMIN']}>
+              <CargaSiembras />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/siembras/historicos"
+          element={
+            <ProtectedRoute requiredRoles={['ADMIN', 'MONITOR', 'SUPERADMIN']}>
+              <CargaHistoricos />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/reportes"
+          element={
+            <ProtectedRoute requiredRoles={['ADMIN', 'MONITOR', 'SUPERADMIN']}>
+              <Reportes />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/usuarios"
+          element={
+            <ProtectedRoute requiredRoles={['SUPERADMIN']}>
+              <Usuarios />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/configuracion"
+          element={
+            <ProtectedRoute requiredRoles={['ADMIN', 'SUPERADMIN']}>
+              <Configuracion />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
+export default App;
