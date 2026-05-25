@@ -3,7 +3,9 @@ import { useAuthStore } from './store/useAuthStore';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import ListaSiembras from './pages/siembras/ListaSiembras';
 import CargaSiembras from './pages/siembras/CargaSiembras';
+import EliminarSiembras from './pages/siembras/EliminarSiembras';
 import CargaHistoricos from './pages/CargaHistoricos';
 import Reportes from './pages/reportes/Reportes';
 import Usuarios from './pages/usuarios/Usuarios';
@@ -29,11 +31,28 @@ function App() {
           }
         />
 
+        {/* RUTAS DE SIEMBRAS */}
+        <Route
+          path="/siembras/lista"
+          element={
+            <ProtectedRoute requiredRoles={['ADMIN', 'MONITOR', 'SUPERADMIN']}>
+              <ListaSiembras />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/siembras/cargar"
           element={
             <ProtectedRoute requiredRoles={['ADMIN', 'SUPERADMIN']}>
               <CargaSiembras />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/siembras/eliminar"
+          element={
+            <ProtectedRoute requiredRoles={['ADMIN', 'SUPERADMIN']}>
+              <EliminarSiembras />
             </ProtectedRoute>
           }
         />

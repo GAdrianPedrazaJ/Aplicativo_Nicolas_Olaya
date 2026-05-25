@@ -1,127 +1,126 @@
 import { useAuthStore } from '../store/useAuthStore';
 import { ROUTES } from '../config/routes';
-import { Link, useLocation } from 'react-router-dom';
-import { LogOut, ChevronDown, Leaf, User } from 'lucide-react';
-import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import {
+  LogOut,
+  Leaf,
+  LayoutDashboard,
+  UploadCloud,
+  History,
+  FileText,
+  Users,
+  Settings
+} from 'lucide-react';
+import { useMemo } from 'react';
 
 export function Sidebar() {
-  const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
   const { usuario, logout } = useAuthStore();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const visibleRoutes = ROUTES.filter((route) =>
-    usuario ? route.requiredRoles.includes(usuario.rol) : false
-  );
-
-  const toggleSubmenu = (id: string) => {
-    setExpandedMenus((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
+  // Función robusta para obtener el icono
+  const renderIcon = (id: string, active: boolean) => {
+    const props = { size: 18, className: active ? 'text-emerald-400' : 'text-emerald-100/60' };
+    switch (id) {
+      case 'dashboard': return <LayoutDashboard {...props} />;
+      case 'carga-siembras': return <UploadCloud {...props} />;
+      case 'carga-historicos': return <History {...props} />;
+      case 'reportes': return <FileText {...props} />;
+      case 'usuarios': return <Users {...props} />;
+      case 'configuracion': return <Settings {...props} />;
+      default: return <Leaf {...props} />;
+    }
   };
+
+  // Lógica de visibilidad simplificada y a prueba de errores
+  const visibleRoutes = useMemo(() => {
+    if (!usuario || !usuario.rol) return [];
+
+    const userRole = String(usuario.rol).toUpperCase();
+
+    return ROUTES.filter((route) => {
+      if (!route.requiredRoles) return false;
+      const roles = route.requiredRoles.map(r => String(r).toUpperCase());
+      return roles.includes(userRole);
+    });
+  }, [usuario]);
 
   const handleLogout = () => {
     logout();
-    window.location.href = '/login';
+    navigate('/login');
   };
 
+  // Formateo seguro de datos de usuario para evitar crashes
+  const nombre = useMemo(() => String(usuario?.nombre_completo || usuario?.username || 'Usuario').toUpperCase(), [usuario]);
+  const rol = useMemo(() => String(usuario?.rol || 'Invitado').toUpperCase(), [usuario]);
+  const inicial = nombre.charAt(0);
+
   return (
-    <aside className="w-72 bg-slate-900 text-slate-300 h-screen flex flex-col shadow-2xl z-30">
-      {/* Branding */}
-      <div className="p-8 mb-4">
-        <div className="flex items-center gap-3">
-          <div className="bg-indigo-600 p-2.5 rounded-2xl shadow-lg shadow-indigo-500/20">
-            <Leaf className="text-white" size={24} />
+    <header className="w-full bg-[#005d5d] text-white h-16 flex items-center justify-between px-6 shadow-2xl z-[100] shrink-0 border-b border-white/10">
+      <div className="flex items-center gap-8 h-full">
+        {/* Logo PETAL */}
+        <Link to="/dashboard" className="flex items-center gap-2 group shrink-0">
+          <div className="bg-white text-[#005d5d] p-1.5 rounded-xl shadow-lg group-hover:rotate-12 transition-transform">
+            <span className="font-black text-lg">P</span>
           </div>
-          <div>
-            <h1 className="text-xl font-black text-white tracking-tight">AGRO<span className="text-indigo-500">TECH</span></h1>
-            <p className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Sistema de Control</p>
+          <div className="flex flex-col leading-none">
+            <span className="text-xl font-black tracking-tighter uppercase">PETAL</span>
+            <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-emerald-100/60">R.D.C TANDIL</span>
           </div>
-        </div>
+        </Link>
+
+        {/* NAVEGACIÓN SUPERIOR: Pestañas de Carga e Inteligencia */}
+        <nav className="flex items-center h-full">
+          {visibleRoutes.map((route) => {
+            const active = location.pathname === route.path;
+            return (
+              <Link
+                key={route.id}
+                to={route.path}
+                className={`
+                  flex items-center gap-2.5 px-6 h-full text-[11px] font-bold uppercase tracking-widest transition-all relative whitespace-nowrap
+                  ${active
+                    ? 'bg-white/10 text-white'
+                    : 'text-emerald-100/60 hover:text-white hover:bg-white/5'}
+                `}
+              >
+                {renderIcon(route.id, active)}
+                <span>{route.label}</span>
+                {active && (
+                  <div className="absolute bottom-0 left-0 w-full h-1 bg-emerald-400 shadow-[0_-2px_15px_rgba(52,211,153,0.6)]" />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-4 space-y-2 custom-scrollbar">
-        {visibleRoutes.map((route) => (
-          <div key={route.id} className="mb-1">
-            {route.children ? (
-              <>
-                <button
-                  onClick={() => toggleSubmenu(route.id)}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${
-                    expandedMenus.includes(route.id) ? 'bg-slate-800/50 text-white' : 'hover:bg-slate-800/30'
-                  }`}
-                >
-                  <span className="flex items-center gap-3">
-                    <route.icon size={20} className={expandedMenus.includes(route.id) ? 'text-indigo-400' : 'text-slate-500 group-hover:text-slate-300'} />
-                    <span className="text-sm font-bold tracking-wide">{route.label}</span>
-                  </span>
-                  <ChevronDown
-                    size={14}
-                    className={`transition-transform duration-300 ${
-                      expandedMenus.includes(route.id) ? 'rotate-180 text-indigo-400' : 'text-slate-600'
-                    }`}
-                  />
-                </button>
-
-                <div className={`overflow-hidden transition-all duration-300 ${
-                  expandedMenus.includes(route.id) ? 'max-h-96 mt-1 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="ml-9 border-l border-slate-800 space-y-1 py-1">
-                    {route.children.map((child) => (
-                      <Link
-                        key={child.id}
-                        to={child.path}
-                        className={`block px-4 py-2 text-xs font-bold transition-all duration-200 hover:text-white border-l-2 -ml-[1px] ${
-                          location.pathname === child.path
-                            ? 'text-indigo-400 border-indigo-500'
-                            : 'text-slate-500 border-transparent hover:border-slate-700'
-                        }`}
-                      >
-                        {child.label.toUpperCase()}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <Link
-                to={route.path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold tracking-wide transition-all duration-300 group ${
-                  location.pathname === route.path
-                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
-                    : 'hover:bg-slate-800/30 hover:text-white'
-                }`}
-              >
-                <route.icon size={20} className={location.pathname === route.path ? 'text-white' : 'text-slate-500 group-hover:text-slate-300'} />
-                {route.label}
-              </Link>
-            )}
-          </div>
-        ))}
-      </nav>
-
-      {/* User Section */}
-      <div className="p-6 mt-auto border-t border-slate-800/50">
-        <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/30 mb-4">
-          <div className="flex items-center gap-3">
-            <div className="bg-slate-700 p-2 rounded-xl">
-              <User size={16} className="text-slate-300" />
+      {/* Perfil de Usuario */}
+      <div className="flex items-center gap-4">
+        {usuario && (
+          <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-black/20 rounded-xl border border-white/5">
+            <div className="text-right">
+              <p className="text-[10px] font-black text-white leading-none">
+                {nombre}
+              </p>
+              <p className="text-[8px] font-bold text-emerald-400 uppercase tracking-widest mt-1">
+                {rol}
+              </p>
             </div>
-            <div className="overflow-hidden">
-              <p className="text-xs font-black text-white truncate uppercase tracking-wider">{usuario?.nombre_completo}</p>
-              <p className="text-[10px] text-indigo-400 font-bold uppercase">{usuario?.rol}</p>
+            <div className="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center font-bold text-[#005d5d] shadow-md">
+              {inicial}
             </div>
           </div>
-        </div>
+        )}
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800 text-slate-400 hover:bg-rose-600 hover:text-white transition-all duration-300 font-bold text-xs"
+          className="p-2.5 text-white/30 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-all"
+          title="Cerrar Sesión"
         >
-          <LogOut size={16} />
-          CERRAR SESIÓN
+          <LogOut size={22} />
         </button>
       </div>
-    </aside>
+    </header>
   );
 }

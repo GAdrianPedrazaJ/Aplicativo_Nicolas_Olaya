@@ -6,12 +6,30 @@ import DataPreviewTable from './DataPreviewTable'
 import ValidationResults from './ValidationResults'
 import BulkRetryModal from './BulkRetryModal'
 
+interface FileUploaderProps {
+  mode: 'siembras' | 'historicos'
+  onUpload?: (data: any[]) => Promise<{ success: boolean; count?: number; error?: string }>
+  extraInfo?: React.ReactNode
+  submitLabel?: string
+  confirmMessage?: string
+  titleLabel?: string
+  fileLabel?: string
+  previewTitle?: string
+}
 
-export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'historicos', onUpload?: (data: any[]) => Promise<{success: boolean, count?: number, error?: string}> }) {
+export default function FileUploader({
+  mode,
+  onUpload,
+  extraInfo,
+  submitLabel = 'Subir Datos a DB',
+  confirmMessage,
+  titleLabel = 'Seleccionar Archivo',
+  fileLabel = 'Elegir archivo',
+  previewTitle = 'Vista Previa de Datos'
+}: FileUploaderProps) {
   const [data, setData] = useState<any[]>([])
   const [mappedData, setMappedData] = useState<any[] | null>(null)
   const [errors, setErrors] = useState<any[]>([])
-  const [showSample, setShowSample] = useState<boolean>(true)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const uploadStore = useUploadStore()
@@ -23,24 +41,28 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       return
     }
 
+    if (confirmMessage && !window.confirm(confirmMessage)) {
+      return
+    }
+
     uploadStore.setStatus('uploading')
     uploadStore.setProgress(0)
-    uploadStore.setMessage('Validando y subiendo datos...')
+    uploadStore.setMessage('Procesando solicitud...')
 
     try {
       const payload = (mappedData && mappedData.length > 0) ? mappedData : data
       const result = await onUpload(payload)
-      // If backend returned per-row errors, show them in the UI
+
       if (result && Array.isArray((result as any).errors) && (result as any).errors.length > 0) {
         setErrors((result as any).errors)
         uploadStore.setStatus('error')
-        uploadStore.setMessage(`Se subieron ${result.count || 0} filas. ${ (result as any).errors.length } errores.`)
+        uploadStore.setMessage(`Se procesaron ${result.count || 0} filas. ${ (result as any).errors.length } errores.`)
         return
       }
 
       if (result.success) {
         uploadStore.setStatus('success')
-        uploadStore.setMessage(`Éxito: ${result.count || payload.length} registros subidos a Supabase`)
+        uploadStore.setMessage(`Acción completada: ${result.count || payload.length} registros procesados`)
         setErrors([])
       } else {
         uploadStore.setStatus('error')
@@ -50,28 +72,25 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
       uploadStore.setStatus('error')
       uploadStore.setMessage(`Error: ${err.message}`)
     }
-  }, [data, mappedData, uploadStore, onUpload])
+  }, [data, mappedData, uploadStore, onUpload, confirmMessage])
 
-  // Retry a single errored row immediately (no mapping step)
   const retryRowNow = useCallback(async (errRow: any) => {
     if (!onUpload) return
     const raw = errRow.raw ?? errRow
     uploadStore.setStatus('uploading')
     uploadStore.setProgress(0)
-    uploadStore.setMessage('Reintentando fila...')
+    uploadStore.setMessage('Reintentando...')
     try {
       const result = await onUpload([raw])
       if (result && Array.isArray((result as any).errors) && (result as any).errors.length > 0) {
-        // still has errors: update panel
         setErrors((result as any).errors)
         uploadStore.setStatus('error')
-        uploadStore.setMessage(`Reintento: ${ (result as any).errors.length } errores.`)
+        uploadStore.setMessage(`Error en reintento.`)
         return
       }
       if (result.success) {
         uploadStore.setStatus('success')
-        uploadStore.setMessage(`Reintento exitoso: 1 fila`)
-        // remove the specific error from list
+        uploadStore.setMessage(`Reintento exitoso`)
         setErrors((prev) => prev.filter((e) => e !== errRow))
       } else {
         uploadStore.setStatus('error')
@@ -83,7 +102,6 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
     }
   }, [onUpload, uploadStore])
 
-  // Retry all errored rows in bulk (sequential, to show progress)
   const [retrying, setRetrying] = useState(false)
   const [retryTotal, setRetryTotal] = useState(0)
   const [retryDone, setRetryDone] = useState(0)
@@ -93,7 +111,7 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
     if (!errors || errors.length === 0) return
     const raws = errors.map((e) => e.raw ?? e)
     uploadStore.setStatus('uploading')
-    uploadStore.setMessage(`Reintentando ${raws.length} filas...`)
+    uploadStore.setMessage(`Procesando reintentos...`)
     uploadStore.setProgress(0)
     setRetrying(true)
     setRetryTotal(raws.length)
@@ -104,24 +122,22 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
         const row = raws[i]
         const result = await onUpload([row])
         if (result && Array.isArray((result as any).errors) && (result as any).errors.length > 0) {
-          // collect returned errors
           remainingErrors.push(...(result as any).errors)
         }
         const done = i + 1
         setRetryDone(done)
         const percent = Math.round((done / raws.length) * 100)
         uploadStore.setProgress(percent)
-        uploadStore.setMessage(`Reintentando ${done}/${raws.length} filas...`)
       }
 
       if (remainingErrors.length > 0) {
         setErrors(remainingErrors)
         uploadStore.setStatus('error')
-        uploadStore.setMessage(`Se completó el reintento. ${remainingErrors.length} errores restantes.`)
+        uploadStore.setMessage(`${remainingErrors.length} errores restantes.`)
       } else {
         setErrors([])
         uploadStore.setStatus('success')
-        uploadStore.setMessage(`Reintento masivo completado: ${raws.length} filas`)
+        uploadStore.setMessage(`Proceso masivo completado`)
       }
     } catch (err: any) {
       uploadStore.setStatus('error')
@@ -131,12 +147,10 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
     }
   }, [errors, onUpload, uploadStore])
 
-  // Edit a specific errored row: populate mapping editor with raw data
   const editRowForRetry = useCallback((errRow: any) => {
     const raw = errRow.raw ?? errRow
     setMappedData([raw])
-    setShowSample(true)
-    uploadStore.setMessage('Edita la fila en el mapeo y pulsa "Subir Datos a DB" para reintentar')
+    uploadStore.setMessage('Edita la fila y procesa nuevamente')
   }, [uploadStore])
 
   const onFile = async (file: File | null) => {
@@ -163,10 +177,8 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
         const ws = wb.Sheets[sheetName]
         let json = XLSX.utils.sheet_to_json(ws, { defval: '', header: 1 }) as string[][]
 
-        // Skip filter rows
         json = json.filter(row => !row.some(cell => cell && cell.toString().includes('Filtros aplicados')))
         
-        // Heuristic: find first row that looks like a header (has >= 3 non-empty cells)
         const headerIndex = json.findIndex(
           (row) => Array.isArray(row) && row.filter((cell) => cell !== null && cell !== undefined && String(cell).trim() !== '').length >= 3
         )
@@ -175,7 +187,6 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
           json = json.slice(startIndex)
         }
         
-        // Convert to object from row 0 as header
         const headers = (json[0] || []).map((h) => (h == null ? '' : String(h).trim())) as string[]
         const dataRows = json.slice(1).filter((row) => Array.isArray(row) && row.some((cell) => cell !== null && cell !== undefined && String(cell).trim() !== ''))
         const parsedData = dataRows.map(row => {
@@ -186,16 +197,12 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
           return obj
         })
         
-        // reset any previous mapping when loading a new file
-        console.debug('Parsed XLSX headers:', headers)
-        console.debug('Parsed rows count:', parsedData.length)
         setData(parsedData)
         setMappedData(null)
         setErrors([])
         return
       }
 
-      // Fallback: try CSV parse
       Papa.parse(file, {
         header: true,
         skipEmptyLines: true,
@@ -210,69 +217,72 @@ export default function FileUploader({ mode, onUpload }: { mode: 'siembras' | 'h
     }
   }
 
+  const isDeleteMode = submitLabel.toLowerCase().includes('eliminar')
+
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-4">
-        <label className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer hover:bg-blue-700">
-          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16V4m0 0L3 8m4-4 4 4m6 8v-8a2 2 0 00-2-2h-3"/></svg>
-          <span>Elegir archivo</span>
-          <input
-            ref={inputRef}
-            type="file"
-            accept=".csv,.xlsx,.xls"
-            className="hidden"
-            onChange={(e) => onFile(e.target.files?.[0] ?? null)}
-          />
-        </label>
-        <div className="text-sm text-gray-600">Acepta CSV (recomendado)</div>
+    <div className="w-full space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest mb-4">{titleLabel}</h3>
+            <div className="flex items-center gap-4">
+              <label className={`inline-flex items-center px-4 py-2 text-white rounded-md cursor-pointer transition-colors ${isDeleteMode ? 'bg-rose-600 hover:bg-rose-700' : 'bg-[#005d5d] hover:bg-[#004d4d]'}`}>
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16V4m0 0L3 8m4-4 4 4m6 8v-8a2 2 0 00-2-2h-3"/></svg>
+                <span className="text-xs font-bold uppercase tracking-wider">{fileLabel}</span>
+                <input
+                  ref={inputRef}
+                  type="file"
+                  accept=".csv,.xlsx,.xls"
+                  className="hidden"
+                  onChange={(e) => onFile(e.target.files?.[0] ?? null)}
+                />
+              </label>
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Excel o CSV</div>
+            </div>
+          </div>
+
+          <ValidationResults errors={errors} onEdit={editRowForRetry} onRetryNow={retryRowNow} onRetryAll={retryAll} />
+
+          {data.length > 0 && errors.length === 0 && (
+            <div className="space-y-3">
+              <button
+                onClick={handleUpload}
+                disabled={uploadStore.status === 'uploading'}
+                className={`w-full px-6 py-3 font-black text-[10px] uppercase tracking-[0.2em] rounded-xl disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg transition-all ${
+                  isDeleteMode
+                    ? 'bg-rose-600 hover:bg-rose-700 text-white shadow-rose-100'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-100'
+                }`}
+              >
+                {uploadStore.status === 'uploading' ? 'Procesando...' : submitLabel}
+              </button>
+
+              {uploadStore.status !== 'idle' && uploadStore.message && (
+                <div className={`p-3 border rounded-xl text-[10px] font-bold uppercase tracking-wider text-center ${
+                  uploadStore.status === 'error' ? 'bg-rose-50 border-rose-100 text-rose-800' : 'bg-emerald-50 border-emerald-100 text-emerald-800'
+                }`}>
+                  {uploadStore.message}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="lg:col-span-2">
+          {extraInfo}
+        </div>
       </div>
 
-      <ValidationResults errors={errors} onEdit={editRowForRetry} onRetryNow={retryRowNow} onRetryAll={retryAll} />
-
-      {data.length > 0 && errors.length === 0 && (
-        <div className="space-y-3">
-          <button
-            onClick={handleUpload}
-            disabled={uploadStore.status === 'uploading'}
-            className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:bg-green-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md transition-all duration-200"
-          >
-            {uploadStore.status === 'uploading' ? (
-              <>
-                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Subiendo...
-              </>
-            ) : (
-              'Subir Datos a DB'
-            )}
-          </button>
-
-          {/* Progress indicator moved to Dashboard; keep local messages only */}
-          {uploadStore.status !== 'idle' && uploadStore.message && (
-            <div className="mt-2 p-2 text-sm text-blue-800">{uploadStore.message}</div>
-          )}
+      {data.length > 0 && (
+        <div className="mt-8 border-t border-slate-100 pt-8 w-full">
+          <div className="flex items-center justify-between mb-4">
+             <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">{previewTitle}</h3>
+             {mappedData && <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full uppercase">{mappedData.length} registros detectados</span>}
+          </div>
+          <DataPreviewTable data={data} onMapped={(m) => setMappedData(m)} />
         </div>
       )}
 
-      <div className="mt-2">
-        <DataPreviewTable data={data} onMapped={(m) => setMappedData(m)} />
-        {mappedData && mappedData.length > 0 && (
-          <div className="mt-2 space-y-2">
-            <div className="text-sm text-gray-700">Se aplicó mapeo: <span className="font-medium">{mappedData.length}</span> filas preparadas para subir.</div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setShowSample((s) => !s)}
-                className="px-2 py-1 text-sm bg-gray-100 border rounded"
-              >
-                {showSample ? 'Ocultar muestra' : 'Mostrar muestra (5 filas)'}
-              </button>
-            </div>
-            {/* JSON preview removed per request */}
-          </div>
-        )}
-      </div>
       <BulkRetryModal open={retrying} total={retryTotal} done={retryDone} onClose={() => setRetrying(false)} />
     </div>
   )

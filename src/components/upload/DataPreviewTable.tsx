@@ -8,12 +8,19 @@ import {
   flexRender,
   createColumnHelper,
 } from '@tanstack/react-table'
+import { Trash2 } from 'lucide-react'
 
 type RowData = Record<string, unknown>
 
 const columnHelper = createColumnHelper<RowData>()
 
-export default function DataPreviewTable({ data, onMapped }: { data: RowData[], onMapped?: (mapped: RowData[]) => void }) {
+interface DataPreviewTableProps {
+  data: RowData[]
+  onMapped?: (mapped: RowData[]) => void
+  onDeleteRow?: (row: RowData) => void
+}
+
+export default function DataPreviewTable({ data, onMapped, onDeleteRow }: DataPreviewTableProps) {
   if (!data || data.length === 0) return <div className="text-sm text-gray-500 p-8 text-center">No hay datos cargados.</div>
 
   const keys = Array.from(new Set(data.flatMap((r) => Object.keys(r))))
@@ -131,13 +138,35 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
     onMapped?.(mapped)
   }
 
-  const columns = React.useMemo(() => keys.map((header) =>
-    columnHelper.accessor(header as keyof RowData, {
-      id: header,
-      header,
-      cell: (info) => String(info.getValue() ?? ''),
-    })
-  ), [keys])
+  const columns = React.useMemo(() => {
+    const cols = keys.map((header) =>
+      columnHelper.accessor(header as keyof RowData, {
+        id: header,
+        header,
+        cell: (info) => String(info.getValue() ?? ''),
+      })
+    )
+
+    if (onDeleteRow) {
+      cols.push(
+        columnHelper.display({
+          id: 'actions',
+          header: 'Acciones',
+          cell: (info) => (
+            <button
+              onClick={() => onDeleteRow(info.row.original)}
+              className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+              title="Eliminar Registro"
+            >
+              <Trash2 size={16} />
+            </button>
+          ),
+        }) as any
+      )
+    }
+
+    return cols
+  }, [keys, onDeleteRow])
 
   const table = useReactTable({
     data: visibleData,
@@ -158,7 +187,7 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
           {/* Dependent filters: Producto -> Colores -> Variedades */}
           <div className="mb-4">
             {(() => {
-              const norm = (s: any) => (s == null ? '' : String(s).trim().toLowerCase().replace(/\s+/g, ' '))
+              const normV = (s: any) => (s == null ? '' : String(s).trim().toLowerCase().replace(/\s+/g, ' '))
               type Combo = { producto: string; color: string; variedad: string; count: number; sample: RowData[] }
               const map = new Map<string, Combo>()
               for (const r of data) {
@@ -166,7 +195,7 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                 const p = extractProduct(raw)
                 const c = (r[colorKey] ?? r['Color'] ?? '') as string
                 const v = (r[variedadKey] ?? r['Variedad'] ?? '') as string
-                const key = `${norm(p)}||${norm(c)}||${norm(v)}`
+                const key = `${normV(p)}||${normV(c)}||${normV(v)}`
                 if (!map.has(key)) map.set(key, { producto: p, color: c, variedad: v, count: 0, sample: [] })
                 const e = map.get(key)!
                 e.count += 1
@@ -175,11 +204,11 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
               const combos = Array.from(map.values()).sort((a, b) => b.count - a.count)
 
               // build product, color and variety option lists (with counts)
-              const products = Array.from(new Map(combos.map(c => [norm(c.producto), c.producto])).values())
-              const productCounts = combos.reduce((acc: Map<string, number>, c) => { const k = norm(c.producto); acc.set(k, (acc.get(k) || 0) + c.count); return acc }, new Map())
-              const colors = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, key: `${norm(c.producto)}||${norm(c.color)}` }))
+              const products = Array.from(new Map(combos.map(c => [normV(c.producto), c.producto])).values())
+              const productCounts = combos.reduce((acc: Map<string, number>, c) => { const k = normV(c.producto); acc.set(k, (acc.get(k) || 0) + c.count); return acc }, new Map())
+              const colors = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, key: `${normV(c.producto)}||${normV(c.color)}` }))
                 .reduce((acc: Map<string, { producto: string; color: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, { producto: cur.producto, color: cur.color }); return acc }, new Map()).values())
-              const varieties = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, variedad: c.variedad, key: `${norm(c.producto)}||${norm(c.color)}||${norm(c.variedad)}` }))
+              const varieties = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, variedad: c.variedad, key: `${normV(c.producto)}||${normV(c.color)}||${normV(c.variedad)}` }))
                 .reduce((acc: Map<string, { producto: string; color: string; variedad: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, cur); return acc }, new Map()).values())
 
               // component state
@@ -189,10 +218,10 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
 
               // derived lists filtered by selections
               const productList = products
-              const colorList = Array.from(colors).filter((c: any) => selectedProducts.size === 0 || selectedProducts.has(norm(c.producto)))
+              const colorList = Array.from(colors).filter((c: any) => selectedProducts.size === 0 || selectedProducts.has(normV(c.producto)))
               const varietyList = Array.from(varieties).filter((v: any) => {
-                const prodMatch = selectedProducts.size === 0 || selectedProducts.has(norm(v.producto))
-                const colorMatch = selectedColors.size === 0 || selectedColors.has(`${norm(v.producto)}||${norm(v.color)}`)
+                const prodMatch = selectedProducts.size === 0 || selectedProducts.has(normV(v.producto))
+                const colorMatch = selectedColors.size === 0 || selectedColors.has(`${normV(v.producto)}||${normV(v.color)}`)
                 return prodMatch && colorMatch
               })
 
@@ -206,9 +235,9 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
               React.useEffect(() => {
                 const filtered = data.filter((row) => {
                   const raw = (row[productKey] ?? row['Flor'] ?? '') as any
-                  const p = norm(extractProduct(raw))
-                  const c = norm((row[colorKey] ?? row['Color'] ?? '') as any)
-                  const v = norm((row[variedadKey] ?? row['Variedad'] ?? '') as any)
+                  const p = normV(extractProduct(raw))
+                  const c = normV((row[colorKey] ?? row['Color'] ?? '') as any)
+                  const v = normV((row[variedadKey] ?? row['Variedad'] ?? '') as any)
                   const prodOk = selectedProducts.size === 0 || selectedProducts.has(p)
                   const colorOk = selectedColors.size === 0 || selectedColors.has(`${p}||${c}`)
                   const varOk = selectedVarieties.size === 0 || selectedVarieties.has(`${p}||${c}||${v}`)
@@ -229,12 +258,12 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
 
               return (
                 <div className="bg-white border border-gray-200 rounded-lg p-3">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+                    <div className="w-full">
                       <div className="font-medium mb-2">Productos</div>
                       <div className="h-[40vh] overflow-auto border rounded p-2">
                         {productList.map((p: string) => {
-                          const keyp = norm(p)
+                          const keyp = normV(p)
                           const cnt = productCounts.get(keyp) || 0
                           return (
                             <label key={p} className="flex items-center justify-between gap-2 mb-1">
@@ -247,17 +276,17 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                           )
                         })}
                         <div className="mt-2 flex gap-2">
-                          <button className="px-2 py-1 text-sm bg-white border rounded text-green-700" onClick={() => setSelectedProducts(new Set(productList.map((p: string) => norm(p))))}>Seleccionar todo</button>
+                          <button className="px-2 py-1 text-sm bg-white border rounded text-green-700" onClick={() => setSelectedProducts(new Set(productList.map((p: string) => normV(p))))}>Seleccionar todo</button>
                           <button className="px-2 py-1 text-sm bg-white border rounded" onClick={() => setSelectedProducts(new Set())}>Limpiar</button>
                         </div>
                       </div>
                     </div>
 
-                    <div>
+                    <div className="w-full">
                       <div className="font-medium mb-2">Colores (por producto)</div>
                       <div className="h-[40vh] overflow-auto border rounded p-2">
                         {colorList.map((c: any) => {
-                          const key = `${norm(c.producto)}||${norm(c.color)}`
+                          const key = `${normV(c.producto)}||${normV(c.color)}`
                           return (
                             <label key={key} className="flex items-center gap-2 mb-1">
                               <input type="checkbox" checked={selectedColors.has(key)} onChange={() => toggleSet(selectedColors, setSelectedColors, key)} />
@@ -269,17 +298,17 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                           )
                         })}
                         <div className="mt-2 flex gap-2">
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedColors(new Set(Array.from(colors).map((c: any) => `${norm(c.producto)}||${norm(c.color)}`)))}>Seleccionar todo</button>
+                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedColors(new Set(Array.from(colors).map((c: any) => `${normV(c.producto)}||${normV(c.color)}`)))}>Seleccionar todo</button>
                           <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedColors(new Set())}>Limpiar</button>
                         </div>
                       </div>
                     </div>
 
-                    <div>
+                    <div className="w-full">
                       <div className="font-medium mb-2">Variedades (por color & producto)</div>
                       <div className="h-[40vh] overflow-auto border rounded p-2">
                         {varietyList.map((v: any) => {
-                          const key = `${norm(v.producto)}||${norm(v.color)}||${norm(v.variedad)}`
+                          const key = `${normV(v.producto)}||${normV(v.color)}||${normV(v.variedad)}`
                           return (
                             <label key={key} className="flex items-center gap-2 mb-1">
                               <input type="checkbox" checked={selectedVarieties.has(key)} onChange={() => toggleSet(selectedVarieties, setSelectedVarieties, key)} />
@@ -291,7 +320,7 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
                           )
                         })}
                         <div className="mt-2 flex gap-2">
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedVarieties(new Set(Array.from(varieties).map((v: any) => `${norm(v.producto)}||${norm(v.color)}||${norm(v.variedad)}`)))}>Seleccionar todo</button>
+                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedVarieties(new Set(Array.from(varieties).map((v: any) => `${normV(v.producto)}||${normV(v.color)}||${normV(v.variedad)}`)))}>Seleccionar todo</button>
                           <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedVarieties(new Set())}>Limpiar</button>
                         </div>
                       </div>
@@ -341,15 +370,15 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
           </div>
 
       {/* Search */}
-      <div className="mb-4">
+      <div className="mb-4 flex justify-center">
         <input
           placeholder="Buscar en datos..."
           value={(table.getState().globalFilter ?? '') as string}
           onChange={(e) => table.setGlobalFilter(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full max-w-4xl p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-center"
         />
       </div>
-      
+
       {/* Table */}
       <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
         <table className="w-full">
@@ -357,9 +386,9 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th 
+                  <th
                     key={header.id}
-                    className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors"
+                    className="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors"
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     {header.isPlaceholder
@@ -376,14 +405,14 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {table.getRowModel().rows.map((row) => (
-              <tr 
+              <tr
                 key={row.id}
                 className="hover:bg-gray-50 transition-colors"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td 
+                  <td
                     key={cell.id}
-                    className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
@@ -439,4 +468,3 @@ export default function DataPreviewTable({ data, onMapped }: { data: RowData[], 
     </div>
   )
 }
-

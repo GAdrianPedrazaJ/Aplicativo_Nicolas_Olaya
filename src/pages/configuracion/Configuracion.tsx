@@ -13,7 +13,7 @@ import {
 
 export default function Configuracion() {
   return (
-    <div className="flex h-screen bg-[#F8FAFC]">
+    <div className="flex flex-col h-screen bg-[#F8FAFC] overflow-hidden">
       <Sidebar />
       <main className="flex-1 overflow-y-auto">
         <div className="p-8 max-w-7xl mx-auto space-y-10">
@@ -21,10 +21,10 @@ export default function Configuracion() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <h2 className="text-4xl font-black text-slate-900 tracking-tight">CONFIGURACIÓN</h2>
+              <h2 className="text-4xl font-black text-slate-900 tracking-tight uppercase">CONFIGURACIÓN</h2>
               <p className="text-slate-500 font-medium mt-1">Administra las preferencias del sistema y ajustes de tu cuenta.</p>
             </div>
-            <button className="btn-primary flex items-center gap-2 shadow-lg shadow-indigo-500/20">
+            <button className="btn-primary flex items-center gap-2 shadow-lg shadow-emerald-900/10">
               <Save size={18} />
               <span>GUARDAR CAMBIOS</span>
             </button>
@@ -42,12 +42,12 @@ export default function Configuracion() {
                 <ConfigMenuItem icon={ShieldCheck} label="Permisos de Rol" />
               </div>
 
-              <div className="bg-indigo-600 p-8 rounded-[32px] text-white shadow-xl shadow-indigo-500/20 relative overflow-hidden group">
+              <div className="bg-[#005d5d] p-8 rounded-[32px] text-white shadow-xl shadow-emerald-900/20 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 bg-white/10 w-24 h-24 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-                <Settings className="text-indigo-300 mb-4" size={32} />
+                <Settings className="text-emerald-300 mb-4" size={32} />
                 <h3 className="text-xl font-black mb-2 tracking-tight">Estado del Sistema</h3>
-                <p className="text-indigo-100 text-xs font-medium leading-relaxed opacity-80">
-                  Versión 2.0.4 - Tu sistema está actualizado con los últimos parches de seguridad y rendimiento.
+                <p className="text-emerald-100 text-xs font-medium leading-relaxed opacity-80">
+                  Versión 2.2.0 - Tu sistema está actualizado con los últimos parches de seguridad y rendimiento.
                 </p>
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function Configuracion() {
                   <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
                     <div className="flex items-center gap-4">
                       <div className="bg-white p-2 rounded-xl">
-                        <Bell className="text-indigo-600" size={18} />
+                        <Bell className="text-[#005d5d]" size={18} />
                       </div>
                       <div>
                         <p className="text-sm font-black text-slate-800 uppercase tracking-tight">Notificaciones de Producción</p>
@@ -91,7 +91,7 @@ export default function Configuracion() {
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" defaultChecked className="sr-only peer" />
-                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#005d5d]"></div>
                     </label>
                   </div>
 
@@ -120,9 +120,9 @@ export default function Configuracion() {
 function ConfigMenuItem({ icon: Icon, label, active = false }: any) {
   return (
     <button className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group ${
-      active ? 'bg-indigo-50 text-indigo-600' : 'text-slate-500 hover:bg-slate-50'
+      active ? 'bg-emerald-50 text-[#005d5d]' : 'text-slate-500 hover:bg-slate-50'
     }`}>
-      <Icon size={20} className={active ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-600'} />
+      <Icon size={20} className={active ? 'text-[#005d5d]' : 'text-slate-400 group-hover:text-slate-600'} />
       <span className="text-sm font-black uppercase tracking-wider">{label}</span>
     </button>
   );

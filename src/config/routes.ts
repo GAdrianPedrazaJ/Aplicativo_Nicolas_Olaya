@@ -1,12 +1,13 @@
 import { UserRole } from '../constants/roles';
 import {
   LayoutDashboard,
-  Sprout,
   FileText,
   Users,
   Settings,
   History,
-  UploadCloud
+  UploadCloud,
+  List,
+  Trash2
 } from 'lucide-react';
 
 export interface RouteConfig {
@@ -14,15 +15,13 @@ export interface RouteConfig {
   label: string;
   path: string;
   icon: any;
-  component?: string;
   requiredRoles: UserRole[];
-  children?: RouteConfig[];
 }
 
 export const ROUTES: RouteConfig[] = [
   {
     id: 'dashboard',
-    label: 'Inteligencia de Datos',
+    label: 'Dashboard',
     path: '/dashboard',
     icon: LayoutDashboard,
     requiredRoles: ['ADMIN', 'MONITOR', 'OPERARIO', 'SUPERADMIN'],
@@ -30,25 +29,16 @@ export const ROUTES: RouteConfig[] = [
   {
     id: 'siembras',
     label: 'Siembras',
-    path: '/siembras',
-    icon: Sprout,
+    path: '/siembras/lista',
+    icon: List,
     requiredRoles: ['ADMIN', 'MONITOR', 'SUPERADMIN'],
-    children: [
-      {
-        id: 'carga-siembras',
-        label: 'Cargar Siembras',
-        path: '/siembras/cargar',
-        icon: UploadCloud,
-        requiredRoles: ['ADMIN', 'SUPERADMIN'],
-      },
-      {
-        id: 'carga-historicos',
-        label: 'Carga de Históricos',
-        path: '/siembras/historicos',
-        icon: History,
-        requiredRoles: ['ADMIN', 'MONITOR', 'SUPERADMIN'],
-      },
-    ],
+  },
+  {
+    id: 'carga-historicos',
+    label: 'Carga de Históricos',
+    path: '/siembras/historicos',
+    icon: History,
+    requiredRoles: ['ADMIN', 'MONITOR', 'SUPERADMIN'],
   },
   {
     id: 'reportes',
@@ -70,5 +60,26 @@ export const ROUTES: RouteConfig[] = [
     path: '/configuracion',
     icon: Settings,
     requiredRoles: ['ADMIN', 'SUPERADMIN'],
+  },
+];
+
+export const SIEMBRAS_SUBROUTES = [
+  {
+    id: 'lista-siembras',
+    label: 'Ver Siembras',
+    path: '/siembras/lista',
+    icon: List,
+  },
+  {
+    id: 'carga-siembras',
+    label: 'Cargar Siembras',
+    path: '/siembras/cargar',
+    icon: UploadCloud,
+  },
+  {
+    id: 'eliminar-siembras',
+    label: 'Eliminación de Siembras',
+    path: '/siembras/eliminar',
+    icon: Trash2,
   },
 ];

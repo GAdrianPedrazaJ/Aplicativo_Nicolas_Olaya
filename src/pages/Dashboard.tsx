@@ -17,7 +17,9 @@ import {
   ShieldAlert,
   RefreshCcw,
   AlertTriangle,
-  Box
+  Box,
+  Sprout,
+  BarChart2
 } from 'lucide-react';
 
 // Importar componentes de analítica
@@ -29,9 +31,13 @@ import BloquesVsProducto from './analytics/tabs/BloquesVsProducto';
 import Veronicas from './analytics/tabs/Veronicas';
 import Delphinium from './analytics/tabs/Delphinium';
 import AstronovaDanos from './analytics/tabs/AstronovaDanos';
+import Productividad from './analytics/tabs/Productividad';
+import DistribucionSiembras from './analytics/tabs/DistribucionSiembras';
 
 const TABS = [
   { id: 'general', label: 'Resumen General', icon: LayoutGrid, color: 'indigo' },
+  { id: 'productividad', label: 'Productividad', icon: BarChart2, color: 'indigo' },
+  { id: 'siembras', label: 'Análisis de Siembras', icon: Sprout, color: 'emerald' },
   { id: 'comparativas', label: 'Comparativas', icon: BarChart3, color: 'indigo' },
   { id: 'veronicas', label: 'Verónica Spray', icon: Activity, color: 'emerald' },
   { id: 'delphinium', label: 'Delphinium', icon: Flower2, color: 'blue' },
@@ -65,6 +71,8 @@ export default function Dashboard() {
   const renderContent = () => {
     switch (activeTab) {
       case 'general': return renderGeneralStats();
+      case 'productividad': return <Productividad />;
+      case 'siembras': return <DistribucionSiembras />;
       case 'comparativas': return <Comparativas />;
       case 'veronicas': return <Veronicas />;
       case 'delphinium': return <Delphinium />;
@@ -79,7 +87,6 @@ export default function Dashboard() {
 
   const renderGeneralStats = () => (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Grid de KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <StatCard
           label="Siembras Activas"
@@ -115,7 +122,6 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Gráfico y Alerta */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-white p-8 rounded-[32px] shadow-sm border border-slate-100">
           <div className="flex items-center justify-between mb-8">
@@ -177,61 +183,39 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="flex h-screen bg-[#F8FAFC]">
+    <div className="flex flex-col h-screen bg-[#F8FAFC] overflow-hidden">
+      {/* NAVBAR SUPERIOR */}
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto">
-        <div className="bg-white/80 backdrop-blur-md border-b border-slate-100 px-8 py-6 sticky top-0 z-20 shadow-sm">
-          <div className="max-w-7xl mx-auto flex flex-col gap-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 text-indigo-600 text-[10px] font-black uppercase tracking-[0.3em] mb-1">
-                  <span>Inteligencia de Datos</span>
-                  <ChevronRight size={10} className="text-slate-300" />
-                  <span className="text-slate-400">{TABS.find(t => t.id === activeTab)?.label}</span>
-                </div>
-                <h1 className="text-3xl font-black text-slate-900 tracking-tight">
-                  HOLA, {usuario?.nombre_completo.split(' ')[0]} 👋
-                </h1>
-              </div>
-
-              <div className="flex items-center gap-3 bg-slate-50 p-1.5 rounded-2xl border border-slate-100">
-                <div className="bg-white p-2 rounded-xl shadow-sm">
-                  <Calendar className="text-indigo-600" size={18} />
-                </div>
-                <div className="pr-4">
-                  <p className="text-[9px] uppercase font-black text-slate-400 tracking-widest">Fecha Actual</p>
-                  <p className="text-xs font-bold text-slate-700">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Selector de Tabs Unificado */}
-            <div className="flex bg-slate-100/50 p-1 rounded-[20px] border border-slate-200/50 overflow-x-auto no-scrollbar">
-              <div className="flex gap-1 min-w-max">
-                {TABS.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`
-                      flex items-center gap-2 px-5 py-2.5 rounded-[16px] text-[10px] font-black transition-all duration-300 uppercase tracking-wider
-                      ${activeTab === tab.id
-                        ? 'bg-white text-indigo-600 shadow-sm border border-slate-100'
-                        : 'text-slate-500 hover:text-indigo-600 hover:bg-white/40'
-                      }
-                    `}
-                  >
-                    <tab.icon size={14} />
-                    <span>{tab.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+      {/* ÁREA DE CONTENIDO PRINCIPAL */}
+      <main className="flex-1 overflow-y-auto relative flex flex-col">
+        {/* Espaciado superior para separar de la navbar */}
+        <div className="p-8 max-w-7xl mx-auto w-full flex-1">
+          {renderContent()}
         </div>
 
-        <div className="p-8 max-w-7xl mx-auto">
-          {renderContent()}
+        {/* NAVEGACIÓN INFERIOR (TABS ESTILO POWER BI) */}
+        <div className="bg-white border-t border-slate-200 h-12 flex items-center px-4 shrink-0 z-20 overflow-x-auto no-scrollbar sticky bottom-0">
+          <div className="max-w-7xl mx-auto flex h-full items-center">
+            <div className="flex gap-1">
+              {TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`
+                    flex items-center gap-2 px-6 h-12 text-[10px] font-black transition-all duration-300 uppercase tracking-wider border-t-4
+                    ${activeTab === tab.id
+                      ? 'bg-indigo-50/50 text-indigo-600 border-indigo-600'
+                      : 'text-slate-400 border-transparent hover:text-slate-600 hover:bg-slate-50'
+                    }
+                  `}
+                >
+                  <tab.icon size={14} />
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </main>
     </div>

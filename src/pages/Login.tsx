@@ -48,7 +48,7 @@ export default function Login() {
             <div className="bg-indigo-600 p-2.5 rounded-2xl shadow-lg shadow-indigo-500/20">
               <Leaf className="text-white" size={24} />
             </div>
-            <h1 className="text-2xl font-black text-slate-900 tracking-tight">AGRO<span className="text-indigo-600">TECH</span></h1>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight uppercase">PETAL <span className="text-indigo-600">DIVERSIFICADOS</span></h1>
           </div>
 
           <div className="mb-10">
@@ -123,7 +123,7 @@ export default function Login() {
           </form>
 
           <p className="mt-12 text-center text-slate-400 text-xs font-bold uppercase tracking-widest">
-            © 2024 AGROTECH • CONTROL DE PRODUCCIÓN
+            © 2024 PETAL DIVERSIFICADOS • CONTROL DE PRODUCCIÓN
           </p>
         </div>
 

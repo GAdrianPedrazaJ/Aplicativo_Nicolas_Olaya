@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useSupabase } from './useSupabase'
-import { SiembraRow } from '../utils/validators'
 import { useUploadStore } from '../store/useUploadStore'
-// Note: inserts are performed by backend /planos endpoint
 
 export function useSiembras() {
   const [loading, setLoading] = useState(false)
@@ -47,21 +45,6 @@ export function useSiembras() {
         `)
         .order('fecha_siembra', { ascending: false })
       if (error) throw error
-      
-      // Debug: Log products being loaded with details
-      const allProducts = new Set(
-        (data || []).map(s => s?.variedades?.colores?.productos?.nombre).filter(p => p && p !== 'N/A')
-      )
-      const productsArray = Array.from(allProducts)
-      console.log('Productos en Siembras page:', productsArray)
-      productsArray.forEach(p => {
-        const count = (data || []).filter(s => s?.variedades?.colores?.productos?.nombre === p).length
-        console.log(`  - ${p}: ${count} siembras`)
-      })
-      // Check for N/A (missing relationships)
-      const naCount = (data || []).filter(s => !s?.variedades?.colores?.productos?.nombre).length
-      if (naCount > 0) console.warn(`  - Sin relación producto: ${naCount} siembras`)
-      
       setSiembras(data || [])
     } catch (err: any) {
       console.error('Fetch siembras error:', err)
@@ -77,9 +60,6 @@ export function useSiembras() {
       setError(null)
       setUploading(true)
 
-      // Delegate normalization and validation to the batch service which
-      // knows how to map different header variants to our schema.
-      // Map incoming rows to server-expected keys (normalize header variants)
       const normalize = (raw: any) => {
         const obj: any = {}
         for (const k of Object.keys(raw)) {
@@ -97,10 +77,6 @@ export function useSiembras() {
             case 'plantas':
             case 'plantassembradas':
             case 'cantidad': obj.PlantasSembradas = Number(v || 0); break
-            case 'aream2':
-            case 'area':
-            case 'áream2': obj.AreaM2 = v ? Number(v) : null; break
-            case 'estado': obj.Estado = String(v ?? '').trim(); break
             default: break
           }
         }
@@ -108,56 +84,31 @@ export function useSiembras() {
       }
 
       const payloadRows = rows.map(r => normalize(r))
-
-      // Send rows to the backend endpoint which uses the Supabase Service Role
-      // to perform upserts and hierarchical creation. Backend returns { inserted, errors }
       setStatus('uploading')
       setProgress(0)
       setMessage('Enviando filas al servidor...')
+
       const resp = await fetch((import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000') + '/planos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadRows)
       })
+
       const payload = await resp.json()
-      if (!resp.ok) {
-        setStatus('error')
-        setMessage(payload.error || JSON.stringify(payload))
-        throw new Error(payload.error || JSON.stringify(payload))
+      if (!resp.ok) throw new Error(payload.error || 'Error en la carga')
+
+      const backendErrors: any[] = []
+      if (payload.errors) {
+        payload.errors.forEach((e: any) => {
+          backendErrors.push({ rowIndex: e.index, messages: e.issues?.map((i: any) => i.message) || [e.message], raw: e.raw })
+        })
       }
 
-      // Normalize backend errors into a client-friendly shape
-      const backendErrors: Array<{ rowIndex?: number, messages: string[], raw?: any }> = []
-      if (payload.errors && Array.isArray(payload.errors) && payload.errors.length) {
-        for (const e of payload.errors) {
-          // e may be { index, issues, raw } from validation or { index, message }
-          const rowIndex = e.index ?? e.rowIndex
-          const messages: string[] = []
-          if (e.issues && Array.isArray(e.issues)) {
-            for (const it of e.issues) {
-              if (it.message) messages.push(it.message)
-              else messages.push(JSON.stringify(it))
-            }
-          } else if (e.message) {
-            messages.push(String(e.message))
-          } else if (e.issues && typeof e.issues === 'object') {
-            messages.push(JSON.stringify(e.issues))
-          }
-          backendErrors.push({ rowIndex, messages, raw: e.raw ?? null })
-        }
-      }
-
-      // compute and publish progress based on successful inserts vs total rows
-      const total = payloadRows.length || 0
-      const inserted = payload.inserted || 0
-      const percent = total > 0 ? Math.round((inserted / total) * 100) : 100
-      setProgress(percent)
+      setProgress(100)
       setStatus('success')
-      setMessage(`Se subieron ${inserted} de ${total} filas.`)
-
-      // Refresh siembras after attempted upload
+      setMessage(`Se procesaron ${payload.inserted || 0} filas exitosamente.`)
       await fetchSiembras()
-      return { success: true, count: inserted || 0, errors: backendErrors }
+      return { success: true, count: payload.inserted || 0, errors: backendErrors }
     } catch (err: any) {
       setError(err.message)
       setStatus('error')
@@ -169,12 +120,61 @@ export function useSiembras() {
     }
   }
 
+  const deleteSiembras = async (ids: string[]) => {
+    try {
+      setLoading(true)
+      const { error } = await supabase
+        .from('siembras')
+        .delete()
+        .in('id_siembra', ids)
+
+      if (error) throw error
+      await fetchSiembras()
+      return { success: true }
+    } catch (err: any) {
+      console.error('Delete siembras error:', err)
+      return { success: false, error: err.message }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const deleteSiembrasByFile = async (rows: any[]) => {
+    try {
+      setLoading(true)
+      setStatus('uploading')
+      setMessage('Identificando registros para eliminar...')
+
+      // Enviamos al backend para que identifique y elimine por criterios de negocio (Bloque, Cama, Variedad)
+      const resp = await fetch((import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000') + '/planos/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(rows)
+      })
+
+      const payload = await resp.json()
+      if (!resp.ok) throw new Error(payload.error || 'Error en la eliminación masiva')
+
+      setStatus('success')
+      setMessage(`Se eliminaron ${payload.deleted || 0} registros correctamente.`)
+      await fetchSiembras()
+      return { success: true, count: payload.deleted }
+    } catch (err: any) {
+      setStatus('error')
+      setMessage(err.message)
+      return { success: false, error: err.message }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return { 
     loading, 
     siembras, 
     uploadData, 
-    error, 
+    deleteSiembras,
+    deleteSiembrasByFile,
+    error,
     fetchSiembras 
   }
 }
-

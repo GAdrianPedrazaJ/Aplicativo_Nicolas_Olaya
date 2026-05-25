@@ -66,12 +66,17 @@ export default function CargaSiembras() {
         </ModuleCard>
 
         <ModuleCard title="Carga Masiva de Planos">
-          <div className="max-w-3xl">
-            <p className="text-sm text-slate-500 mb-6 italic bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
-              <strong>Nota:</strong> El archivo debe contener las columnas de Bloque, Nave, Cama, Producto, Color, Variedad y Plantas. Los formatos soportados son .xlsx y .csv.
-            </p>
-            <FileUploader mode="siembras" onUpload={uploadData} />
-          </div>
+          <FileUploader
+            mode="siembras"
+            onUpload={uploadData}
+            extraInfo={
+              <div className="space-y-3">
+                <p className="text-sm text-slate-500 italic bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                  <strong>Nota:</strong> El archivo debe contener las columnas de Bloque, Nave, Cama, Producto, Color, Variedad y Plantas. Los formatos soportados son .xlsx y .csv.
+                </p>
+              </div>
+            }
+          />
         </ModuleCard>
       </div>
     </div>
