@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSiembras } from '../../hooks/useSiembras'
 import DataPreviewTable from '../../components/upload/DataPreviewTable'
@@ -9,6 +9,18 @@ import { RefreshCcw, Database, List } from 'lucide-react'
 export default function ListaSiembras() {
   const { siembras, fetchSiembras, loading } = useSiembras()
   const location = useLocation()
+
+  const tableData = useMemo(() => siembras.map(s => ({
+    ID: s?.id_siembra?.substring(0, 8),
+    Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
+    Nave: s?.camas?.naves?.numero_nave || 'N/A',
+    Cama: s?.camas?.numero_cama || 'N/A',
+    Producto: s?.variedades?.colores?.productos?.nombre || 'N/A',
+    Color: s?.variedades?.colores?.nombre || 'N/A',
+    Variedad: s?.variedades?.nombre || 'N/A',
+    Plantas: s?.plantas_sembradas?.toLocaleString() || 0,
+    Estado: s?.estado || 'N/A'
+  })), [siembras])
 
   useEffect(() => {
     fetchSiembras()
@@ -69,17 +81,7 @@ export default function ListaSiembras() {
                 </div>
              </div>
              <div className="p-6">
-                <DataPreviewTable data={siembras.map(s => ({
-                  ID: s?.id_siembra?.substring(0, 8),
-                  Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
-                  Nave: s?.camas?.naves?.numero_nave || 'N/A',
-                  Cama: s?.camas?.numero_cama || 'N/A',
-                  Producto: s?.variedades?.colores?.productos?.nombre || 'N/A',
-                  Color: s?.variedades?.colores?.nombre || 'N/A',
-                  Variedad: s?.variedades?.nombre || 'N/A',
-                  Plantas: s?.plantas_sembradas?.toLocaleString() || 0,
-                  Estado: s?.estado || 'N/A'
-                }))} />
+                <DataPreviewTable data={tableData} />
              </div>
           </div>
         </div>

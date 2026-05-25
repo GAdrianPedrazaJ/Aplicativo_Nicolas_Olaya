@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSiembras } from '../hooks/useSiembras'
 import FileUploader from '../components/upload/FileUploader'
 import ModuleCard from '../components/shared/ModuleCard'
@@ -6,6 +6,19 @@ import DataPreviewTable from '../components/upload/DataPreviewTable'
 
 export default function CargaSiembras() {
   const { uploadData, siembras, fetchSiembras, loading } = useSiembras()
+
+  const tableData = useMemo(() => siembras.map(s => ({
+    ID: s?.id_siembra,
+    Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
+    Nave: s?.camas?.naves?.numero_nave || 'N/A',
+    Cama: s?.camas?.numero_cama || 'N/A',
+    Variedad: s?.variedades?.nombre || 'N/A',
+    Color: s?.variedades?.colores?.nombre || 'N/A',
+    Producto: s?.variedades?.colores?.productos?.nombre || 'N/A',
+    'Fecha Siembra': s?.fecha_siembra || 'N/A',
+    Plantas: s?.plantas_sembradas || 0,
+    Estado: s?.estado || 'N/A'
+  })), [siembras])
 
   useEffect(() => {
     fetchSiembras()
@@ -49,18 +62,7 @@ export default function CargaSiembras() {
             </div>
           ) : (
             <div className="relative overflow-hidden rounded-xl border border-slate-100 shadow-inner">
-              <DataPreviewTable data={siembras.map(s => ({
-                ID: s?.id_siembra,
-                Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
-                Nave: s?.camas?.naves?.numero_nave || 'N/A',
-                Cama: s?.camas?.numero_cama || 'N/A',
-                Variedad: s?.variedades?.nombre || 'N/A',
-                Color: s?.variedades?.colores?.nombre || 'N/A',
-                Producto: s?.variedades?.colores?.productos?.nombre || 'N/A',
-                'Fecha Siembra': s?.fecha_siembra || 'N/A',
-                Plantas: s?.plantas_sembradas || 0,
-                Estado: s?.estado || 'N/A'
-              }))} />
+              <DataPreviewTable data={tableData} />
             </div>
           )}
         </ModuleCard>

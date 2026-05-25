@@ -14,6 +14,26 @@ type RowData = Record<string, unknown>
 
 const columnHelper = createColumnHelper<RowData>()
 
+const norm = (s: string) => String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/\s+/g, '').replace(/[_-]/g, '').toLowerCase()
+
+const extractProduct = (v: any) => {
+  if (v == null) return ''
+  const s = String(v).trim()
+  if (!s) return ''
+  const sepMatch = s.match(/\s[-—–:\|]\s/)
+  if (sepMatch) return s.split(sepMatch[0])[0].trim()
+  if (s.includes(' - ')) return s.split(' - ')[0].trim()
+  if (s.includes('—')) return s.split('—')[0].trim()
+  if (s.includes('-')) return s.split('-')[0].trim()
+  return s
+}
+
+const TARGET_FIELDS = [
+  'Bloque', 'Nave', 'Cama', 'Producto', 'Color', 'Variedad', 'FechaSiembra', 'PlantasSembradas', 'AreaM2', 'Estado'
+] as const
+
+type TargetField = (typeof TARGET_FIELDS)[number]
+
 interface DataPreviewTableProps {
   data: RowData[]
   onMapped?: (mapped: RowData[]) => void
@@ -21,106 +41,72 @@ interface DataPreviewTableProps {
 }
 
 export default function DataPreviewTable({ data, onMapped, onDeleteRow }: DataPreviewTableProps) {
-  if (!data || data.length === 0) return <div className="text-sm text-gray-500 p-8 text-center">No hay datos cargados.</div>
+  const keys = React.useMemo(() => Array.from(new Set(data?.flatMap((r) => Object.keys(r)) || [])), [data])
 
-  const keys = Array.from(new Set(data.flatMap((r) => Object.keys(r))))
+  const targetFields = React.useMemo(() => Array.from(TARGET_FIELDS), [])
 
-  // Fields we expect to map to
-  const targetFields = [
-    'Bloque', 'Nave', 'Cama', 'Producto', 'Color', 'Variedad', 'FechaSiembra', 'PlantasSembradas', 'AreaM2', 'Estado'
-  ]
+  const detectKey = React.useCallback((candidates: string[]) => keys.find((k) => candidates.some((c) => norm(k).includes(c))), [keys])
 
-  // helper: normalize header for matching
-  const norm = (s: string) => String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/\s+/g, '').replace(/[_-]/g, '').toLowerCase()
+  const productKey = React.useMemo(() => detectKey(['flor', 'producto', 'product']) || 'Flor', [detectKey])
+  const colorKey = React.useMemo(() => detectKey(['color', 'colores']) || 'Color', [detectKey])
+  const variedadKey = React.useMemo(() => detectKey(['var', 'variedad', 'variedades']) || 'Variedad', [detectKey])
 
-  // helper: extract product name from combined 'Flor' values
-  const extractProduct = (v: any) => {
-    if (v == null) return ''
-    const s = String(v).trim()
-    if (!s) return ''
-    const sepMatch = s.match(/\s[-—–:\|]\s/)
-    if (sepMatch) return s.split(sepMatch[0])[0].trim()
-    if (s.includes(' - ')) return s.split(' - ')[0].trim()
-    if (s.includes('—')) return s.split('—')[0].trim()
-    if (s.includes('-')) return s.split('-')[0].trim()
-    return s
-  }
+  const autoMapping = React.useMemo(() => {
+    const mapping: Record<string, string | undefined> = {}
 
-  // detect actual column keys for product/color/variedad (case/variant insensitive)
-  const detectKey = (candidates: string[]) => keys.find(k => candidates.some(c => norm(k).includes(c)))
-  const productKey = detectKey(['flor', 'producto', 'product']) || 'Flor'
-  const colorKey = detectKey(['color', 'colores']) || 'Color'
-  const variedadKey = detectKey(['var', 'variedad', 'variedades']) || 'Variedad'
-
-  // default auto mapping: use header names first, then try to infer from sample values
-  const autoMapping: Record<string, string | undefined> = {}
-  targetFields.forEach((t) => {
-    let found = keys.find((k) => norm(k) === norm(t) || norm(k).includes(norm(t)) || norm(t).includes(norm(k)))
-    if (!found) {
-      if (t === 'Producto') found = productKey
-      if (t === 'Color') found = colorKey
-      if (t === 'Variedad') found = variedadKey
-    }
-    if (found) autoMapping[t] = found
-    else autoMapping[t] = undefined
-  })
-
-  // If FechaSiembra (or other fields) not found by header, try infer by sample values
-  const inferFromValues = () => {
-    if (!data || data.length === 0) return
-    const sampleSize = Math.min(10, data.length)
-    const sampleRows = data.slice(0, sampleSize)
-
-    // helper: is date-like
-    const isDateLike = (v: any) => {
-      if (v == null) return false
-      const s = String(v).trim()
-      if (!s) return false
-      // ISO date
-      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return true
-      // slashed dates dd/mm/yyyy or mm/dd/yyyy
-      if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(s)) return true
-      // excel serial-ish numeric values (between 20000 and 46000)
-      if (/^\d+$/.test(s)) {
-        const n = Number(s)
-        if (n > 20000 && n < 50000) return true
+    targetFields.forEach((t) => {
+      let found = keys.find((k) => norm(k) === norm(t) || norm(k).includes(norm(t)) || norm(t).includes(norm(k)))
+      if (!found) {
+        if (t === 'Producto') found = productKey
+        if (t === 'Color') found = colorKey
+        if (t === 'Variedad') found = variedadKey
       }
-      return false
-    }
+      mapping[t] = found
+    })
 
-    // check each key for date-like values
-    for (const k of keys) {
-      if (autoMapping['FechaSiembra']) break
-      let count = 0
-      for (const r of sampleRows) {
-        if (isDateLike(r[k])) count++
+    if (data.length > 0 && !mapping['FechaSiembra']) {
+      const sampleSize = Math.min(10, data.length)
+      const sampleRows = data.slice(0, sampleSize)
+
+      const isDateLike = (v: any) => {
+        if (v == null) return false
+        const s = String(v).trim()
+        if (!s) return false
+        if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return true
+        if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(s)) return true
+        if (/^\d+$/.test(s)) {
+          const n = Number(s)
+          return n > 20000 && n < 50000
+        }
+        return false
       }
-      // if majority of sample rows look like dates, choose this column
-      if (count >= Math.max(1, Math.floor(sampleSize * 0.6))) {
-        autoMapping['FechaSiembra'] = k
+
+      for (const k of keys) {
+        if (mapping['FechaSiembra']) break
+        let count = 0
+        for (const r of sampleRows) {
+          if (isDateLike(r[k])) count++
+        }
+        if (count >= Math.max(1, Math.floor(sampleSize * 0.6))) {
+          mapping['FechaSiembra'] = k
+        }
       }
     }
-  }
-  inferFromValues()
 
-  const [mapping, setMapping] = React.useState<Record<string, string | undefined>>(autoMapping)
+    return mapping
+  }, [data, keys, targetFields, productKey, colorKey, variedadKey])
+
+  const [mapping, setMapping] = React.useState<Record<string, string | undefined>>(() => autoMapping)
 
   // When headers/keys change, reapply auto-mapping so fields like FechaSiembra get detected
+  const onMappedRef = React.useRef(onMapped)
+  React.useEffect(() => {
+    onMappedRef.current = onMapped
+  }, [onMapped])
+
   React.useEffect(() => {
     setMapping(autoMapping)
-    // apply mapping automatically to parent so mappedData isn't empty by accident
-    const mapped = data.map((row) => {
-      const out: any = {}
-      targetFields.forEach((t) => {
-        const source = autoMapping[t]
-        if (source) out[t] = row[source]
-      })
-      return out
-    })
-    onMapped?.(mapped)
-    // use stable dependency: comma-joined keys
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keys.join(',')])
+  }, [autoMapping])
 
   // visibleData: the rows currently shown in the table (affected by filters)
   const [visibleData, setVisibleData] = React.useState<RowData[]>(data)
@@ -135,7 +121,7 @@ export default function DataPreviewTable({ data, onMapped, onDeleteRow }: DataPr
       })
       return out
     })
-    onMapped?.(mapped)
+    onMappedRef.current?.(mapped)
   }
 
   const columns = React.useMemo(() => {
@@ -182,192 +168,22 @@ export default function DataPreviewTable({ data, onMapped, onDeleteRow }: DataPr
     },
   })
 
+  if (!data || data.length === 0) {
+    return <div className="text-sm text-gray-500 p-8 text-center">No hay datos cargados.</div>
+  }
+
   return (
     <div className="w-full">
-          {/* Dependent filters: Producto -> Colores -> Variedades */}
-          <div className="mb-4">
-            {(() => {
-              const normV = (s: any) => (s == null ? '' : String(s).trim().toLowerCase().replace(/\s+/g, ' '))
-              type Combo = { producto: string; color: string; variedad: string; count: number; sample: RowData[] }
-              const map = new Map<string, Combo>()
-              for (const r of data) {
-                const raw = (r[productKey] ?? r['Flor'] ?? '') as any
-                const p = extractProduct(raw)
-                const c = (r[colorKey] ?? r['Color'] ?? '') as string
-                const v = (r[variedadKey] ?? r['Variedad'] ?? '') as string
-                const key = `${normV(p)}||${normV(c)}||${normV(v)}`
-                if (!map.has(key)) map.set(key, { producto: p, color: c, variedad: v, count: 0, sample: [] })
-                const e = map.get(key)!
-                e.count += 1
-                if (e.sample.length < 2) e.sample.push(r)
-              }
-              const combos = Array.from(map.values()).sort((a, b) => b.count - a.count)
-
-              // build product, color and variety option lists (with counts)
-              const products = Array.from(new Map(combos.map(c => [normV(c.producto), c.producto])).values())
-              const productCounts = combos.reduce((acc: Map<string, number>, c) => { const k = normV(c.producto); acc.set(k, (acc.get(k) || 0) + c.count); return acc }, new Map())
-              const colors = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, key: `${normV(c.producto)}||${normV(c.color)}` }))
-                .reduce((acc: Map<string, { producto: string; color: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, { producto: cur.producto, color: cur.color }); return acc }, new Map()).values())
-              const varieties = Array.from(combos.map(c => ({ producto: c.producto, color: c.color, variedad: c.variedad, key: `${normV(c.producto)}||${normV(c.color)}||${normV(c.variedad)}` }))
-                .reduce((acc: Map<string, { producto: string; color: string; variedad: string }>, cur) => { if (!acc.has(cur.key)) acc.set(cur.key, cur); return acc }, new Map()).values())
-
-              // component state
-              const [selectedProducts, setSelectedProducts] = React.useState<Set<string>>(new Set())
-              const [selectedColors, setSelectedColors] = React.useState<Set<string>>(new Set())
-              const [selectedVarieties, setSelectedVarieties] = React.useState<Set<string>>(new Set())
-
-              // derived lists filtered by selections
-              const productList = products
-              const colorList = Array.from(colors).filter((c: any) => selectedProducts.size === 0 || selectedProducts.has(normV(c.producto)))
-              const varietyList = Array.from(varieties).filter((v: any) => {
-                const prodMatch = selectedProducts.size === 0 || selectedProducts.has(normV(v.producto))
-                const colorMatch = selectedColors.size === 0 || selectedColors.has(`${normV(v.producto)}||${normV(v.color)}`)
-                return prodMatch && colorMatch
-              })
-
-              const toggleSet = (s: Set<string>, setFn: React.Dispatch<React.SetStateAction<Set<string>>>, key: string) => {
-                const next = new Set(s)
-                if (next.has(key)) next.delete(key); else next.add(key)
-                setFn(next)
-              }
-
-              // whenever selections change, compute filtered visible data and notify parent
-              React.useEffect(() => {
-                const filtered = data.filter((row) => {
-                  const raw = (row[productKey] ?? row['Flor'] ?? '') as any
-                  const p = normV(extractProduct(raw))
-                  const c = normV((row[colorKey] ?? row['Color'] ?? '') as any)
-                  const v = normV((row[variedadKey] ?? row['Variedad'] ?? '') as any)
-                  const prodOk = selectedProducts.size === 0 || selectedProducts.has(p)
-                  const colorOk = selectedColors.size === 0 || selectedColors.has(`${p}||${c}`)
-                  const varOk = selectedVarieties.size === 0 || selectedVarieties.has(`${p}||${c}||${v}`)
-                  return prodOk && colorOk && varOk
-                })
-                setVisibleData(filtered)
-                // send mapped payload for the filtered rows
-                const mappedFiltered = filtered.map((row) => {
-                  const out: any = {}
-                  targetFields.forEach((t) => {
-                    const source = mapping[t] ?? (t === 'Producto' ? productKey : t === 'Color' ? colorKey : t === 'Variedad' ? variedadKey : undefined)
-                    if (source) out[t] = row[source]
-                  })
-                  return out
-                })
-                onMapped?.(mappedFiltered)
-              }, [Array.from(selectedProducts).join(','), Array.from(selectedColors).join(','), Array.from(selectedVarieties).join(',')])
-
-              return (
-                <div className="bg-white border border-gray-200 rounded-lg p-3">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-                    <div className="w-full">
-                      <div className="font-medium mb-2">Productos</div>
-                      <div className="h-[40vh] overflow-auto border rounded p-2">
-                        {productList.map((p: string) => {
-                          const keyp = normV(p)
-                          const cnt = productCounts.get(keyp) || 0
-                          return (
-                            <label key={p} className="flex items-center justify-between gap-2 mb-1">
-                              <div className="flex items-center gap-2">
-                                <input type="checkbox" checked={selectedProducts.has(keyp)} onChange={() => toggleSet(selectedProducts, setSelectedProducts, keyp)} />
-                                <div className="text-sm">{p || '(sin producto)'}</div>
-                              </div>
-                              <div className="text-xs text-gray-400">{cnt}</div>
-                            </label>
-                          )
-                        })}
-                        <div className="mt-2 flex gap-2">
-                          <button className="px-2 py-1 text-sm bg-white border rounded text-green-700" onClick={() => setSelectedProducts(new Set(productList.map((p: string) => normV(p))))}>Seleccionar todo</button>
-                          <button className="px-2 py-1 text-sm bg-white border rounded" onClick={() => setSelectedProducts(new Set())}>Limpiar</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="w-full">
-                      <div className="font-medium mb-2">Colores (por producto)</div>
-                      <div className="h-[40vh] overflow-auto border rounded p-2">
-                        {colorList.map((c: any) => {
-                          const key = `${normV(c.producto)}||${normV(c.color)}`
-                          return (
-                            <label key={key} className="flex items-center gap-2 mb-1">
-                              <input type="checkbox" checked={selectedColors.has(key)} onChange={() => toggleSet(selectedColors, setSelectedColors, key)} />
-                              <div className="text-sm">
-                                <div>{c.color || '(sin color)'}</div>
-                                <div className="text-xs text-gray-500">{c.producto || '(sin producto)'}</div>
-                              </div>
-                            </label>
-                          )
-                        })}
-                        <div className="mt-2 flex gap-2">
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedColors(new Set(Array.from(colors).map((c: any) => `${normV(c.producto)}||${normV(c.color)}`)))}>Seleccionar todo</button>
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedColors(new Set())}>Limpiar</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="w-full">
-                      <div className="font-medium mb-2">Variedades (por color & producto)</div>
-                      <div className="h-[40vh] overflow-auto border rounded p-2">
-                        {varietyList.map((v: any) => {
-                          const key = `${normV(v.producto)}||${normV(v.color)}||${normV(v.variedad)}`
-                          return (
-                            <label key={key} className="flex items-center gap-2 mb-1">
-                              <input type="checkbox" checked={selectedVarieties.has(key)} onChange={() => toggleSet(selectedVarieties, setSelectedVarieties, key)} />
-                              <div className="text-sm">
-                                <div>{v.variedad || '(sin variedad)'}</div>
-                                <div className="text-xs text-gray-500">{v.color || '(sin color)'} • {v.producto || '(sin producto)'}</div>
-                              </div>
-                            </label>
-                          )
-                        })}
-                        <div className="mt-2 flex gap-2">
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedVarieties(new Set(Array.from(varieties).map((v: any) => `${normV(v.producto)}||${normV(v.color)}||${normV(v.variedad)}`)))}>Seleccionar todo</button>
-                          <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedVarieties(new Set())}>Limpiar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 flex justify-between items-center">
-                    <button
-                      onClick={() => {
-                        // clear all selections and restore full view
-                        setSelectedProducts(new Set())
-                        setSelectedColors(new Set())
-                        setSelectedVarieties(new Set())
-                        setVisibleData(data)
-                        const fullMapped = data.map((row) => {
-                          const out: any = {}
-                          targetFields.forEach((t) => {
-                            const source = mapping[t] ?? (t === 'Producto' ? productKey : t === 'Color' ? colorKey : t === 'Variedad' ? variedadKey : undefined)
-                            if (source) out[t] = row[source]
-                          })
-                          return out
-                        })
-                        onMapped?.(fullMapped)
-                      }}
-                      className="px-4 py-2 bg-white border text-green-700 rounded"
-                    >Limpiar filtros</button>
-
-                    <button
-                      onClick={() => {
-                        // explicit apply: send current visible mapped rows
-                        const mapped = visibleData.map((row) => {
-                          const out: any = {}
-                          targetFields.forEach((t) => {
-                            const source = mapping[t] ?? (t === 'Producto' ? productKey : t === 'Color' ? colorKey : t === 'Variedad' ? variedadKey : undefined)
-                            if (source) out[t] = row[source]
-                          })
-                          return out
-                        })
-                        onMapped?.(mapped)
-                      }}
-                      className="px-4 py-2 bg-green-600 text-white rounded"
-                    >Aplicar selección</button>
-                  </div>
-                </div>
-              )
-            })()}
-          </div>
+      <DataPreviewFilterPanel
+        data={data}
+        productKey={productKey}
+        colorKey={colorKey}
+        variedadKey={variedadKey}
+        mapping={mapping}
+        targetFields={targetFields}
+        onMapped={onMapped}
+        setVisibleData={setVisibleData}
+      />
 
       {/* Search */}
       <div className="mb-4 flex justify-center">
@@ -464,6 +280,249 @@ export default function DataPreviewTable({ data, onMapped, onDeleteRow }: DataPr
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+interface DataPreviewFilterPanelProps {
+  data: RowData[]
+  productKey: string
+  colorKey: string
+  variedadKey: string
+  mapping: Record<string, string | undefined>
+  targetFields: string[]
+  onMapped?: (mapped: RowData[]) => void
+  setVisibleData: React.Dispatch<React.SetStateAction<RowData[]>>
+}
+
+function DataPreviewFilterPanel({
+  data,
+  productKey,
+  colorKey,
+  variedadKey,
+  mapping,
+  targetFields,
+  onMapped,
+  setVisibleData,
+}: DataPreviewFilterPanelProps) {
+  const onMappedRef = React.useRef(onMapped)
+  React.useEffect(() => {
+    onMappedRef.current = onMapped
+  }, [onMapped])
+
+  const normV = (s: any) => (s == null ? '' : String(s).trim().toLowerCase().replace(/\s+/g, ' '))
+  type Combo = { producto: string; color: string; variedad: string; count: number; sample: RowData[] }
+
+  const combos = React.useMemo(() => {
+    const map = new Map<string, Combo>()
+    for (const r of data) {
+      const raw = (r[productKey] ?? r['Flor'] ?? '') as any
+      const p = extractProduct(raw)
+      const c = (r[colorKey] ?? r['Color'] ?? '') as string
+      const v = (r[variedadKey] ?? r['Variedad'] ?? '') as string
+      const key = `${normV(p)}||${normV(c)}||${normV(v)}`
+      if (!map.has(key)) map.set(key, { producto: p, color: c, variedad: v, count: 0, sample: [] })
+      const e = map.get(key)!
+      e.count += 1
+      if (e.sample.length < 2) e.sample.push(r)
+    }
+    return Array.from(map.values()).sort((a, b) => b.count - a.count)
+  }, [data, productKey, colorKey, variedadKey])
+
+  const products = React.useMemo(
+    () => Array.from(new Map(combos.map((c) => [normV(c.producto), c.producto])).values()),
+    [combos]
+  )
+
+  const productCounts = React.useMemo(() => {
+    const acc = new Map<string, number>()
+    combos.forEach((c) => {
+      const k = normV(c.producto)
+      acc.set(k, (acc.get(k) || 0) + c.count)
+    })
+    return acc
+  }, [combos])
+
+  const colors = React.useMemo(
+    () =>
+      Array.from(
+        combos
+          .map((c) => ({ producto: c.producto, color: c.color, key: `${normV(c.producto)}||${normV(c.color)}` }))
+          .reduce((acc: Map<string, { producto: string; color: string }>, cur) => {
+            if (!acc.has(cur.key)) acc.set(cur.key, { producto: cur.producto, color: cur.color })
+            return acc
+          }, new Map()).values()
+      ),
+    [combos]
+  )
+
+  const varieties = React.useMemo(
+    () =>
+      Array.from(
+        combos
+          .map((c) => ({ producto: c.producto, color: c.color, variedad: c.variedad, key: `${normV(c.producto)}||${normV(c.color)}||${normV(c.variedad)}` }))
+          .reduce((acc: Map<string, { producto: string; color: string; variedad: string }>, cur) => {
+            if (!acc.has(cur.key)) acc.set(cur.key, cur)
+            return acc
+          }, new Map()).values()
+      ),
+    [combos]
+  )
+
+  const [selectedProducts, setSelectedProducts] = React.useState<Set<string>>(new Set())
+  const [selectedColors, setSelectedColors] = React.useState<Set<string>>(new Set())
+  const [selectedVarieties, setSelectedVarieties] = React.useState<Set<string>>(new Set())
+
+  const colorList = React.useMemo(
+    () => Array.from(colors).filter((c: any) => selectedProducts.size === 0 || selectedProducts.has(normV(c.producto))),
+    [colors, selectedProducts]
+  )
+
+  const varietyList = React.useMemo(
+    () =>
+      Array.from(varieties).filter((v: any) => {
+        const prodMatch = selectedProducts.size === 0 || selectedProducts.has(normV(v.producto))
+        const colorMatch = selectedColors.size === 0 || selectedColors.has(`${normV(v.producto)}||${normV(v.color)}`)
+        return prodMatch && colorMatch
+      }),
+    [varieties, selectedProducts, selectedColors]
+  )
+
+  const toggleSet = (s: Set<string>, setFn: React.Dispatch<React.SetStateAction<Set<string>>>, key: string) => {
+    const next = new Set(s)
+    if (next.has(key)) next.delete(key)
+    else next.add(key)
+    setFn(next)
+  }
+
+  React.useEffect(() => {
+    const filtered = data.filter((row) => {
+      const raw = (row[productKey] ?? row['Flor'] ?? '') as any
+      const p = normV(extractProduct(raw))
+      const c = normV((row[colorKey] ?? row['Color'] ?? '') as any)
+      const v = normV((row[variedadKey] ?? row['Variedad'] ?? '') as any)
+      const prodOk = selectedProducts.size === 0 || selectedProducts.has(p)
+      const colorOk = selectedColors.size === 0 || selectedColors.has(`${p}||${c}`)
+      const varOk = selectedVarieties.size === 0 || selectedVarieties.has(`${p}||${c}||${v}`)
+      return prodOk && colorOk && varOk
+    })
+
+    setVisibleData(filtered)
+    const mappedFiltered = filtered.map((row) => {
+      const out: any = {}
+      targetFields.forEach((t) => {
+        const source = mapping[t] ?? (t === 'Producto' ? productKey : t === 'Color' ? colorKey : t === 'Variedad' ? variedadKey : undefined)
+        if (source) out[t] = row[source]
+      })
+      return out
+    })
+    onMappedRef.current?.(mappedFiltered)
+  }, [data, mapping, selectedProducts, selectedColors, selectedVarieties, productKey, colorKey, variedadKey, targetFields, setVisibleData])
+
+  const clearFilters = () => {
+    setSelectedProducts(new Set())
+    setSelectedColors(new Set())
+    setSelectedVarieties(new Set())
+    setVisibleData(data)
+    const fullMapped = data.map((row) => {
+      const out: any = {}
+      targetFields.forEach((t) => {
+        const source = mapping[t] ?? (t === 'Producto' ? productKey : t === 'Color' ? colorKey : t === 'Variedad' ? variedadKey : undefined)
+        if (source) out[t] = row[source]
+      })
+      return out
+    })
+    onMappedRef.current?.(fullMapped)
+  }
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-3 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="w-full">
+          <div className="font-medium mb-2">Productos</div>
+          <div className="h-[40vh] overflow-auto border rounded p-2">
+            {products.map((p: string) => {
+              const keyp = normV(p)
+              const cnt = productCounts.get(keyp) || 0
+              return (
+                <label key={p} className="flex items-center justify-between gap-2 mb-1">
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" checked={selectedProducts.has(keyp)} onChange={() => toggleSet(selectedProducts, setSelectedProducts, keyp)} />
+                    <div className="text-sm">{p || '(sin producto)'}</div>
+                  </div>
+                  <div className="text-xs text-gray-400">{cnt}</div>
+                </label>
+              )
+            })}
+          </div>
+          <div className="mt-2 flex gap-2">
+            <button className="px-2 py-1 text-sm bg-white border rounded text-green-700" onClick={() => setSelectedProducts(new Set(products.map((p: string) => normV(p))))}>Seleccionar todo</button>
+            <button className="px-2 py-1 text-sm bg-white border rounded" onClick={() => setSelectedProducts(new Set())}>Limpiar</button>
+          </div>
+        </div>
+
+        <div className="w-full">
+          <div className="font-medium mb-2">Colores (por producto)</div>
+          <div className="h-[40vh] overflow-auto border rounded p-2">
+            {colorList.map((c: any) => {
+              const key = `${normV(c.producto)}||${normV(c.color)}`
+              return (
+                <label key={key} className="flex items-center gap-2 mb-1">
+                  <input type="checkbox" checked={selectedColors.has(key)} onChange={() => toggleSet(selectedColors, setSelectedColors, key)} />
+                  <div className="text-sm">
+                    <div>{c.color || '(sin color)'}</div>
+                    <div className="text-xs text-gray-500">{c.producto || '(sin producto)'}</div>
+                  </div>
+                </label>
+              )
+            })}
+          </div>
+          <div className="mt-2 flex gap-2">
+            <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedColors(new Set(colors.map((c: any) => `${normV(c.producto)}||${normV(c.color)}`)))}>Seleccionar todo</button>
+            <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedColors(new Set())}>Limpiar</button>
+          </div>
+        </div>
+
+        <div className="w-full">
+          <div className="font-medium mb-2">Variedades (por color & producto)</div>
+          <div className="h-[40vh] overflow-auto border rounded p-2">
+            {varietyList.map((v: any) => {
+              const key = `${normV(v.producto)}||${normV(v.color)}||${normV(v.variedad)}`
+              return (
+                <label key={key} className="flex items-center gap-2 mb-1">
+                  <input type="checkbox" checked={selectedVarieties.has(key)} onChange={() => toggleSet(selectedVarieties, setSelectedVarieties, key)} />
+                  <div className="text-sm">
+                    <div>{v.variedad || '(sin variedad)'}</div>
+                    <div className="text-xs text-gray-500">{v.color || '(sin color)'} • {v.producto || '(sin producto)'}</div>
+                  </div>
+                </label>
+              )
+            })}
+          </div>
+          <div className="mt-2 flex gap-2">
+            <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedVarieties(new Set(varieties.map((v: any) => `${normV(v.producto)}||${normV(v.color)}||${normV(v.variedad)}`)))}>Seleccionar todo</button>
+            <button className="px-2 py-1 text-sm bg-gray-100 rounded" onClick={() => setSelectedVarieties(new Set())}>Limpiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-3 flex justify-between items-center">
+        <button onClick={clearFilters} className="px-4 py-2 bg-white border text-green-700 rounded">Limpiar filtros</button>
+        <button
+          onClick={() => {
+            const mapped = data.map((row) => {
+              const out: any = {}
+              targetFields.forEach((t) => {
+                const source = mapping[t] ?? (t === 'Producto' ? productKey : t === 'Color' ? colorKey : t === 'Variedad' ? variedadKey : undefined)
+                if (source) out[t] = row[source]
+              })
+              return out
+            })
+            onMapped?.(mapped)
+          }}
+          className="px-4 py-2 bg-green-600 text-white rounded"
+        >Aplicar selección</button>
       </div>
     </div>
   )

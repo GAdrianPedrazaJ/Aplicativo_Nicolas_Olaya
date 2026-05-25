@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSiembras } from '../../hooks/useSiembras'
 import { Sidebar } from '../../components/Sidebar'
@@ -10,6 +10,16 @@ import { Trash2, AlertCircle, Database, Info, FileX, RefreshCcw } from 'lucide-r
 export default function EliminarSiembras() {
   const { deleteSiembrasByFile, deleteSiembras, siembras, fetchSiembras, loading } = useSiembras()
   const location = useLocation()
+
+  const tableData = useMemo(() => siembras.map(s => ({
+    ID_REAL: s?.id_siembra,
+    ID: s?.id_siembra?.substring(0, 8),
+    Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
+    Cama: s?.camas?.numero_cama || 'N/A',
+    Variedad: s?.variedades?.nombre || 'N/A',
+    Plantas: s?.plantas_sembradas?.toLocaleString() || 0,
+    Estado: s?.estado || 'N/A'
+  })), [siembras])
 
   useEffect(() => {
     fetchSiembras()
@@ -130,15 +140,7 @@ export default function EliminarSiembras() {
             <div className="p-6">
               <DataPreviewTable
                 onDeleteRow={handleDeleteIndividual}
-                data={siembras.map(s => ({
-                  ID_REAL: s?.id_siembra,
-                  ID: s?.id_siembra?.substring(0, 8),
-                  Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
-                  Cama: s?.camas?.numero_cama || 'N/A',
-                  Variedad: s?.variedades?.nombre || 'N/A',
-                  Plantas: s?.plantas_sembradas?.toLocaleString() || 0,
-                  Estado: s?.estado || 'N/A'
-                }))}
+                data={tableData}
               />
             </div>
           </div>

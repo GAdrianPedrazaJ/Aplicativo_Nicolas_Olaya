@@ -512,6 +512,88 @@ app.post('/planos', async (req, res) => {
     return res.status(500).json({ error: 'Error interno', details: short })
   }
 })
+
+// POST /planos/delete - elimina siembras que coinciden con Bloque, Cama y Variedad
+app.post('/planos/delete', async (req, res) => {
+  const rows = Array.isArray(req.body) ? req.body : (Array.isArray(req.body && req.body.rows) ? req.body.rows : null)
+  if (!rows || !Array.isArray(rows)) return res.status(400).json({ error: 'Se requiere un arreglo de filas' })
+
+  const normalizeMatchValue = (value) => String(value ?? '').trim().replace(/\s+/g, ' ').toLowerCase()
+  const normalizeBlockTag = (value) => {
+    const raw = normalizeMatchValue(value)
+    if (!raw) return ''
+    return raw.startsWith('b') ? raw : `b${raw}`
+  }
+
+  const deleteKeys = rows.map((row, index) => {
+    const normalized = normalizeRowKeys(row)
+    const block = normalizeBlockTag(normalized.Bloque)
+    const cama = normalizeMatchValue(normalized.Cama)
+    const variedad = normalizeMatchValue(normalized.Variedad)
+    return {
+      index,
+      original: row,
+      key: `${block}||${cama}||${variedad}`,
+    }
+  })
+
+  const requestedSet = new Set(deleteKeys.map((item) => item.key))
+  try {
+    const { data: siembras, error } = await supabase
+      .from('siembras')
+      .select(`
+        id_siembra,
+        camas (id_cama, numero_cama, nombre, naves (numero_nave, nombre, bloques (nombre))),
+        variedades (nombre, colores (nombre, productos (nombre)))
+      `)
+
+    if (error) {
+      console.error('[planos/delete] query error', error)
+      return res.status(500).json({ error: 'Error buscando registros en la base de datos' })
+    }
+
+    const matched = []
+    const notFound = []
+
+    siembras.forEach((siembra) => {
+      const bloqueName = normalizeBlockTag(siembra?.camas?.naves?.bloques?.nombre)
+      const camaName = normalizeMatchValue(siembra?.camas?.numero_cama ?? siembra?.camas?.nombre)
+      const variedadName = normalizeMatchValue(siembra?.variedades?.nombre)
+      const rowKey = `${bloqueName}||${camaName}||${variedadName}`
+      if (requestedSet.has(rowKey)) {
+        matched.push(siembra)
+      }
+    })
+
+    const deletedIds = Array.from(new Set(matched.map((item) => item.id_siembra))).filter(Boolean)
+    if (!deletedIds.length) {
+      return res.status(404).json({ deleted: 0, deleted_ids: [], not_found: deleteKeys.map(({ index, original }) => ({ index, original })) })
+    }
+
+    const { error: deleteError } = await supabase.from('siembras').delete().in('id_siembra', deletedIds)
+    if (deleteError) {
+      console.error('[planos/delete] delete error', deleteError)
+      return res.status(500).json({ error: 'Error eliminando los registros' })
+    }
+
+    const foundKeys = new Set(matched.map((siembra) => {
+      const bloqueName = normalizeBlockTag(siembra?.camas?.naves?.bloques?.nombre)
+      const camaName = normalizeMatchValue(siembra?.camas?.numero_cama ?? siembra?.camas?.nombre)
+      const variedadName = normalizeMatchValue(siembra?.variedades?.nombre)
+      return `${bloqueName}||${camaName}||${variedadName}`
+    }))
+
+    const unmatched = deleteKeys
+      .filter((item) => !foundKeys.has(item.key))
+      .map((item) => ({ index: item.index, original: item.original }))
+
+    return res.json({ deleted: deletedIds.length, deleted_ids: deletedIds, not_found: unmatched })
+  } catch (error) {
+    console.error('[planos/delete] unexpected error', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
+  }
+})
+
 // POST /planos/preview - return unique Producto+Color+Variedad combos and counts
 app.post('/planos/preview', (req, res) => {
   const rows = Array.isArray(req.body) ? req.body : (Array.isArray(req.body && req.body.rows) ? req.body.rows : null)

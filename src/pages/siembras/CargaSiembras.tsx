@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSiembras } from '../../hooks/useSiembras'
 import FileUploader from '../../components/upload/FileUploader'
@@ -10,6 +10,15 @@ import { RefreshCcw, UploadCloud, Database, Info } from 'lucide-react'
 export default function CargaSiembras() {
   const { uploadData, siembras, fetchSiembras, loading } = useSiembras()
   const location = useLocation()
+
+  const tableData = useMemo(() => siembras.map(s => ({
+    ID: s?.id_siembra?.substring(0, 8),
+    Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
+    Cama: s?.camas?.numero_cama || 'N/A',
+    Variedad: s?.variedades?.nombre || 'N/A',
+    Plantas: s?.plantas_sembradas?.toLocaleString() || 0,
+    Estado: s?.estado || 'N/A'
+  })), [siembras])
 
   useEffect(() => {
     fetchSiembras()
@@ -102,14 +111,7 @@ export default function CargaSiembras() {
                 </div>
              </div>
              <div className="p-6">
-                <DataPreviewTable data={siembras.map(s => ({
-                  ID: s?.id_siembra?.substring(0, 8),
-                  Bloque: s?.camas?.naves?.bloques?.nombre || 'N/A',
-                  Cama: s?.camas?.numero_cama || 'N/A',
-                  Variedad: s?.variedades?.nombre || 'N/A',
-                  Plantas: s?.plantas_sembradas?.toLocaleString() || 0,
-                  Estado: s?.estado || 'N/A'
-                }))} />
+                <DataPreviewTable data={tableData} />
              </div>
           </div>
         </div>
